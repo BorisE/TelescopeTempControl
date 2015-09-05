@@ -86,6 +86,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtFldRPM = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtHeaterThreshold = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HeaterPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_FanPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -683,6 +684,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtHeaterThreshold);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtHPWM);
@@ -724,6 +726,15 @@
             this.txtFldRPM.ReadOnly = true;
             this.txtFldRPM.Size = new System.Drawing.Size(65, 22);
             this.txtFldRPM.TabIndex = 26;
+            // 
+            // txtHeaterThreshold
+            // 
+            this.txtHeaterThreshold.BackColor = System.Drawing.SystemColors.Control;
+            this.txtHeaterThreshold.Location = new System.Drawing.Point(377, 152);
+            this.txtHeaterThreshold.Name = "txtHeaterThreshold";
+            this.txtHeaterThreshold.ReadOnly = true;
+            this.txtHeaterThreshold.Size = new System.Drawing.Size(65, 22);
+            this.txtHeaterThreshold.TabIndex = 28;
             // 
             // MainForm
             // 
@@ -798,6 +809,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox txtHeaterThreshold;
     }
 }
 

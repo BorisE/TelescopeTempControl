@@ -264,6 +264,8 @@ Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
 
             //Gauge
             aFanGauge.Value = (float)Hardware.SensorsList["RPM"].LastValue;
+            txtHeaterThreshold.Text=Convert.ToString(Hardware.SensorsList["Heater"].LastValue);
+            
 
             //Calculated fields (custom fields)
             txtMainDelta.Text = Convert.ToString(Math.Round(Hardware.DeltaTemp_Main,1));
@@ -395,6 +397,7 @@ Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
         {
             txtHPWM.Text = trackBar_HeaterPWM.Value.ToString();
             aHeaterGauge.Value = Convert.ToSByte(trackBar_HeaterPWM.Value / 255.0 * 100.0);
+            txtHeaterThreshold.Text = trackBar_HeaterPWM.Value.ToString();
 
             Hardware.HeaterPWM = trackBar_HeaterPWM.Value;
         }
