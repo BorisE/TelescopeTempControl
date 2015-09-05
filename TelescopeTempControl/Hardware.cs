@@ -64,40 +64,31 @@ namespace TelescopeTempControl
         #endregion
 
         /// <summary>
-        /// Relay and Heating settings
+        /// Relay and Heating
         /// </summary>
-        #region Relay and Heating settings
+        #region Relay and Heating
         public int Relay1 = 0;
         public DateTime LastHeating1SwitchOn = new DateTime(2014, 1, 1, 0, 0, 1), LastHeating1SwitchOff = new DateTime(2014, 1, 1, 0, 0, 1);
         public int SinceLastHeating1;
         public bool CloudSensorNeedHeatingFlag = false;
         public int Heating1Off_SecondsPassed = 0, Heating1On_SecondsPassed = 0;
+        #endregion
 
-        public int Relay2 = 0;
-        public DateTime LastHeating2SwitchOn = new DateTime(2014, 1, 1, 0, 0, 1), LastHeating2SwitchOff = new DateTime(2014, 1, 1, 0, 0, 1);
-        public int SinceLastHeating2;
-        public int Heating2Off_SecondsPassed = 0, Heating2On_SecondsPassed = 0;
-
-
-        public double HEATER_CLOUDINDEX_MIN = 14.0;
-        public double HEATER_CLOUDINDEX_MAX = 19.0;
-        public int CS_NEEDHEATING_LOOKBACK_CYCLES = 5; //5 cycles per 5 min ~ 25 min
-        public double CS_NEEDHEATING_MINDELTA = 0.0;
-        public double CS_NEEDHEATING_MAXDELTA = 2.0;
-
-        public int HEATER_CS_PAUSE = 1800;
-
+        /// <summary>
+        /// Arduino settings
+        /// </summary>
+        #region Arduino settings
         public Dictionary<String, ArduinoSettingsClass> ArduinoSettings = new Dictionary<String, ArduinoSettingsClass>();
 
         public double HEATER_MAX_TEMPERATURE_DELTA = 55.0;
         public int HEATER_MAX_DURATION = 600;
         public double HEATER_WET_START_THRESHOLD = 1010;
-        #endregion
 
         public int MeasureCycleLen = 14530;
 
         public string SketchVersion = "";
         public string SketchVersionDate = "";
+        #endregion Arduino settings
 
         /// <summary>
         /// Sensor arrays and different settings
@@ -106,21 +97,18 @@ namespace TelescopeTempControl
         public Dictionary<String, SensorElement> SensorsList = new Dictionary<String, SensorElement>();
         public Dictionary<string, int> SensorsArrayHashArduino = new Dictionary<string, int>();
 
-        public string BaseTempName = "Temp1";
-        public int BaseTempIdx___ = -1;
-        public double BaseTempVal = -100;
-
-        public Dictionary<string, SensorTypeEnum> SensorTypeEnum_Dict = new Dictionary<string, SensorTypeEnum> {
-            { "Temp", SensorTypeEnum.Temp },
-            { "Press", SensorTypeEnum.Press },
-            { "Hum", SensorTypeEnum.Hum },
-            { "Illum", SensorTypeEnum.Illum },
-            { "Wet", SensorTypeEnum.Wet },
-            { "RGC", SensorTypeEnum.RGC },
-            { "WSp", SensorTypeEnum.WSp },
-            { "Relay", SensorTypeEnum.Relay }
-        };
         #endregion
+
+
+        public int FanPWM = 0;
+        public int HeaterPWM=0;
+
+        public double DeltaTemp_Main = -100.0;
+        public double DeltaTemp_Secondary = -100.0;
+
+        
+        public string _BaseTempName = "Temp1";
+        public double _BaseTempVal = -100;
 
 
         /// <summary>
@@ -130,7 +118,8 @@ namespace TelescopeTempControl
         {
             //if calling with parameter - using graphical form for displaying serial data
             //if (MF != null) ParentMainForm = MF; 
-            
+
+            initSensorList();
 
             CommandParser = new CommandInterpretator();
             InitComandInterpretator();
@@ -557,7 +546,7 @@ namespace TelescopeTempControl
             SerialBuffer = "";
 
             //2. MAKE CALCULATIONS
-            //MakeSensorsCalculations();
+            MakeSensorsCalculations();
         }
 
         /// <summary>
@@ -717,6 +706,79 @@ namespace TelescopeTempControl
                 }
             }
         }
+
+
+        /// <summary>
+        /// Calculate some data based on current sensor values
+        /// </summary>
+        private void MakeSensorsCalculations()
+        {
+            DeltaTemp_Main = (SensorsList["Temp2"].LastValue - SensorsList["Temp1"].LastValue);
+            DeltaTemp_Secondary = (SensorsList["Temp3"].LastValue - SensorsList["Temp1"].LastValue);
+        }
+
+        /// <summary>
+        /// Method to check data validity for different sensors type
+        /// </summary>      
+        public static bool CheckData(double TagVal, SensorTypeEnum checkDataType)
+        {
+            switch (checkDataType)
+            {
+                case SensorTypeEnum.Temp:
+                    if (TagVal < -80 || TagVal > 80)
+                        return false;
+                    break;
+                case SensorTypeEnum.Hum:
+                    if (TagVal <= 0 || TagVal >= 100)
+                        return false;
+                    break;
+                case SensorTypeEnum.Press:
+                    if (TagVal <= 0 || TagVal >= 800)
+                        return false;
+                    break;
+                case SensorTypeEnum.Illum:
+                    if (TagVal < 0 || TagVal >= 100000)
+                        return false;
+                    break;
+                case SensorTypeEnum.Wet:
+                    if (TagVal <= 0 || TagVal >= 1024)
+                        return false;
+                    break;
+                case SensorTypeEnum.RGC:
+                    if (TagVal < 0 || TagVal >= 1000) //maximum value I have ever seen was 237
+                        return false;
+                    break;
+                case SensorTypeEnum.Relay:
+                    if (TagVal < 0 || TagVal > 1) //only 2 values allowed: 0 and 1
+                        return false;
+                    break;
+                case SensorTypeEnum.WSp:
+                    if (TagVal < 0 || TagVal > 1023) //Actually it is AnalogUnits. 1023 - max value, corresponds to MaxSpeed (def 32.4 m/s). Hurricane > 32
+                        return false;
+                    break;
+                case SensorTypeEnum.Heater:
+                    if (TagVal < 0 || TagVal > 255) //0 to 255 analog counts
+                        return false;
+                    break;
+                case SensorTypeEnum.RPM:
+                    if (TagVal < 0 || TagVal > 4000) //Don't know more rapid coolers
+                        return false;
+                    break;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Method to check data validity for different sensors type
+        /// Specail for working with SensorArray
+        /// </summary>      
+        public static bool CheckData(SensorElement Sensor)
+        {
+            double TagVal = Sensor.LastValue;
+            return CheckData(TagVal, Sensor.SensorType);
+        }
+
+
 
     }
 }

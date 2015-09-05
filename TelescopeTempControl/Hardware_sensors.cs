@@ -14,18 +14,7 @@ namespace TelescopeTempControl
     /// <summary>
     /// Sensor type
     /// </summary>
-    public enum SensorTypeEnum { Temp, Press, Hum, Illum, Wet, RGC, Relay, WSp };
-
-    /// <summary>
-    /// Boltwood Data Types
-    /// </summary>
-    public enum CloudCond { cloudUnknown = 0, cloudClear = 1, cloudCloudy = 2, cloudVeryCloudy = 3 }
-    public enum WindCond { windUnknown = 0, windCalm = 1, windWindy = 2, windVeryWindy = 3 }
-    public enum RainCond { rainUnknown = 0, rainDry = 1, rainWet = 2, rainRain = 3 }
-    public enum DayCond { dayUnknown = 0, dayDark = 1, dayLight = 2, dayVeryLight = 3 }
-    public enum RainFlag { rainFlagDry = 0, rainFlagLastminute = 1, rainFlagRightnow = 2 }
-    public enum WetFlag { wetFlagDry = 0, wetFlagLastminute = 1, wetFlagRightnow = 2 }
-    public enum WetSensorsMode { wetSensBoth = 0, wetSensWetOnly = 1, wetSensRGCOnly = 2 }
+    public enum SensorTypeEnum { Temp, Press, Hum, Illum, Wet, RGC, Relay, WSp, Heater, RPM, PWM};
 
     /// <summary>
     /// Sensor element class
@@ -129,8 +118,17 @@ namespace TelescopeTempControl
             //return ValuesLastFiveMin.Average();
             return 0;
         }
-    }
 
+
+        /// <summary>
+        /// Method to check data validity for different sensors type
+        /// </summary>      
+        public bool CheckLastValue()
+        {
+            double TagVal = LastValue;
+            return Hardware.CheckData(LastValue, SensorType);
+        }
+    }
 
     /// <summary>
     /// Settings element (TD, WT, RT)
@@ -140,8 +138,6 @@ namespace TelescopeTempControl
         public string Value = "";
         public DateTime ReadTime = new DateTime();
     }
-
-    public enum CloudSensorModel { Classic = 1, AAG = 2 }
 
     #endregion
 
@@ -164,7 +160,7 @@ namespace TelescopeTempControl
             SensorEl.Enabled = true;
             SensorEl.SendToWebFlag = true;
             SensorEl.SendToNarodMon = true;
-            SensorEl.SensorFormField = "txtFldHum1";
+            SensorEl.SensorFormField = "txtFldHumidity";
             SensorEl.SensorArduinoField = "DH1";
             SensorEl.WebCustomName = "dh";
             SensorsList.Add(SensorEl.SensorName, SensorEl);
@@ -175,11 +171,10 @@ namespace TelescopeTempControl
             SensorEl.Enabled = true;
             SensorEl.SendToWebFlag = true;
             SensorEl.SendToNarodMon = false;
-            SensorEl.SensorFormField = "txtFldDTemp1";
+            SensorEl.SensorFormField = "txtFldDTemp";
             SensorEl.SensorArduinoField = "DT1";
             SensorEl.WebCustomName = "dt";
             SensorsList.Add(SensorEl.SensorName, SensorEl);
-
 
             //OneWire temp
             SensorEl = new SensorElement();
@@ -210,9 +205,9 @@ namespace TelescopeTempControl
             SensorEl.Enabled = true;
             SensorEl.SendToWebFlag = true;
             SensorEl.SendToNarodMon = true;
-            SensorEl.SensorFormField = "txtFldTemp2";
-            SensorEl.SensorArduinoField = "Te2";
-            SensorEl.WebCustomName = "owt2";
+            SensorEl.SensorFormField = "txtFldTemp3";
+            SensorEl.SensorArduinoField = "Te3";
+            SensorEl.WebCustomName = "owt3";
             SensorsList.Add(SensorEl.SensorName, SensorEl);
 
             //Relay1
@@ -227,6 +222,43 @@ namespace TelescopeTempControl
             SensorEl.WebCustomName = "rl1";
             SensorsList.Add(SensorEl.SensorName, SensorEl);
 
+            //RPM
+            SensorEl = new SensorElement();
+            SensorEl.SensorName = "RPM";
+            SensorEl.SensorType = SensorTypeEnum.RPM;
+            SensorEl.Enabled = true;
+            SensorEl.SendToWebFlag = true;
+            SensorEl.SendToNarodMon = true;
+            SensorEl.SensorFormField = "txtFldRPM";
+            SensorEl.SensorArduinoField = "RPM";
+            SensorEl.WebCustomName = "RPM";
+            SensorsList.Add(SensorEl.SensorName, SensorEl);
+
+            //PWM
+            SensorEl = new SensorElement();
+            SensorEl.SensorName = "FPWM";
+            SensorEl.SensorType = SensorTypeEnum.PWM;
+            SensorEl.Enabled = true;
+            SensorEl.SendToWebFlag = true;
+            SensorEl.SendToNarodMon = true;
+            SensorEl.SensorFormField = "";
+            SensorEl.SensorArduinoField = "Pwm";
+            SensorEl.WebCustomName = "FPWM";
+            SensorsList.Add(SensorEl.SensorName, SensorEl);
+
+            //Heater
+            SensorEl = new SensorElement();
+            SensorEl.SensorName = "Heater";
+            SensorEl.SensorType = SensorTypeEnum.Heater;
+            SensorEl.Enabled = true;
+            SensorEl.SendToWebFlag = true;
+            SensorEl.SendToNarodMon = true;
+            SensorEl.SensorFormField = "";
+            SensorEl.SensorArduinoField = "Ht";
+            SensorEl.WebCustomName = "Ht";
+            SensorsList.Add(SensorEl.SensorName, SensorEl);
+
+
             //Make hash tables
             int SensIdx = -1;
             SensorsArrayHashArduino.Clear();
@@ -240,7 +272,7 @@ namespace TelescopeTempControl
             }
 
             //set base temp
-            BaseTempVal = SensorsList[BaseTempName].LastValue;
+            //BaseTempVal = SensorsList[BaseTempName].LastValue;
 
             Logging.AddLog("initSensorList exit", LogLevel.Trace);
 
@@ -252,10 +284,14 @@ namespace TelescopeTempControl
         /// </summary>
         public void InitComandInterpretator()
         {
+            Logging.AddLog("InitComandInterpretator enter", LogLevel.Trace);
+
             //CommandParser.Commands.Add("GET_BASETEMP", () => this.getBaseTemp());
             //CommandParser.Commands.Add("GET_SENSOR_VALUES", () => this.getSensorsString());
             //CommandParser.Commands.Add("HELP", () => CommandParser.ListCommands());
             CommandParser.Commands.Add("VERSION", () => VersionData.getVersionString());
+
+            Logging.AddLog("InitComandInterpretator exit", LogLevel.Trace);
         }
 
     }
