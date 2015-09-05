@@ -17,6 +17,7 @@ namespace TelescopeTempControl
         public Hardware Hardware;
         public AboutBox AboutForm;
         public SettingsForm SettingsObj;
+        public LogForm LogFormObj;
 
         public bool SimulationMode;
 
@@ -31,22 +32,12 @@ namespace TelescopeTempControl
             VersionData.initVersionData();
             AboutForm = new AboutBox();
             SettingsObj = new SettingsForm(this);
+            LogFormObj = new LogForm(this);
 
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Timer to work with log information (save it, display, etc)
-        /// </summary>
-        private void logRefreshTimer_Tick(object sender, EventArgs e)
-        {
-            //add line to richtextbox
-            Logging.AppendText(txtLog,LogLevel.Trace);
 
-            //write to file
-            Logging.DumpToFile();
-
-        }
 
 
 #region Button handlers
@@ -135,7 +126,21 @@ namespace TelescopeTempControl
         }
 #endregion Button handlers
 
-        #region Timer Ticks
+#region Timer Ticks ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Timer to work with log information (save it, display, etc)
+        /// </summary>
+        private void logRefreshTimer_Tick(object sender, EventArgs e)
+        {
+            //add line to richtextbox
+            Logging.AppendText(txtLog, LogLevel.Trace);
+
+            //write to file
+            Logging.DumpToFile();
+
+        }
+        
+        
         /// <summary>
         /// Timer ticking - used to make all data manupalation and visualization at given interval
         /// </summary>
@@ -160,7 +165,7 @@ namespace TelescopeTempControl
                       }
               */
             //output buffer to Log window
-//            LogForm.AppendLogText(curSerialBuffer);
+            LogFormObj.AppendLogText(curSerialBuffer);
 
             //Refresh form values
             RefreshFormFields2();
@@ -200,10 +205,10 @@ namespace TelescopeTempControl
 [!ved:08082015]
 === New cycle ===
 [!!be:1]
-Fan rotation: " + String.Format("{0:N1}", rpm) + @" rpm,    val:44
-[!RPM:" + String.Format("{0:N1}", rpm) + @"]
+Fan rotation: " + String.Format("{0:D0}", rpm) + @" rpm,    val:44
+[!RPM:" + String.Format("{0:D0}", rpm) + @"]
 Fan PWM value: 0
-[!Pwm:" + String.Format("{0:N1}", Hardware.FanPWM) + @"]
+[!Pwm:" + String.Format("{0:D0}", Hardware.FanPWM) + @"]
 
 Humidity: 49.50 %	
 Temperature: 16.90 C  
@@ -216,8 +221,8 @@ External t: 17.06C Main mirror t: 17.19C Secondary mirror t: 17.31C
 [!Te2:" + String.Format("{0:N1}", 25.0 + rand.NextDouble() * 10) + @"]
 [!Te3:" + String.Format("{0:N1}", 27.0 + rand.NextDouble() * 10) + @"]
 
-Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
-[!Ht:" + String.Format("{0:N1}", heater) + @"]
+Current HEATER PWM value: " + String.Format("{0:N0}", heater) + @"
+[!Ht:" + String.Format("{0:N0}", heater) + @"]
 [!!r:4507]
 ";
             Logging.AddLog("Simulated text created", LogLevel.Debug);
@@ -236,9 +241,12 @@ Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
                 Logging.AddLog("Simulated text parsed", LogLevel.Debug);
             }
         }
-        #endregion Timer Ticks
+#endregion Timer Ticks ///////////////////////////////////////
 
     
+        /// <summary>
+        /// Refresh form fields
+        /// </summary>
         private void RefreshFormFields2()
         {
             Logging.AddLog("Main.RefreshFormFields2 enter", LogLevel.Trace);
@@ -264,7 +272,10 @@ Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
 
             //Gauge
             aFanGauge.Value = (float)Hardware.SensorsList["RPM"].LastValue;
-            txtHeaterThreshold.Text=Convert.ToString(Hardware.SensorsList["Heater"].LastValue);
+            txtFPWM.Text = Convert.ToString(Hardware.SensorsList["FPWM"].LastValue);
+
+            aHeaterGauge.Value = (float)Hardware.SensorsList["Heater"].LastValue;
+            txtHPWM.Text = Convert.ToString(Hardware.SensorsList["Heater"].LastValue); 
             
 
             //Calculated fields (custom fields)
@@ -397,7 +408,7 @@ Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
         {
             txtHPWM.Text = trackBar_HeaterPWM.Value.ToString();
             aHeaterGauge.Value = Convert.ToSByte(trackBar_HeaterPWM.Value / 255.0 * 100.0);
-            txtHeaterThreshold.Text = trackBar_HeaterPWM.Value.ToString();
+            txtFldHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
 
             Hardware.HeaterPWM = trackBar_HeaterPWM.Value;
         }
@@ -410,6 +421,12 @@ Current HEATER PWM value: " + String.Format("{0:N1}", heater) + @"
         private void btnSettings_Click(object sender, EventArgs e)
         {
             SettingsObj.ShowDialog();
+        }
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            LogFormObj.Show();
+            LogFormObj.BringToFront();
         }
 
    

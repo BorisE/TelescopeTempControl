@@ -253,7 +253,7 @@ namespace TelescopeTempControl
             SensorEl.Enabled = true;
             SensorEl.SendToWebFlag = true;
             SensorEl.SendToNarodMon = true;
-            SensorEl.SensorFormField = "";
+            SensorEl.SensorFormField = "txtFldHeaterPWM";
             SensorEl.SensorArduinoField = "Ht";
             SensorEl.WebCustomName = "Ht";
             SensorsList.Add(SensorEl.SensorName, SensorEl);
