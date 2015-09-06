@@ -261,7 +261,7 @@ Current HEATER PWM value: " + String.Format("{0:N0}", heater) + @"
 /*            
 === New cycle ===
 [!!be:1]
-Fan rotation: 0 rpm,    raw cnt:0
+Fan approx_rotation: 0 rpm,    raw cnt:0
 Fan PWM value: 255
 [!RPM:0]
 [!Pwm:255]

@@ -3,8 +3,10 @@
 
 Change log
 to do:
-- automatic temp delta targeting
 - socket commands: relay switching, parameters querying
+
+0.6.0
+- automatic temp delta targeting (fan)
 
 0.5.0 (2015-09-06)
 - settings dialog starts working
