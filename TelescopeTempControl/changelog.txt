@@ -3,10 +3,14 @@
 
 Change log
 to do:
+- modeling to settings parameters
 - socket commands: relay switching, parameters querying
 
-0.6.0
-- automatic temp delta targeting (fan)
+0.7.0 (2015-09-06)
+- more interface and code optimizaition
+
+0.6.0 (2015-09-06)
+- automatic temp delta targeting 
 
 0.5.0 (2015-09-06)
 - settings dialog starts working

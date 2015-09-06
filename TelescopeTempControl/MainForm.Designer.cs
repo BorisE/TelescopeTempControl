@@ -82,6 +82,8 @@
             this.txtSecondaryDelta = new System.Windows.Forms.TextBox();
             this.txtMainDelta = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkAutoHeatingControlling = new System.Windows.Forms.CheckBox();
+            this.chkAutoFanControlling = new System.Windows.Forms.CheckBox();
             this.txtFldHeaterPWM = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -259,11 +261,11 @@
             // trackBar_HeaterPWM
             // 
             this.trackBar_HeaterPWM.LargeChange = 10;
-            this.trackBar_HeaterPWM.Location = new System.Drawing.Point(318, 171);
+            this.trackBar_HeaterPWM.Location = new System.Drawing.Point(300, 171);
             this.trackBar_HeaterPWM.Margin = new System.Windows.Forms.Padding(2);
             this.trackBar_HeaterPWM.Maximum = 255;
             this.trackBar_HeaterPWM.Name = "trackBar_HeaterPWM";
-            this.trackBar_HeaterPWM.Size = new System.Drawing.Size(134, 45);
+            this.trackBar_HeaterPWM.Size = new System.Drawing.Size(152, 45);
             this.trackBar_HeaterPWM.SmallChange = 5;
             this.trackBar_HeaterPWM.TabIndex = 4;
             this.trackBar_HeaterPWM.TickFrequency = 10;
@@ -376,7 +378,7 @@
             // trackBar_FanPWM
             // 
             this.trackBar_FanPWM.LargeChange = 10;
-            this.trackBar_FanPWM.Location = new System.Drawing.Point(50, 171);
+            this.trackBar_FanPWM.Location = new System.Drawing.Point(78, 171);
             this.trackBar_FanPWM.Margin = new System.Windows.Forms.Padding(2);
             this.trackBar_FanPWM.Maximum = 255;
             this.trackBar_FanPWM.Name = "trackBar_FanPWM";
@@ -586,7 +588,7 @@
             // txtControlFanPWM
             // 
             this.txtControlFanPWM.BackColor = System.Drawing.SystemColors.Window;
-            this.txtControlFanPWM.Location = new System.Drawing.Point(4, 171);
+            this.txtControlFanPWM.Location = new System.Drawing.Point(5, 171);
             this.txtControlFanPWM.Margin = new System.Windows.Forms.Padding(2);
             this.txtControlFanPWM.Name = "txtControlFanPWM";
             this.txtControlFanPWM.Size = new System.Drawing.Size(30, 20);
@@ -596,7 +598,7 @@
             // txtControlHeaterPWM
             // 
             this.txtControlHeaterPWM.BackColor = System.Drawing.SystemColors.Window;
-            this.txtControlHeaterPWM.Location = new System.Drawing.Point(263, 171);
+            this.txtControlHeaterPWM.Location = new System.Drawing.Point(232, 171);
             this.txtControlHeaterPWM.Margin = new System.Windows.Forms.Padding(2);
             this.txtControlHeaterPWM.Name = "txtControlHeaterPWM";
             this.txtControlHeaterPWM.Size = new System.Drawing.Size(30, 20);
@@ -710,6 +712,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkAutoHeatingControlling);
+            this.groupBox2.Controls.Add(this.chkAutoFanControlling);
             this.groupBox2.Controls.Add(this.txtFldHeaterPWM);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
@@ -727,6 +731,28 @@
             this.groupBox2.Size = new System.Drawing.Size(456, 221);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
+            // 
+            // chkAutoHeatingControlling
+            // 
+            this.chkAutoHeatingControlling.AutoSize = true;
+            this.chkAutoHeatingControlling.Location = new System.Drawing.Point(232, 196);
+            this.chkAutoHeatingControlling.Name = "chkAutoHeatingControlling";
+            this.chkAutoHeatingControlling.Size = new System.Drawing.Size(82, 17);
+            this.chkAutoHeatingControlling.TabIndex = 29;
+            this.chkAutoHeatingControlling.Text = "Autocontroll";
+            this.chkAutoHeatingControlling.UseVisualStyleBackColor = true;
+            this.chkAutoHeatingControlling.CheckedChanged += new System.EventHandler(this.chkAutoHeatingControlling_CheckedChanged);
+            // 
+            // chkAutoFanControlling
+            // 
+            this.chkAutoFanControlling.AutoSize = true;
+            this.chkAutoFanControlling.Location = new System.Drawing.Point(5, 196);
+            this.chkAutoFanControlling.Name = "chkAutoFanControlling";
+            this.chkAutoFanControlling.Size = new System.Drawing.Size(82, 17);
+            this.chkAutoFanControlling.TabIndex = 29;
+            this.chkAutoFanControlling.Text = "Autocontroll";
+            this.chkAutoFanControlling.UseVisualStyleBackColor = true;
+            this.chkAutoFanControlling.CheckedChanged += new System.EventHandler(this.chkAutoFanControlling_CheckedChanged);
             // 
             // txtFldHeaterPWM
             // 
@@ -843,6 +869,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox txtFldHeaterPWM;
+        private System.Windows.Forms.CheckBox chkAutoFanControlling;
+        private System.Windows.Forms.CheckBox chkAutoHeatingControlling;
     }
 }
 

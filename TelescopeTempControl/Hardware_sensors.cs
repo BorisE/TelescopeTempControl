@@ -249,7 +249,7 @@ namespace TelescopeTempControl
             //Heater
             SensorEl = new SensorElement();
             SensorEl.SensorName = "Heater";
-            SensorEl.SensorType = SensorTypeEnum.Heater;
+            SensorEl.SensorType = SensorTypeEnum.PWM;
             SensorEl.Enabled = true;
             SensorEl.SendToWebFlag = true;
             SensorEl.SendToNarodMon = true;

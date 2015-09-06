@@ -515,9 +515,50 @@ Current HEATER PWM value: 36
         {
             TextBox TxtBox = sender as TextBox;
             Int16 nCI;
-            if (Int16.TryParse(TxtBox.Text, out nCI))
+            if (Int16.TryParse(TxtBox.Text, out nCI) && (nCI >= trackBar_HeaterPWM.Minimum) && (nCI <= trackBar_HeaterPWM.Maximum))
             {
                 trackBar_HeaterPWM.Value = nCI;
+            }
+        }
+
+
+        private void chkAutoFanControlling_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox Chk = sender as CheckBox;
+
+            if (Chk.Checked)
+            {
+                trackBar_FanPWM.Enabled = false;
+                txtControlFanPWM.ReadOnly = true;
+                txtControlFanPWM.BackColor = SystemColors.Control;
+                Hardware.AutoControl_FanSpeed = true;
+            }
+            else
+            {
+                trackBar_FanPWM.Enabled = true;
+                txtControlFanPWM.ReadOnly = false;
+                txtControlFanPWM.BackColor = SystemColors.Window;
+                Hardware.AutoControl_FanSpeed = false;
+            }
+        }
+
+        private void chkAutoHeatingControlling_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox Chk = sender as CheckBox;
+
+            if (Chk.Checked)
+            {
+                trackBar_HeaterPWM.Enabled = false;
+                txtControlHeaterPWM.ReadOnly = true;
+                txtControlHeaterPWM.BackColor = SystemColors.Control;
+                Hardware.AutoControl_Heater = true;
+            }
+            else
+            {
+                trackBar_HeaterPWM.Enabled = true;
+                txtControlHeaterPWM.ReadOnly = false;
+                txtControlHeaterPWM.BackColor = SystemColors.Window;
+                Hardware.AutoControl_Heater = false;
             }
         }
 
