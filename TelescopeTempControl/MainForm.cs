@@ -45,6 +45,8 @@ namespace TelescopeTempControl
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            SettingsObj.LoadParams();
+            Logging.AddLog("Settings were loaded", LogLevel.Activity);
 
             //Init power control values
             txtControlFanPWM.Text = Convert.ToString(Hardware.FanPWM);
@@ -164,7 +166,7 @@ namespace TelescopeTempControl
         private void logRefreshTimer_Tick(object sender, EventArgs e)
         {
             //add line to richtextbox
-            Logging.AppendText(txtLog, LogLevel.Trace);
+            Logging.AppendText(txtLog);
 
             //write to file
             Logging.DumpToFile();
@@ -236,8 +238,8 @@ namespace TelescopeTempControl
 === New cycle ===
 [!!be:1]
 Fan rotation: " + String.Format("{0:D0}", rpm) + @" rpm,    val:44
+Fan PWM value: " + String.Format("{0:D0}", Hardware.FanPWM) + @"
 [!RPM:" + String.Format("{0:D0}", rpm) + @"]
-Fan PWM value: 0
 [!Pwm:" + String.Format("{0:D0}", Hardware.FanPWM) + @"]
 
 Humidity: 49.50 %	
@@ -255,6 +257,33 @@ Current HEATER PWM value: " + String.Format("{0:N0}", heater) + @"
 [!Ht:" + String.Format("{0:N0}", heater) + @"]
 [!!r:4507]
 ";
+      
+/*            
+=== New cycle ===
+[!!be:1]
+Fan rotation: 0 rpm,    raw cnt:0
+Fan PWM value: 255
+[!RPM:0]
+[!Pwm:255]
+
+Humidity: 59.20 %	
+Temperature: 19.10 C  
+Dew point: 10.97 /fast: 10.95 *C
+[!DT1:19.1]
+[!DH1:59.2]
+
+
+12:53:48 06.09.15: External t: 19.56C Main mirror t: 18.31C Secondary mirror t: 18.94C 
+[!Te1:19.6]
+[!Te2:18.3]
+[!Te3:18.9]
+
+Current HEATER PWM value: 36
+[!Ht:36]
+[!!r:4545]
+*/            
+            
+            
             Logging.AddLog("Simulated text created", LogLevel.Debug);
             Hardware.simBufferReadPos = 0;
             timer_debug_portread.Enabled = true; //starts read in portions timer ticks

@@ -652,6 +652,10 @@ namespace TelescopeTempControl
                                 }
                                 Relay1 = Relay1_n;
                             }
+                            else if (tagName == "Ht")
+                            {
+                                Logging.AddLog("Got heater " + tagValue_dbl, LogLevel.Activity);
+                            }
                             else if (tagName == "!r")
                             {
                                 MeasureCycleLen = Convert.ToInt32(tagValue_dbl);
@@ -719,7 +723,7 @@ namespace TelescopeTempControl
             DeltaTemp_Main = (SensorsList["Temp2"].LastValue - SensorsList["Temp1"].LastValue);
             DeltaTemp_Secondary = (SensorsList["Temp3"].LastValue - SensorsList["Temp1"].LastValue);
 
-            HeaterPower = HeaterPWM / 255.0 * 100.0;
+            HeaterPower = (double)HeaterPWM / 255.0 * 100.0;
 
         }
 
@@ -786,6 +790,7 @@ namespace TelescopeTempControl
 
         internal void SetFanPWM(int pwmval)
         {
+            Logging.AddLog("Setting Fan PWM to " + pwmval, LogLevel.Activity);
             if (UseSimulation)
             {
                 FanPWM = pwmval;
@@ -798,6 +803,7 @@ namespace TelescopeTempControl
 
         internal void SetHeaterPWM(int pwmval)
         {
+            Logging.AddLog("Setting Heater PWM to " + pwmval, LogLevel.Activity);
             if (UseSimulation)
             {
                 HeaterPWM = pwmval;

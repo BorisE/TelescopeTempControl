@@ -56,6 +56,8 @@ namespace TelescopeTempControl
         //DEBUG LEVEL
         public static LogLevel DEBUG_LEVEL = LogLevel.All;
 
+        public static Int32 _MAX_DIPSLAYED_PROG_LOG_LINES = 100;
+
         static Logging()
         {
             LogList = new List<LogRecord>();
@@ -181,6 +183,14 @@ namespace TelescopeTempControl
                 }
             }
 
+            //check - if logtextbox is too large
+            if (LogTextBox.Lines.Length > _MAX_DIPSLAYED_PROG_LOG_LINES)
+            {
+                string[] lines = LogTextBox.Lines;
+                var newLines = lines.Skip(LogTextBox.Lines.Length - _MAX_DIPSLAYED_PROG_LOG_LINES);
+                LogTextBox.Lines = newLines.ToArray();                
+            }
+
             string RetStr = "";
             //Save new (not saved) records
             if (LogListNew.Count > 0)
@@ -190,6 +200,7 @@ namespace TelescopeTempControl
                     // if current log level is less then DebugLevel
                     if (LogListNew[i].LogLevel <= LogLevel)
                     {
+                        //set cursor to the end
                         LogTextBox.SelectionStart = LogTextBox.TextLength;
                         LogTextBox.SelectionLength = 0;
 
@@ -203,6 +214,11 @@ namespace TelescopeTempControl
                         LogTextBox.AppendText(RetStr);
 
                         LogTextBox.SelectionColor = LogTextBox.ForeColor;
+
+                        //set cursor to the end
+                        LogTextBox.SelectionStart = LogTextBox.TextLength;
+                        LogTextBox.SelectionLength = 0;
+                        LogTextBox.ScrollToCaret();
                     }
                 }
             }

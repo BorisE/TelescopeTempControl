@@ -3,20 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace TelescopeTempControl
 {
     static class Program
     {
+
+        /// <summary>
+        /// Mutex for controlling one app instance
+        /// </summary>
+        public static Mutex mutex = new Mutex(true, "{eebfa9bc-4c14-4c6b-9f69-efe0f0011833}");
+        
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+        
+            if(mutex.WaitOne(TimeSpan.Zero, true)) 
+            {
+                //If program isn't already run...
+                
+                //Import settings from previously compiled versions
+                AuxilaryProc.UpgradeSettings();
+
+                //If it is first run chek for setup
+                AuxilaryProc.CreateAutoStartLink();
+            
+            
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+                mutex.ReleaseMutex();
+            }
+            else
+            {
+                //if already run - set window to foreground
+                Utils.SetCurrentWindowToForeground();
+            }
         }
     }
 }
