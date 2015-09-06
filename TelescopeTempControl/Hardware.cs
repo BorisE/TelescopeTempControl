@@ -74,6 +74,20 @@ namespace TelescopeTempControl
         public int Heating1Off_SecondsPassed = 0, Heating1On_SecondsPassed = 0;
         #endregion
 
+
+        /// <summary>
+        /// Particlular sensors
+        /// </summary>
+        #region Particlular sensors
+        public int FanPWM = 255;
+        public int HeaterPWM = 0; //0-255
+
+        public double HeaterPower = 0.0; //0-100
+
+        public double DeltaTemp_Main = -100.0;
+        public double DeltaTemp_Secondary = -100.0;
+        #endregion
+
         /// <summary>
         /// Arduino settings
         /// </summary>
@@ -99,16 +113,6 @@ namespace TelescopeTempControl
 
         #endregion
 
-
-        public int FanPWM = 0;
-        public int HeaterPWM=0;
-
-        public double DeltaTemp_Main = -100.0;
-        public double DeltaTemp_Secondary = -100.0;
-
-        
-        public string _BaseTempName = "Temp1";
-        public double _BaseTempVal = -100;
 
 
         /// <summary>
@@ -345,7 +349,6 @@ namespace TelescopeTempControl
         {
             string FullCommandSt = "(" + CommandSt + ")";
             bool error = false;
-
 
             if (UseSocketRead)
             {
@@ -715,6 +718,9 @@ namespace TelescopeTempControl
         {
             DeltaTemp_Main = (SensorsList["Temp2"].LastValue - SensorsList["Temp1"].LastValue);
             DeltaTemp_Secondary = (SensorsList["Temp3"].LastValue - SensorsList["Temp1"].LastValue);
+
+            HeaterPower = HeaterPWM / 255.0 * 100.0;
+
         }
 
         /// <summary>
@@ -778,7 +784,29 @@ namespace TelescopeTempControl
             return CheckData(TagVal, Sensor.SensorType);
         }
 
+        internal void SetFanPWM(int pwmval)
+        {
+            if (UseSimulation)
+            {
+                FanPWM = pwmval;
+            }
+            else
+            {
+                WriteSerialData("!FN:" + pwmval.ToString());
+            }
+        }
 
-
+        internal void SetHeaterPWM(int pwmval)
+        {
+            if (UseSimulation)
+            {
+                HeaterPWM = pwmval;
+            }
+            else
+            {
+                WriteSerialData("!HT:" + pwmval.ToString());
+            }
+        }
+        
     }
 }

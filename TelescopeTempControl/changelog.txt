@@ -1,0 +1,15 @@
+﻿TelescopeTempControl Project
+(c) 2015 by Emchenko Boris
+
+Change log
+to do:
+- setting dialog
+- automatic temp delta targeting
+- socket commands: relay switching, parameters querying
+
+0.4.0 (2015-09-06)
+- send levels to arduino
+- optimization
+
+0.2.0 (2015-08-17)
+- first working release (gauge, fileds, graphs)

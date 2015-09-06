@@ -21,6 +21,12 @@ namespace TelescopeTempControl
 
         public bool SimulationMode;
 
+
+        private bool bReadFanPWMValue = false;
+        private bool bReadHeaterPWMValue = false;
+
+
+
         //For graphs
         private DateTime curX;
         public int maxNumberOfPointsInChart = 8640; //For 24h with 10sec interval
@@ -37,10 +43,17 @@ namespace TelescopeTempControl
             InitializeComponent();
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+            //Init power control values
+            txtControlFanPWM.Text = Convert.ToString(Hardware.FanPWM);
+            txtControlHeaterPWM.Text = Convert.ToString(Hardware.HeaterPWM);
+        }
 
 
 
-#region Button handlers
+#region Buttons handlers
 
         /// <summary>
         /// Start monitoring
@@ -124,6 +137,24 @@ namespace TelescopeTempControl
 
             }
         }
+
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            AboutForm.Show();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            SettingsObj.ShowDialog();
+        }
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            LogFormObj.Show();
+            LogFormObj.BringToFront();
+        }
+
 #endregion Button handlers
 
 #region Timer Ticks ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -137,10 +168,9 @@ namespace TelescopeTempControl
 
             //write to file
             Logging.DumpToFile();
-
         }
         
-        
+       
         /// <summary>
         /// Timer ticking - used to make all data manupalation and visualization at given interval
         /// </summary>
@@ -270,13 +300,32 @@ Current HEATER PWM value: " + String.Format("{0:N0}", heater) + @"
                 }
             }
 
-            //Gauge
+            //FAN Gauge
             aFanGauge.Value = (float)Hardware.SensorsList["RPM"].LastValue;
-            txtFPWM.Text = Convert.ToString(Hardware.SensorsList["FPWM"].LastValue);
-
-            aHeaterGauge.Value = (float)Hardware.SensorsList["Heater"].LastValue;
-            txtHPWM.Text = Convert.ToString(Hardware.SensorsList["Heater"].LastValue); 
+            //HEATER Gauge
+            aHeaterGauge.Value = (float)Hardware.HeaterPower;
+            //Heater power instead of pwm value
+            txtFldHeaterPWM.Text = Convert.ToString(Math.Round(Hardware.HeaterPower));
             
+            //If still current fanpwm value wasn't read, try to read
+            if (!bReadFanPWMValue)
+            {
+                if (Hardware.SensorsList["FPWM"].CheckLastValue())
+                {
+                    txtControlFanPWM.Text = Convert.ToString(Hardware.SensorsList["FPWM"].LastValue);
+                    bReadFanPWMValue = true;
+                }
+            }
+            
+            //If still current fanpwm value wasn't read, try to read
+            if (!bReadHeaterPWMValue)
+            {
+                if (Hardware.SensorsList["Heater"].CheckLastValue())
+                {
+                    txtControlHeaterPWM.Text = Convert.ToString(Math.Round(Hardware.SensorsList["Heater"].LastValue));
+                    bReadHeaterPWMValue = true;
+                }
+            }
 
             //Calculated fields (custom fields)
             txtMainDelta.Text = Convert.ToString(Math.Round(Hardware.DeltaTemp_Main,1));
@@ -392,43 +441,59 @@ Current HEATER PWM value: " + String.Format("{0:N0}", heater) + @"
             CurChart.Invalidate();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
 
-        }
-
+        /// <summary>
+        /// Handle changing trackBar FanPWM
+        /// </summary>
         private void trackBar_FanPWM_ValueChanged(object sender, EventArgs e)
         {
-            txtFPWM.Text = trackBar_FanPWM.Value.ToString();
-
-            Hardware.FanPWM = trackBar_FanPWM.Value;
+            txtControlFanPWM.Text = trackBar_FanPWM.Value.ToString();
+            Hardware.SetFanPWM(trackBar_FanPWM.Value);
         }
 
+        /// <summary>
+        /// Handling manual setting FnaPWM in text field
+        /// </summary>
+        private void txtControlFanPWM_TextChanged(object sender, EventArgs e)
+        {
+
+            TextBox TxtBox = sender as TextBox;
+            Int32 nCI=0;
+            if (Int32.TryParse(TxtBox.Text, out nCI) && (nCI>=trackBar_FanPWM.Minimum) && (nCI<=trackBar_FanPWM.Maximum))
+            {
+                trackBar_FanPWM.Value = nCI;
+            }
+        }
+
+
+        /// <summary>
+        /// Handle changing trackBar HeaterPWM
+        /// </summary>
         private void trackBar_HeaterPWM_ValueChanged(object sender, EventArgs e)
         {
-            txtHPWM.Text = trackBar_HeaterPWM.Value.ToString();
+            txtControlHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
+
             aHeaterGauge.Value = Convert.ToSByte(trackBar_HeaterPWM.Value / 255.0 * 100.0);
-            txtFldHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
+            //txtFldHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
 
-            Hardware.HeaterPWM = trackBar_HeaterPWM.Value;
+            Hardware.SetHeaterPWM(trackBar_HeaterPWM.Value);
         }
 
-        private void btnAbout_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Handling manual setting Heater PWM in text field
+        /// </summary>
+        private void txtControlHeaterPWM_TextChanged(object sender, EventArgs e)
         {
-            AboutForm.Show();
+            TextBox TxtBox = sender as TextBox;
+            Int16 nCI;
+            if (Int16.TryParse(TxtBox.Text, out nCI))
+            {
+                trackBar_HeaterPWM.Value = nCI;
+            }
         }
 
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            SettingsObj.ShowDialog();
-        }
 
-        private void btnLog_Click(object sender, EventArgs e)
-        {
-            LogFormObj.Show();
-            LogFormObj.BringToFront();
-        }
 
-   
+
     }
 }
