@@ -337,7 +337,7 @@ Current HEATER PWM value: 36
             txtFldHeaterPWM.Text = Convert.ToString(Math.Round(Hardware.HeaterPower));
             
             //If still current fanpwm value wasn't read, try to read
-            if (!bReadFanPWMValue)
+            if (!bReadFanPWMValue || Hardware.AutoControl_FanSpeed)
             {
                 if (Hardware.SensorsList["FPWM"].CheckLastValue())
                 {
@@ -347,7 +347,7 @@ Current HEATER PWM value: 36
             }
             
             //If still current fanpwm value wasn't read, try to read
-            if (!bReadHeaterPWMValue)
+            if (!bReadHeaterPWMValue || Hardware.AutoControl_Heater)
             {
                 if (Hardware.SensorsList["Heater"].CheckLastValue())
                 {

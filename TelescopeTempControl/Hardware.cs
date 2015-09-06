@@ -739,7 +739,7 @@ namespace TelescopeTempControl
             DeltaTemp_Main = (SensorsList["Temp2"].LastValue - SensorsList["Temp1"].LastValue);
             DeltaTemp_Main_Add(DeltaTemp_Main);
             DeltaTemp_Secondary = (SensorsList["Temp3"].LastValue - SensorsList["Temp1"].LastValue);
-            DeltaTemp_Secondary_Add(DeltaTemp_Main);
+            DeltaTemp_Secondary_Add(DeltaTemp_Secondary);
 
             HeaterPWM = Convert.ToInt16(SensorsList["Heater"].LastValue);
             HeaterPower = (double)HeaterPWM / 255.0 * 100.0;
@@ -884,12 +884,12 @@ namespace TelescopeTempControl
             if (AbsDeltaTemp_Main <= MainDelta_StillZone)
             {
                 setpwm = 255; //switch off
-                Logging.AddLog("Main_Tempdelta (" + AbsDeltaTemp_Main + ") is in still zone: " + setpwm, LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta ({0:0.0}) is in still zone. Set fan to null", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
             else if (AbsDeltaTemp_Main >= MainDelta_MaxEfforZone)
             {
                 setpwm = 0; //switch fully on
-                Logging.AddLog("Main_Tempdelta (" + AbsDeltaTemp_Main + ") is too high. Set fan to full: " + setpwm, LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta ({0:0.0}) is too high. Set fan to full", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
             else
             {
@@ -902,7 +902,7 @@ namespace TelescopeTempControl
 
                 setpwm = GetPWM_byFanSpeed(Convert.ToInt32(approx_rotation));
 
-                Logging.AddLog("Main_Tempdelta is " + AbsDeltaTemp_Main + ". Set fan to power: " + String.Format("{0:0.0}", power) + "%, target rotation speed: " + String.Format("{0:0.0}", approx_rotation) + "rpm, PWM: " + setpwm + "", LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta is {0:0.0}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AbsDeltaTemp_Main,power,approx_rotation,setpwm), LogLevel.Activity);
             
             }
             SetFanPWM(setpwm); 
@@ -931,12 +931,12 @@ namespace TelescopeTempControl
             if (DeltaTemp_Second >= SecondaryDelta_HotZone)
             {
                 setpwm = 0; //switch off
-                Logging.AddLog("Second_Tempdelta (" + DeltaTemp_Second + ") is high: " + setpwm, LogLevel.Activity);
+                Logging.AddLog(String.Format("Second_Tempdelta ({0:0.0}) is enough. Set heater to null", DeltaTemp_Second, setpwm), LogLevel.Activity);
             }
             else if (DeltaTemp_Second <= SecondaryDelta_LowZone)
             {
                 setpwm = 255; //switch fully on
-                Logging.AddLog("Second_Tempdelta (" + DeltaTemp_Second + ") is too low. Set heater to full: " + setpwm, LogLevel.Activity);
+                Logging.AddLog(String.Format("Second_Tempdelta ({0:0.0}) is too low. Set heater to full", DeltaTemp_Second, setpwm), LogLevel.Activity);
             }
             else
             {
@@ -945,11 +945,9 @@ namespace TelescopeTempControl
                 power = Math.Max(power, 0);
 
                 setpwm = Convert.ToInt32(power / 100.0 * 255.0);    //calculate heater pwm
-
-                Logging.AddLog("Second_Tempdelta is " + DeltaTemp_Second + ". Set heater to power: " + String.Format("{0:0.0}", power) + "%, PWM: " + setpwm + "", LogLevel.Activity);
-
+                Logging.AddLog(String.Format("Second_Tempdelta is {0:0.0}. Set heater to power: {1:0.0}%, PWM: {2:0}", DeltaTemp_Second, power, setpwm), LogLevel.Activity);
             }
-            SetFanPWM(setpwm);
+            SetHeaterPWM(setpwm);
         }
 
         /// <summary>
