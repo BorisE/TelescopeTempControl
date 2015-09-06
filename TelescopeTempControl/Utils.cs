@@ -23,6 +23,8 @@ namespace TelescopeTempControl
          */
 
 
+        const string _PROGRAM_AUTOSTART_SHORTCUT_NAME = "TempControl autostart";
+
         /// <summary>
         /// Create .lnk to ClickOnce shortcut with autostart parameters
         /// </summary>
@@ -84,7 +86,7 @@ namespace TelescopeTempControl
                     if (!string.IsNullOrEmpty(StartMenuShortcutName))
                     {
                         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                        Utils.CreateLink("WeatherStation Monitor autostart", desktopPath, StartMenuShortcutName, "-start");
+                        Utils.CreateLink(_PROGRAM_AUTOSTART_SHORTCUT_NAME, desktopPath, StartMenuShortcutName, "-start");
                     }
                     else
                     {

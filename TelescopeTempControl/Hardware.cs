@@ -748,7 +748,11 @@ namespace TelescopeTempControl
             if (AutoControl_Heater) ControlSecondaryDelta();
 
             //check temp difference
-            if (DeltaTemp_Secondary > HEATER_MAX_TEMPERATURE_DELTA) SetHeaterPWM(0);
+            if (DeltaTemp_Secondary > HEATER_MAX_TEMPERATURE_DELTA)
+            {
+                Logging.AddLog("Secondary temp delta is too high. Switching heater off", LogLevel.Activity, Highlight.Emphasize);
+                SetHeaterPWM(0);
+            }
         }
 
         /// <summary>
@@ -884,12 +888,12 @@ namespace TelescopeTempControl
             if (AbsDeltaTemp_Main <= MainDelta_StillZone)
             {
                 setpwm = 255; //switch off
-                Logging.AddLog(String.Format("Main_Tempdelta ({0:0.0}) is in still zone. Set fan to null", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in still zone. Set fan to null", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
             else if (AbsDeltaTemp_Main >= MainDelta_MaxEfforZone)
             {
                 setpwm = 0; //switch fully on
-                Logging.AddLog(String.Format("Main_Tempdelta ({0:0.0}) is too high. Set fan to full", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is too high. Set fan to full", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
             else
             {
@@ -902,7 +906,7 @@ namespace TelescopeTempControl
 
                 setpwm = GetPWM_byFanSpeed(Convert.ToInt32(approx_rotation));
 
-                Logging.AddLog(String.Format("Main_Tempdelta is {0:0.0}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AbsDeltaTemp_Main,power,approx_rotation,setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg" + SENSOR_HISTORY_LENGTH + " is {0:0.00}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AbsDeltaTemp_Main, power, approx_rotation, setpwm), LogLevel.Activity);
             
             }
             SetFanPWM(setpwm); 
@@ -925,18 +929,18 @@ namespace TelescopeTempControl
         /// </summary>
         public void ControlSecondaryDelta()
         {
-            double DeltaTemp_Second = DeltaTemp_Main_List.Average(); 
-            int setpwm = 255;
+            double DeltaTemp_Second = DeltaTemp_Secondary_List.Average(); 
+            int setpwm = 0;
 
             if (DeltaTemp_Second >= SecondaryDelta_HotZone)
             {
                 setpwm = 0; //switch off
-                Logging.AddLog(String.Format("Second_Tempdelta ({0:0.0}) is enough. Set heater to null", DeltaTemp_Second, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Second_Tempdelta avg ({0:0.00}) is enough. Set heater to null", DeltaTemp_Second, setpwm), LogLevel.Activity);
             }
             else if (DeltaTemp_Second <= SecondaryDelta_LowZone)
             {
                 setpwm = 255; //switch fully on
-                Logging.AddLog(String.Format("Second_Tempdelta ({0:0.0}) is too low. Set heater to full", DeltaTemp_Second, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Second_Tempdelta avg ({0:0.00}) is too low. Set heater to full", DeltaTemp_Second, setpwm), LogLevel.Activity);
             }
             else
             {
@@ -945,7 +949,7 @@ namespace TelescopeTempControl
                 power = Math.Max(power, 0);
 
                 setpwm = Convert.ToInt32(power / 100.0 * 255.0);    //calculate heater pwm
-                Logging.AddLog(String.Format("Second_Tempdelta is {0:0.0}. Set heater to power: {1:0.0}%, PWM: {2:0}", DeltaTemp_Second, power, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Second_Tempdelta avg" + SENSOR_HISTORY_LENGTH + " is {0:0.00}. Set heater to power: {1:0.0}%, PWM: {2:0}", DeltaTemp_Second, power, setpwm), LogLevel.Activity);
             }
             SetHeaterPWM(setpwm);
         }
@@ -956,22 +960,25 @@ namespace TelescopeTempControl
         /// <param name="NewValue"></param>
         public void DeltaTemp_Main_Add(double NewValue)
         {
-             //Add to LastValuesArray
-            int startIdx;
-            if (DeltaTemp_Main_List.Count < SENSOR_HISTORY_LENGTH)
-            {
-                startIdx = DeltaTemp_Main_List.Count() - 1;
-                DeltaTemp_Main_List.Add(-100.0);
+            if (CheckData(NewValue, SensorTypeEnum.Temp))
+            { 
+                //Add to LastValuesArray
+                int startIdx;
+                if (DeltaTemp_Main_List.Count < SENSOR_HISTORY_LENGTH)
+                {
+                    startIdx = DeltaTemp_Main_List.Count() - 1;
+                    DeltaTemp_Main_List.Add(-100.0);
+                }
+                else
+                {
+                    startIdx = DeltaTemp_Main_List.Count() - 2;
+                }
+                for (int i = startIdx; i >= 0; i--)
+                {
+                    DeltaTemp_Main_List[i + 1] = DeltaTemp_Main_List[i];
+                }
+                DeltaTemp_Main_List[0] = NewValue;
             }
-            else
-            {
-                startIdx = DeltaTemp_Main_List.Count() - 2;
-            }
-            for (int i = startIdx; i >= 0; i--)
-            {
-                DeltaTemp_Main_List[i + 1] = DeltaTemp_Main_List[i];
-            }
-            DeltaTemp_Main_List[0] = NewValue;
         }
 
         /// <summary>
@@ -980,22 +987,25 @@ namespace TelescopeTempControl
         /// <param name="NewValue"></param>
         public void DeltaTemp_Secondary_Add(double NewValue)
         {
-            //Add to LastValuesArray
-            int startIdx;
-            if (DeltaTemp_Secondary_List.Count < SENSOR_HISTORY_LENGTH)
-            {
-                startIdx = DeltaTemp_Secondary_List.Count() - 1;
-                DeltaTemp_Secondary_List.Add(-100.0);
+            if (CheckData(NewValue, SensorTypeEnum.Temp))
+            { 
+                //Add to LastValuesArray
+                int startIdx;
+                if (DeltaTemp_Secondary_List.Count < SENSOR_HISTORY_LENGTH)
+                {
+                    startIdx = DeltaTemp_Secondary_List.Count() - 1;
+                    DeltaTemp_Secondary_List.Add(-100.0);
+                }
+                else
+                {
+                    startIdx = DeltaTemp_Secondary_List.Count() - 2;
+                }
+                for (int i = startIdx; i >= 0; i--)
+                {
+                    DeltaTemp_Secondary_List[i + 1] = DeltaTemp_Secondary_List[i];
+                }
+                DeltaTemp_Secondary_List[0] = NewValue;
             }
-            else
-            {
-                startIdx = DeltaTemp_Secondary_List.Count() - 2;
-            }
-            for (int i = startIdx; i >= 0; i--)
-            {
-                DeltaTemp_Secondary_List[i + 1] = DeltaTemp_Secondary_List[i];
-            }
-            DeltaTemp_Secondary_List[0] = NewValue;
         }    
     
     }

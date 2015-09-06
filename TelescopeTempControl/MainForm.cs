@@ -51,6 +51,26 @@ namespace TelescopeTempControl
             //Init power control values
             txtControlFanPWM.Text = Convert.ToString(Hardware.FanPWM);
             txtControlHeaterPWM.Text = Convert.ToString(Hardware.HeaterPWM);
+
+            // TEST Usual command LINE PARAMETERS
+            bool autostart = false;
+            string comport_over = string.Empty;
+            AuxilaryProc.CheckStartParams(out autostart, out comport_over);
+
+            //RESET COM PORT NAME
+            if (!string.IsNullOrEmpty(comport_over))
+            {
+                Hardware.PortName = comport_over;
+                Logging.AddLog("Override serial port name to [" + comport_over + "]",LogLevel.Activity,Highlight.Emphasize);
+            }
+
+            //AUTOSTART MONITORING
+            if (autostart)
+            {
+                Logging.AddLog("Program autostart",LogLevel.Activity,Highlight.Emphasize);
+                btnStart.PerformClick();
+            }
+
         }
 
 

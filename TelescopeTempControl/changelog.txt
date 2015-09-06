@@ -7,7 +7,8 @@ to do:
 - socket commands: relay switching, parameters querying
 
 0.7.0 (2015-09-06)
-- more interface and code optimizaition
+- more interface and code optimizaition (auto temp)
+- comand line parameters
 
 0.6.0 (2015-09-06)
 - automatic temp delta targeting 
