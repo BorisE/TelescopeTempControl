@@ -124,6 +124,21 @@ namespace TelescopeTempControl
                 Logging.SerialLogFileFlag = Properties.Settings.Default.SerialLogFileFlag;
 
 
+                //Modeling
+                ParentMainForm.Hardware.TempDelta_Main_Target = Convert.ToDouble(Properties.Settings.Default.TempDelta_Main_Target);
+                ParentMainForm.Hardware.TempDelta_Main_MaxEffortZone = Convert.ToDouble(Properties.Settings.Default.TempDelta_Main_MaxEffort);
+
+                ParentMainForm.Hardware.TempDelta_Secondary_Target = Convert.ToDouble(Properties.Settings.Default.TempDelta_Second_Target);
+                ParentMainForm.Hardware.TempDelta_Secondary_MaxEffortZone = Convert.ToDouble(Properties.Settings.Default.TempDelta_Second_MaxEffort);
+
+
+                //Draw striplines
+                ParentMainForm.chart1.ChartAreas["ChartArea1_main"].AxisY.StripLines[0].StripWidth = ParentMainForm.Hardware.TempDelta_Main_MaxEffortZone - ParentMainForm.Hardware.TempDelta_Main_Target;
+                ParentMainForm.chart1.ChartAreas["ChartArea1_main"].AxisY.StripLines[0].IntervalOffset =ParentMainForm.Hardware.TempDelta_Main_Target;
+
+                ParentMainForm.chart1.ChartAreas["ChartArea1_main"].AxisY.StripLines[2].StripWidth = ParentMainForm.Hardware.TempDelta_Main_MaxEffortZone - ParentMainForm.Hardware.TempDelta_Main_Target;
+                ParentMainForm.chart1.ChartAreas["ChartArea1_main"].AxisY.StripLines[2].IntervalOffset = -ParentMainForm.Hardware.TempDelta_Main_MaxEffortZone;
+
 
             }
             catch (Exception ex)

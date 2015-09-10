@@ -202,5 +202,53 @@ namespace TelescopeTempControl.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.2")]
+        public string TempDelta_Main_Target {
+            get {
+                return ((string)(this["TempDelta_Main_Target"]));
+            }
+            set {
+                this["TempDelta_Main_Target"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string TempDelta_Second_Target {
+            get {
+                return ((string)(this["TempDelta_Second_Target"]));
+            }
+            set {
+                this["TempDelta_Second_Target"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string TempDelta_Main_MaxEffort {
+            get {
+                return ((string)(this["TempDelta_Main_MaxEffort"]));
+            }
+            set {
+                this["TempDelta_Main_MaxEffort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
+        public string TempDelta_Second_MaxEffort {
+            get {
+                return ((string)(this["TempDelta_Second_MaxEffort"]));
+            }
+            set {
+                this["TempDelta_Second_MaxEffort"] = value;
+            }
+        }
     }
 }

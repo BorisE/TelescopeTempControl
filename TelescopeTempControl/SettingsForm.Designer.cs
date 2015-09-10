@@ -53,13 +53,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtCloudysky = new System.Windows.Forms.TextBox();
-            this.txtClearsky = new System.Windows.Forms.TextBox();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
@@ -75,6 +71,10 @@
             this.chkLogFileFlag = new System.Windows.Forms.CheckBox();
             this.chkWatchdog = new System.Windows.Forms.CheckBox();
             this.COM11 = new System.Windows.Forms.ComboBox();
+            this.txtTempDelta_Second_MaxEffort = new System.Windows.Forms.TextBox();
+            this.txtTempTargetDelta_Second = new System.Windows.Forms.TextBox();
+            this.txtTempDelta_Main_MaxEffort = new System.Windows.Forms.TextBox();
+            this.txtTargetDetla_Main = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_General.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -341,8 +341,8 @@
             // 
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.textBox1);
-            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.txtTempDelta_Second_MaxEffort);
+            this.groupBox4.Controls.Add(this.txtTempTargetDelta_Second);
             this.groupBox4.Location = new System.Drawing.Point(5, 80);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(308, 67);
@@ -356,9 +356,9 @@
             this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label3.Location = new System.Drawing.Point(7, 43);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(164, 13);
+            this.label3.Size = new System.Drawing.Size(80, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Cloudy/Very cloudy sky threshold";
+            this.label3.Text = "Max effort zone";
             // 
             // label4
             // 
@@ -366,32 +366,16 @@
             this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label4.Location = new System.Drawing.Point(7, 19);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(133, 13);
+            this.label4.Size = new System.Drawing.Size(64, 13);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Clear/Cloudy sky threshold";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(193, 41);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(53, 20);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(193, 16);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(53, 20);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label4.Text = "Target delta";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.txtCloudysky);
-            this.groupBox2.Controls.Add(this.txtClearsky);
+            this.groupBox2.Controls.Add(this.txtTempDelta_Main_MaxEffort);
+            this.groupBox2.Controls.Add(this.txtTargetDetla_Main);
             this.groupBox2.Location = new System.Drawing.Point(5, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(308, 67);
@@ -405,9 +389,9 @@
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label2.Location = new System.Drawing.Point(7, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 13);
+            this.label2.Size = new System.Drawing.Size(80, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Cloudy/Very cloudy sky threshold";
+            this.label2.Text = "Max effort zone";
             // 
             // label1
             // 
@@ -415,25 +399,9 @@
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label1.Location = new System.Drawing.Point(7, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(133, 13);
+            this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Clear/Cloudy sky threshold";
-            // 
-            // txtCloudysky
-            // 
-            this.txtCloudysky.Location = new System.Drawing.Point(193, 41);
-            this.txtCloudysky.Name = "txtCloudysky";
-            this.txtCloudysky.Size = new System.Drawing.Size(53, 20);
-            this.txtCloudysky.TabIndex = 3;
-            this.txtCloudysky.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtClearsky
-            // 
-            this.txtClearsky.Location = new System.Drawing.Point(193, 16);
-            this.txtClearsky.Name = "txtClearsky";
-            this.txtClearsky.Size = new System.Drawing.Size(53, 20);
-            this.txtClearsky.TabIndex = 1;
-            this.txtClearsky.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.label1.Text = "Target delta";
             // 
             // btnReset
             // 
@@ -601,6 +569,46 @@
             this.COM11.Size = new System.Drawing.Size(72, 21);
             this.COM11.TabIndex = 0;
             // 
+            // txtTempDelta_Second_MaxEffort
+            // 
+            this.txtTempDelta_Second_MaxEffort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Second_MaxEffort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtTempDelta_Second_MaxEffort.Location = new System.Drawing.Point(193, 41);
+            this.txtTempDelta_Second_MaxEffort.Name = "txtTempDelta_Second_MaxEffort";
+            this.txtTempDelta_Second_MaxEffort.Size = new System.Drawing.Size(53, 20);
+            this.txtTempDelta_Second_MaxEffort.TabIndex = 3;
+            this.txtTempDelta_Second_MaxEffort.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Second_MaxEffort;
+            this.txtTempDelta_Second_MaxEffort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtTempTargetDelta_Second
+            // 
+            this.txtTempTargetDelta_Second.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Second_Target", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtTempTargetDelta_Second.Location = new System.Drawing.Point(193, 16);
+            this.txtTempTargetDelta_Second.Name = "txtTempTargetDelta_Second";
+            this.txtTempTargetDelta_Second.Size = new System.Drawing.Size(53, 20);
+            this.txtTempTargetDelta_Second.TabIndex = 1;
+            this.txtTempTargetDelta_Second.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Second_Target;
+            this.txtTempTargetDelta_Second.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtTempDelta_Main_MaxEffort
+            // 
+            this.txtTempDelta_Main_MaxEffort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Main_MaxEffort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtTempDelta_Main_MaxEffort.Location = new System.Drawing.Point(193, 41);
+            this.txtTempDelta_Main_MaxEffort.Name = "txtTempDelta_Main_MaxEffort";
+            this.txtTempDelta_Main_MaxEffort.Size = new System.Drawing.Size(53, 20);
+            this.txtTempDelta_Main_MaxEffort.TabIndex = 3;
+            this.txtTempDelta_Main_MaxEffort.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Main_MaxEffort;
+            this.txtTempDelta_Main_MaxEffort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtTargetDetla_Main
+            // 
+            this.txtTargetDetla_Main.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Main_Target", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtTargetDetla_Main.Location = new System.Drawing.Point(193, 16);
+            this.txtTargetDetla_Main.Name = "txtTargetDetla_Main";
+            this.txtTargetDetla_Main.Size = new System.Drawing.Size(53, 20);
+            this.txtTargetDetla_Main.TabIndex = 1;
+            this.txtTargetDetla_Main.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Main_Target;
+            this.txtTargetDetla_Main.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -678,13 +686,13 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtTempDelta_Second_MaxEffort;
+        private System.Windows.Forms.TextBox txtTempTargetDelta_Second;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtCloudysky;
-        private System.Windows.Forms.TextBox txtClearsky;
+        private System.Windows.Forms.TextBox txtTempDelta_Main_MaxEffort;
+        private System.Windows.Forms.TextBox txtTargetDetla_Main;
         private System.Windows.Forms.TextBox textBox3;
     }
 }

@@ -869,13 +869,13 @@ namespace TelescopeTempControl
         /// <summary>
         /// Main mirror temp delta reaction parameters
         /// </summary>
-        double MainDelta_StillZone = 0.1; // min temp delta where fan swithced off
-        double MainDelta_MaxEfforZone = 2; // max temp delta where fan swithced fully on
-        int FAN_MaxRotationSpeed = 1300; 
-        int FAN_MinRotationSpeed = 160;
-        double FanRotationPowerCurve_a = 28.57;
-        double FanRotationPowerCurve_b = - 7.14;
-        double FanRotationPowerCurve_c = -0.003;
+        public double TempDelta_Main_Target = 0.1; // min temp delta where fan swithced off
+        public double TempDelta_Main_MaxEffortZone = 2; // max temp delta where fan swithced fully on
+        public int FAN_MaxRotationSpeed = 1300;
+        public int FAN_MinRotationSpeed = 160;
+        public double FanRotationPowerCurve_a = 28.57;
+        public double FanRotationPowerCurve_b = -7.14;
+        public double FanRotationPowerCurve_c = -0.003;
 
         /// <summary>
         /// Procedure to automatically set FanSpeed based on DeltaTemp
@@ -885,12 +885,12 @@ namespace TelescopeTempControl
             double AbsDeltaTemp_Main = Math.Abs(DeltaTemp_Main_List.Average()); //by asbolute value
             int setpwm = 255;
 
-            if (AbsDeltaTemp_Main <= MainDelta_StillZone)
+            if (AbsDeltaTemp_Main <= TempDelta_Main_Target)
             {
                 setpwm = 255; //switch off
                 Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in still zone. Set fan to null", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
-            else if (AbsDeltaTemp_Main >= MainDelta_MaxEfforZone)
+            else if (AbsDeltaTemp_Main >= TempDelta_Main_MaxEffortZone)
             {
                 setpwm = 0; //switch fully on
                 Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is too high. Set fan to full", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
@@ -917,11 +917,11 @@ namespace TelescopeTempControl
         /// <summary>
         /// Secondary mirror heater reaction parameters
         /// </summary>
-        double SecondaryDelta_HotZone = 2.0; // target temp delta
-        double SecondaryDelta_LowZone = 0.1; // min delta value after which heating is set to 100%
-        double HeatingPowerCurve_a = 22.7;
-        double HeatingPowerCurve_b = -104.5;
-        double HeatingPowerCurve_c = 120.0;
+        public double TempDelta_Secondary_Target = 2.0; // target temp delta
+        public double TempDelta_Secondary_MaxEffortZone = 0.1; // min delta value after which heating is set to 100%
+        public double HeatingPowerCurve_a = 22.7;
+        public double HeatingPowerCurve_b = -104.5;
+        public double HeatingPowerCurve_c = 120.0;
          
 
         /// <summary>
@@ -932,12 +932,12 @@ namespace TelescopeTempControl
             double DeltaTemp_Second = DeltaTemp_Secondary_List.Average(); 
             int setpwm = 0;
 
-            if (DeltaTemp_Second >= SecondaryDelta_HotZone)
+            if (DeltaTemp_Second >= TempDelta_Secondary_Target)
             {
                 setpwm = 0; //switch off
                 Logging.AddLog(String.Format("Second_Tempdelta avg ({0:0.00}) is enough. Set heater to null", DeltaTemp_Second, setpwm), LogLevel.Activity);
             }
-            else if (DeltaTemp_Second <= SecondaryDelta_LowZone)
+            else if (DeltaTemp_Second <= TempDelta_Secondary_MaxEffortZone)
             {
                 setpwm = 255; //switch fully on
                 Logging.AddLog(String.Format("Second_Tempdelta avg ({0:0.00}) is too low. Set heater to full", DeltaTemp_Second, setpwm), LogLevel.Activity);

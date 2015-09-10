@@ -6,6 +6,10 @@ to do:
 - modeling to settings parameters
 - socket commands: relay switching, parameters querying
 
+0.8.0 (2015-09-11)
+- settings (delta)
+- drawing zones on graph
+
 0.7.0 (2015-09-06)
 - more interface and code optimizaition (auto temp)
 - comand line parameters
