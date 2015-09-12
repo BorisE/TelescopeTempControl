@@ -125,11 +125,11 @@ namespace TelescopeTempControl
 
 
                 //Modeling
-                ParentMainForm.Hardware.TempDelta_Main_Target = Convert.ToDouble(Properties.Settings.Default.TempDelta_Main_Target);
-                ParentMainForm.Hardware.TempDelta_Main_MaxEffortZone = Convert.ToDouble(Properties.Settings.Default.TempDelta_Main_MaxEffort);
+                ParentMainForm.Hardware.TempDelta_Main_Target = Utils.ConvertToDouble(Properties.Settings.Default.TempDelta_Main_Target);
+                ParentMainForm.Hardware.TempDelta_Main_MaxEffortZone = Utils.ConvertToDouble(Properties.Settings.Default.TempDelta_Main_MaxEffort);
 
-                ParentMainForm.Hardware.TempDelta_Secondary_Target = Convert.ToDouble(Properties.Settings.Default.TempDelta_Second_Target);
-                ParentMainForm.Hardware.TempDelta_Secondary_MaxEffortZone = Convert.ToDouble(Properties.Settings.Default.TempDelta_Second_MaxEffort);
+                ParentMainForm.Hardware.TempDelta_Secondary_Target = Utils.ConvertToDouble(Properties.Settings.Default.TempDelta_Second_Target);
+                ParentMainForm.Hardware.TempDelta_Secondary_MaxEffortZone = Utils.ConvertToDouble(Properties.Settings.Default.TempDelta_Second_MaxEffort);
 
 
                 //Draw striplines

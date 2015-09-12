@@ -609,13 +609,9 @@ namespace TelescopeTempControl
 
                             //0.2. Try to convert to double. 
                             double tagValue_dbl = -100.0;
-                            try
+                            if (!double.TryParse(tagValue_st, out tagValue_dbl))
                             {
-                                tagValue_dbl = Convert.ToDouble(tagValue_st);
-                            }
-                            catch (Exception Ex)
-                            {
-                                //Note, that exception is not always an error - some values should state in string format, i.e. version info
+                                tagValue_dbl = -100.0;
                             }
 
                             //LINE PARSED TO tagName AND tagValue
@@ -671,6 +667,13 @@ namespace TelescopeTempControl
                             }
                             else if (tagName == "Ht")
                             {
+                                tagValue_dbl = Math.Max(tagValue_dbl,0);
+                                tagValue_dbl = Math.Min(tagValue_dbl, 255);
+                            }
+                            else if (tagName == "Pwm")
+                            {
+                                tagValue_dbl = Math.Max(tagValue_dbl, 0);
+                                tagValue_dbl = Math.Min(tagValue_dbl, 255);
                             }
                             else if (tagName == "!r")
                             {
@@ -804,7 +807,6 @@ namespace TelescopeTempControl
                     break;
                 default:
                     throw new System.ArgumentException("Sensor type is out of range", "checkDataType");
-                    break;
             }
             return true;
         }

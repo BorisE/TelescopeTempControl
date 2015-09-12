@@ -402,16 +402,32 @@
             this.chart1.BorderlineColor = System.Drawing.Color.LightGray;
             this.chart1.BorderlineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Hours;
+            chartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea1.AxisX.IsLabelAutoFit = false;
             chartArea1.AxisX.LabelAutoFitMaxFontSize = 7;
             chartArea1.AxisX.LabelAutoFitMinFontSize = 7;
+            chartArea1.AxisX.LabelAutoFitStyle = ((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles)((((((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.IncreaseFont | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.DecreaseFont) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.StaggeredLabels) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.LabelsAngleStep30) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.LabelsAngleStep45) 
+            | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.WordWrap)));
+            chartArea1.AxisX.LabelStyle.Angle = 90;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Arial", 6F);
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.BlanchedAlmond;
+            chartArea1.AxisX.LabelStyle.Format = "g";
             chartArea1.AxisX.LabelStyle.Interval = 0D;
             chartArea1.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Hours;
+            chartArea1.AxisX.LabelStyle.IsStaggered = true;
+            chartArea1.AxisX.LabelStyle.TruncatedLabels = true;
             chartArea1.AxisX.MajorGrid.Interval = 1D;
             chartArea1.AxisX.MajorGrid.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Hours;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
+            chartArea1.AxisX.MajorTickMark.Interval = 0D;
+            chartArea1.AxisX.MajorTickMark.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
             chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Silver;
+            chartArea1.AxisX.MaximumAutoSize = 100F;
             chartArea1.AxisX.MinorGrid.Enabled = true;
             chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
@@ -427,16 +443,13 @@
             stripLine1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
             stripLine1.BackSecondaryColor = System.Drawing.Color.White;
             stripLine1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            stripLine1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             stripLine1.IntervalOffset = 0.2D;
             stripLine1.StripWidth = 1.8D;
             stripLine2.BorderColor = System.Drawing.Color.Silver;
-            stripLine2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             stripLine3.BackColor = System.Drawing.Color.White;
             stripLine3.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
             stripLine3.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             stripLine3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            stripLine3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             stripLine3.IntervalOffset = -2D;
             stripLine3.StripWidth = 1.8D;
             chartArea1.AxisY.StripLines.Add(stripLine1);
@@ -508,6 +521,7 @@
             chartArea3.AxisX.MinorGrid.LineColor = System.Drawing.Color.Gainsboro;
             chartArea3.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
             chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea3.AxisY.Crossing = -1.7976931348623157E+308D;
             chartArea3.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea3.AxisY.LabelAutoFitMaxFontSize = 7;
             chartArea3.AxisY.LabelAutoFitMinFontSize = 7;
@@ -520,6 +534,7 @@
             chartArea3.AxisY2.MajorGrid.Enabled = false;
             chartArea3.AxisY2.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
             chartArea3.AxisY2.MajorTickMark.LineColor = System.Drawing.Color.Silver;
+            chartArea3.BackColor = System.Drawing.Color.White;
             chartArea3.BorderColor = System.Drawing.Color.Silver;
             chartArea3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             chartArea3.InnerPlotPosition.Auto = false;
