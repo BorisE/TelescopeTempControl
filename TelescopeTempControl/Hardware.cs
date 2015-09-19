@@ -90,9 +90,6 @@ namespace TelescopeTempControl
         public double DeltaTemp_Main = -100.0;
         public double DeltaTemp_Secondary = -100.0;
 
-        public Int32 AutoControl_Loop_Interval = 15;
-        public DateTime AutoControl_LastLoop_Time; 
-
         public List<double> DeltaTemp_Main_List = new List<double>();
         public List<double> DeltaTemp_Secondary_List = new List<double>();
 
@@ -612,13 +609,9 @@ namespace TelescopeTempControl
 
                             //0.2. Try to convert to double. 
                             double tagValue_dbl = -100.0;
-                            try
+                            if (!double.TryParse(tagValue_st, out tagValue_dbl))
                             {
-                                tagValue_dbl = Convert.ToDouble(tagValue_st);
-                            }
-                            catch (Exception Ex)
-                            {
-                                //Note, that exception is not always an error - some values should state in string format, i.e. version info
+                                tagValue_dbl = -100.0;
                             }
 
                             //LINE PARSED TO tagName AND tagValue
@@ -674,6 +667,13 @@ namespace TelescopeTempControl
                             }
                             else if (tagName == "Ht")
                             {
+                                tagValue_dbl = Math.Max(tagValue_dbl,0);
+                                tagValue_dbl = Math.Min(tagValue_dbl, 255);
+                            }
+                            else if (tagName == "Pwm")
+                            {
+                                tagValue_dbl = Math.Max(tagValue_dbl, 0);
+                                tagValue_dbl = Math.Min(tagValue_dbl, 255);
                             }
                             else if (tagName == "!r")
                             {
@@ -747,9 +747,10 @@ namespace TelescopeTempControl
             HeaterPWM = Convert.ToInt16(SensorsList["Heater"].LastValue);
             HeaterPower = (double)HeaterPWM / 255.0 * 100.0;
 
-            AutoControl_LOOP();
+            if (AutoControl_FanSpeed) ControlMainDelta();
+            if (AutoControl_Heater) ControlSecondaryDelta();
 
-            //Safety check temp difference
+            //check temp difference
             if (DeltaTemp_Secondary > HEATER_MAX_TEMPERATURE_DELTA)
             {
                 Logging.AddLog("Secondary temp delta is too high. Switching heater off", LogLevel.Activity, Highlight.Emphasize);
@@ -757,6 +758,68 @@ namespace TelescopeTempControl
             }
         }
 
+        /// <summary>
+        /// Method to check data validity for different sensors type
+        /// </summary>      
+        public static bool CheckData(double TagVal, SensorTypeEnum checkDataType)
+        {
+            switch (checkDataType)
+            {
+                case SensorTypeEnum.Temp:
+                    if (TagVal < -80 || TagVal > 80)
+                        return false;
+                    break;
+                case SensorTypeEnum.Hum:
+                    if (TagVal <= 0 || TagVal >= 100)
+                        return false;
+                    break;
+                case SensorTypeEnum.Press:
+                    if (TagVal <= 0 || TagVal >= 800)
+                        return false;
+                    break;
+                case SensorTypeEnum.Illum:
+                    if (TagVal < 0 || TagVal >= 100000)
+                        return false;
+                    break;
+                case SensorTypeEnum.Wet:
+                    if (TagVal <= 0 || TagVal >= 1024)
+                        return false;
+                    break;
+                case SensorTypeEnum.RGC:
+                    if (TagVal < 0 || TagVal >= 1000) //maximum value I have ever seen was 237
+                        return false;
+                    break;
+                case SensorTypeEnum.Relay:
+                    if (TagVal < 0 || TagVal > 1) //only 2 values allowed: 0 and 1
+                        return false;
+                    break;
+                case SensorTypeEnum.WSp:
+                    if (TagVal < 0 || TagVal > 1023) //Actually it is AnalogUnits. 1023 - max value, corresponds to MaxSpeed (def 32.4 m/s). Hurricane > 32
+                        return false;
+                    break;
+                case SensorTypeEnum.PWM:
+                    if (TagVal < 0 || TagVal > 255) //0 to 255 analog counts
+                        return false;
+                    break;
+                case SensorTypeEnum.RPM:
+                    if (TagVal < 0 || TagVal > 4000) //Don't know more rapid coolers
+                        return false;
+                    break;
+                default:
+                    throw new System.ArgumentException("Sensor type is out of range", "checkDataType");
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Method to check data validity for different sensors type
+        /// Specail for working with SensorArray
+        /// </summary>      
+        public static bool CheckData(SensorElement Sensor)
+        {
+            double TagVal = Sensor.LastValue;
+            return CheckData(TagVal, Sensor.SensorType);
+        }
 
         /// <summary>
         /// Set fan pwm value
@@ -805,30 +868,11 @@ namespace TelescopeTempControl
             }
         }
 
-
-        /// <summary>
-        /// Entry point for autocontrol loop
-        /// </summary>
-        internal void AutoControl_LOOP()
-        {
-            TimeSpan AutoContol_PassedSinceLastTime = DateTime.Now.Subtract(AutoControl_LastLoop_Time);
-            UInt32 AutoContol_PassedSinceLastTime_sec = (UInt32)Math.Round(AutoContol_PassedSinceLastTime.TotalSeconds, 0);
-
-            if (AutoContol_PassedSinceLastTime_sec > AutoControl_Loop_Interval)
-            {
-                AutoControl_LastLoop_Time = DateTime.Now;
-
-                if (AutoControl_FanSpeed) ControlMainDelta();
-                if (AutoControl_Heater) ControlSecondaryDelta();
-            }
-        }
-
         /// <summary>
         /// Main mirror temp delta reaction parameters
         /// </summary>
         public double TempDelta_Main_Target = 0.1; // min temp delta where fan swithced off
         public double TempDelta_Main_MaxEffortZone = 2; // max temp delta where fan swithced fully on
-        public double TempDelta_Main_DewZone = 0.1; //dew risk zone
         public int FAN_MaxRotationSpeed = 1300;
         public int FAN_MinRotationSpeed = 160;
         public double FanRotationPowerCurve_a = 28.57;
@@ -840,23 +884,22 @@ namespace TelescopeTempControl
         /// </summary>
         public void ControlMainDelta()
         {
-            double AvgDeltaTemp_Main = DeltaTemp_Main_List.Average();
-            //double AbsAvgDeltaTemp_Main = Math.Abs(AvgDeltaTemp_Main); //by absolute value
+            double AbsDeltaTemp_Main = Math.Abs(DeltaTemp_Main_List.Average()); //by asbolute value
             int setpwm = 255;
 
-            if (AvgDeltaTemp_Main >= TempDelta_Main_MaxEffortZone || AvgDeltaTemp_Main < TempDelta_Main_DewZone)
-            {
-                setpwm = 0; //switch fully on
-                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is too high. Set fan to full", AvgDeltaTemp_Main, setpwm), LogLevel.Activity);
-            }
-            else if (AvgDeltaTemp_Main <= TempDelta_Main_Target)
+            if (AbsDeltaTemp_Main <= TempDelta_Main_Target)
             {
                 setpwm = 255; //switch off
-                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in still zone. Set fan to null", AvgDeltaTemp_Main, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in still zone. Set fan to null", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
+            }
+            else if (AbsDeltaTemp_Main >= TempDelta_Main_MaxEffortZone)
+            {
+                setpwm = 0; //switch fully on
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is too high. Set fan to full", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
             else
             {
-                double power = FanRotationPowerCurve_a * AvgDeltaTemp_Main * AvgDeltaTemp_Main +FanRotationPowerCurve_b * AvgDeltaTemp_Main +FanRotationPowerCurve_c;
+                double power = FanRotationPowerCurve_a * AbsDeltaTemp_Main * AbsDeltaTemp_Main +FanRotationPowerCurve_b * AbsDeltaTemp_Main +FanRotationPowerCurve_c;
                 power = Math.Min(power,100);
                 power = Math.Max(power,0);
 
@@ -865,7 +908,7 @@ namespace TelescopeTempControl
 
                 setpwm = GetPWM_byFanSpeed(Convert.ToInt32(approx_rotation));
 
-                Logging.AddLog(String.Format("Main_Tempdelta avg" + SENSOR_HISTORY_LENGTH + " is {0:0.00}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AvgDeltaTemp_Main, power, approx_rotation, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg" + SENSOR_HISTORY_LENGTH + " is {0:0.00}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AbsDeltaTemp_Main, power, approx_rotation, setpwm), LogLevel.Activity);
             
             }
             SetFanPWM(setpwm); 
@@ -965,72 +1008,7 @@ namespace TelescopeTempControl
                 }
                 DeltaTemp_Secondary_List[0] = NewValue;
             }
-        }
-
-
-        /// <summary>
-        /// Method to check data validity for different sensors type
-        /// </summary>      
-        public static bool CheckData(double TagVal, SensorTypeEnum checkDataType)
-        {
-            switch (checkDataType)
-            {
-                case SensorTypeEnum.Temp:
-                    if (TagVal < -80 || TagVal > 80)
-                        return false;
-                    break;
-                case SensorTypeEnum.Hum:
-                    if (TagVal <= 0 || TagVal >= 100)
-                        return false;
-                    break;
-                case SensorTypeEnum.Press:
-                    if (TagVal <= 0 || TagVal >= 800)
-                        return false;
-                    break;
-                case SensorTypeEnum.Illum:
-                    if (TagVal < 0 || TagVal >= 100000)
-                        return false;
-                    break;
-                case SensorTypeEnum.Wet:
-                    if (TagVal <= 0 || TagVal >= 1024)
-                        return false;
-                    break;
-                case SensorTypeEnum.RGC:
-                    if (TagVal < 0 || TagVal >= 1000) //maximum value I have ever seen was 237
-                        return false;
-                    break;
-                case SensorTypeEnum.Relay:
-                    if (TagVal < 0 || TagVal > 1) //only 2 values allowed: 0 and 1
-                        return false;
-                    break;
-                case SensorTypeEnum.WSp:
-                    if (TagVal < 0 || TagVal > 1023) //Actually it is AnalogUnits. 1023 - max value, corresponds to MaxSpeed (def 32.4 m/s). Hurricane > 32
-                        return false;
-                    break;
-                case SensorTypeEnum.PWM:
-                    if (TagVal < 0 || TagVal > 255) //0 to 255 analog counts
-                        return false;
-                    break;
-                case SensorTypeEnum.RPM:
-                    if (TagVal < 0 || TagVal > 4000) //Don't know more rapid coolers
-                        return false;
-                    break;
-                default:
-                    throw new System.ArgumentException("Sensor type is out of range", "checkDataType");
-                    break;
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Method to check data validity for different sensors type
-        /// Specail for working with SensorArray
-        /// </summary>      
-        public static bool CheckData(SensorElement Sensor)
-        {
-            double TagVal = Sensor.LastValue;
-            return CheckData(TagVal, Sensor.SensorType);
-        }
-
+        }    
+    
     }
 }

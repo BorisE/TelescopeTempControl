@@ -212,6 +212,7 @@ namespace TelescopeTempControl
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
+
         /// <summary>
         /// Send current process window to foreground using WinAPI functions
         /// </summary>
@@ -325,11 +326,16 @@ namespace TelescopeTempControl
         }
 
 
+        /// <summary>
+        /// Convert from string to double, but check for alternative separator
+        /// </summary>
+        /// <param name="Val">double in string format</param>
+        /// <returns>double value</returns>
         public static double ConvertToDouble(string Val)
         {
-            double DblRes=Double.MinValue;
+            double DblRes= double.MinValue;
             //1. Try to convert
-            if (Double.TryParse(Val, out DblRes))
+            if (double.TryParse(Val, out DblRes))
             {
                 return DblRes;
             }
@@ -351,7 +357,7 @@ namespace TelescopeTempControl
                 }
                 catch (Exception Ex)
                 {
-                    throw Ex;
+                    throw;
                 }
                 return DblRes;
             }

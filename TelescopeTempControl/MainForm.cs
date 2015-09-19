@@ -32,6 +32,9 @@ namespace TelescopeTempControl
         public int maxNumberOfPointsInChart = 8640; //For 24h with 10sec interval
         public int MAX_LOG_LENGTH = 10000;
 
+        /// <summary>
+        /// Construction
+        /// </summary>
         public MainForm()
         {
             Hardware = new Hardware(this);
@@ -43,6 +46,9 @@ namespace TelescopeTempControl
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Form load event
+        /// </summary>
         private void MainForm_Load(object sender, EventArgs e)
         {
             SettingsObj.LoadParams();
@@ -71,11 +77,20 @@ namespace TelescopeTempControl
                 btnStart.PerformClick();
             }
 
+
+            //chart tunning
+            //chart1.ChartAreas[0].AxisX.Interval = 1;
+            chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Hours;
+            chart1.ChartAreas[0].AxisX.LabelStyle.Format = "HH:ii";
+            chart1.ChartAreas[0].AxisX.MajorTickMark.IntervalType = DateTimeIntervalType.Hours;
+            chart1.ChartAreas[0].AxisX.MinorTickMark.Interval = 1;
+            chart1.ChartAreas[0].AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Minutes;
+            chart1.ChartAreas[0].AxisX.MinorTickMark.Interval = 1;
         }
 
 
 
-#region Buttons handlers
+        #region Buttons handlers
 
         /// <summary>
         /// Start monitoring
@@ -163,6 +178,7 @@ namespace TelescopeTempControl
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
+            AboutForm = new AboutBox();
             AboutForm.Show();
         }
 
@@ -426,7 +442,7 @@ Current HEATER PWM value: 36
             }
             if (Hardware.SensorsList["Heater"].CheckLastValue())
             {
-                addGraphicsPoint(chart1, "Heater", curX, Hardware.SensorsList["Heater"].LastValue);
+                addGraphicsPoint(chart1, "Heater", curX, Hardware.HeaterPower);
             }
 
             //Graph3
@@ -444,6 +460,9 @@ Current HEATER PWM value: 36
             {
                 addGraphicsPoint(chart1, "Temp_sec", curX, Hardware.SensorsList["Temp3"].LastValue);
             }
+
+            changeYScale(chart1, chart1.ChartAreas["ChartArea3_temp"]);
+
             if (Hardware.SensorsList["Hum1"].CheckLastValue())
             {
                 addGraphicsPoint(chart1, "Humidity", curX, Hardware.SensorsList["Hum1"].LastValue);
@@ -456,6 +475,7 @@ Current HEATER PWM value: 36
 
             Logging.AddLog("Main.refreshGraphs exit", LogLevel.Trace);
         }
+
 
         /// <summary>
         /// Add graphics point overload method - Series Name instead of Series Num
@@ -490,6 +510,31 @@ Current HEATER PWM value: 36
             CurChart.Invalidate();
         }
 
+        /// <summary>
+        /// Change min max scale of chart area
+        /// </summary>
+        /// <param name="chart"></param>
+        private void changeYScale(Chart curChart, ChartArea curChartArea)
+        {
+            double max = double.MinValue;
+            double min = double.MaxValue;
+
+            for (int s = 0; s < curChart.Series.Count(); s++)
+            {
+                if (curChart.Series[s].ChartArea == curChartArea.Name && curChart.Series[s].YAxisType==AxisType.Primary)
+                {
+                    foreach (DataPoint dp in curChart.Series[s].Points)
+                    {
+                        min = Math.Min(min, dp.YValues[0]);
+                        max = Math.Max(max, dp.YValues[0]);
+                    }
+                }
+            }
+            curChartArea.AxisY.Maximum = (max == double.MinValue? Double.NaN : Math.Ceiling(max));
+            curChartArea.AxisY.Minimum = (min == double.MaxValue ? Double.NaN : Math.Floor(min)); 
+            //curChartArea.AxisY.Maximum = (Math.Ceiling((max / 10)) * 10);
+            //curChartArea.AxisY.Minimum = (Math.Floor((min / 10)) * 10);
+        }
 
         /// <summary>
         /// Handle changing trackBar FanPWM
