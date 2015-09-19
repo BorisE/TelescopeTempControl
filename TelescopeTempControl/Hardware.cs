@@ -87,6 +87,9 @@ namespace TelescopeTempControl
         public bool AutoControl_FanSpeed = false;
         public bool AutoControl_Heater = false;
 
+        public DateTime AutoControl_LastCorrection;
+        public UInt32 AutoControl_Loop_Interval;
+
         public double DeltaTemp_Main = -100.0;
         public double DeltaTemp_Secondary = -100.0;
 
@@ -747,8 +750,7 @@ namespace TelescopeTempControl
             HeaterPWM = Convert.ToInt16(SensorsList["Heater"].LastValue);
             HeaterPower = (double)HeaterPWM / 255.0 * 100.0;
 
-            if (AutoControl_FanSpeed) ControlMainDelta();
-            if (AutoControl_Heater) ControlSecondaryDelta();
+            AutoControl_CYCLE();
 
             //check temp difference
             if (DeltaTemp_Secondary > HEATER_MAX_TEMPERATURE_DELTA)
@@ -868,11 +870,33 @@ namespace TelescopeTempControl
             }
         }
 
+
+
+        /// <summary>
+        /// Make AutoControl CYCLE
+        /// </summary>
+        public void AutoControl_CYCLE()
+        {
+            TimeSpan SinceLast_Correction = DateTime.Now.Subtract(AutoControl_LastCorrection);
+            UInt32 SinceLast_Correction_sec = (UInt32)Math.Round(SinceLast_Correction.TotalSeconds, 0);
+
+            if (SinceLast_Correction_sec >= AutoControl_Loop_Interval)
+            {
+                if (AutoControl_FanSpeed) ControlMainDelta();
+                if (AutoControl_Heater) ControlSecondaryDelta();
+
+                AutoControl_LastCorrection = DateTime.Now;
+            }
+        }
+
+
         /// <summary>
         /// Main mirror temp delta reaction parameters
         /// </summary>
-        public double TempDelta_Main_Target = 0.1; // min temp delta where fan swithced off
+        public double TempDelta_Main_Target = 0.2; // min temp delta where fan swithced off
         public double TempDelta_Main_MaxEffortZone = 2; // max temp delta where fan swithced fully on
+        public double TempDelta_Main_DewZone = 0.1; //dew risk zone
+
         public int FAN_MaxRotationSpeed = 1300;
         public int FAN_MinRotationSpeed = 160;
         public double FanRotationPowerCurve_a = 28.57;
@@ -884,22 +908,27 @@ namespace TelescopeTempControl
         /// </summary>
         public void ControlMainDelta()
         {
-            double AbsDeltaTemp_Main = Math.Abs(DeltaTemp_Main_List.Average()); //by asbolute value
+            double AvgDeltaTemp_Main = DeltaTemp_Main_List.Average(); 
             int setpwm = 255;
 
-            if (AbsDeltaTemp_Main <= TempDelta_Main_Target)
-            {
-                setpwm = 255; //switch off
-                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in still zone. Set fan to null", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
-            }
-            else if (AbsDeltaTemp_Main >= TempDelta_Main_MaxEffortZone)
+            if (AvgDeltaTemp_Main <= TempDelta_Main_DewZone)
             {
                 setpwm = 0; //switch fully on
-                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is too high. Set fan to full", AbsDeltaTemp_Main, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in dew risk zone. Set fan to null", AvgDeltaTemp_Main, setpwm), LogLevel.Activity);
+            }
+            else if (AvgDeltaTemp_Main <= TempDelta_Main_Target)
+            {
+                setpwm = 255; //switch off
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is in still zone. Set fan to null", AvgDeltaTemp_Main, setpwm), LogLevel.Activity);
+            }
+            else if (AvgDeltaTemp_Main >= TempDelta_Main_MaxEffortZone)
+            {
+                setpwm = 0; //switch fully on
+                Logging.AddLog(String.Format("Main_Tempdelta avg({0:0.00}) is too high. Set fan to full", AvgDeltaTemp_Main, setpwm), LogLevel.Activity);
             }
             else
             {
-                double power = FanRotationPowerCurve_a * AbsDeltaTemp_Main * AbsDeltaTemp_Main +FanRotationPowerCurve_b * AbsDeltaTemp_Main +FanRotationPowerCurve_c;
+                double power = FanRotationPowerCurve_a * AvgDeltaTemp_Main * AvgDeltaTemp_Main +FanRotationPowerCurve_b * AvgDeltaTemp_Main +FanRotationPowerCurve_c;
                 power = Math.Min(power,100);
                 power = Math.Max(power,0);
 
@@ -908,7 +937,7 @@ namespace TelescopeTempControl
 
                 setpwm = GetPWM_byFanSpeed(Convert.ToInt32(approx_rotation));
 
-                Logging.AddLog(String.Format("Main_Tempdelta avg" + SENSOR_HISTORY_LENGTH + " is {0:0.00}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AbsDeltaTemp_Main, power, approx_rotation, setpwm), LogLevel.Activity);
+                Logging.AddLog(String.Format("Main_Tempdelta avg" + SENSOR_HISTORY_LENGTH + " is {0:0.00}. Set fan to power: {1:0.0}%, target rotation speed: {2:0}rpm, PWM: {3:0}", AvgDeltaTemp_Main, power, approx_rotation, setpwm), LogLevel.Activity);
             
             }
             SetFanPWM(setpwm); 

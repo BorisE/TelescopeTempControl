@@ -6,6 +6,10 @@ to do:
 - modeling to settings parameters
 - socket commands: relay switching, parameters querying
 
+0.9.0 (2015-09-19)
+- new - main mirror dew risk zone
+- settings - drawing curves
+
 0.8.0 (2015-09-11)
 - settings (delta)
 - drawing zones on graph

@@ -114,7 +114,7 @@ namespace TelescopeTempControl
                 ParentMainForm.timer_main.Interval = Convert.ToInt16(Properties.Settings.Default.RefreshInterval);
                 ParentMainForm.timer_debug_changetext.Interval = Convert.ToInt16(Properties.Settings.Default.RefreshInterval);
 
-                ParentMainForm.Hardware.AutoControl_Loop_Interval = Convert.ToInt16(Properties.Settings.Default.SendDataInterval);
+                ParentMainForm.Hardware.AutoControl_Loop_Interval = Convert.ToUInt32(Properties.Settings.Default.SendDataInterval);
 
                 ParentMainForm.LogFormObj.MAX_LOG_LINES = Convert.ToInt32(Properties.Settings.Default.MaxLogLines);
                 Logging._MAX_DIPSLAYED_PROG_LOG_LINES = Convert.ToInt32(Properties.Settings.Default.MaxProgLogLines);
