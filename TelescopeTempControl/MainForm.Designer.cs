@@ -38,6 +38,9 @@
             System.Windows.Forms.DataVisualization.Charting.StripLine stripLine2 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
             System.Windows.Forms.DataVisualization.Charting.StripLine stripLine3 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.StripLine stripLine4 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            System.Windows.Forms.DataVisualization.Charting.StripLine stripLine5 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
+            System.Windows.Forms.DataVisualization.Charting.StripLine stripLine6 = new System.Windows.Forms.DataVisualization.Charting.StripLine();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -102,9 +105,10 @@
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(983, 7);
+            this.btnStart.Location = new System.Drawing.Point(1311, 9);
+            this.btnStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(115, 23);
+            this.btnStart.Size = new System.Drawing.Size(153, 28);
             this.btnStart.TabIndex = 1;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -113,9 +117,10 @@
             // btnSettings
             // 
             this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettings.Location = new System.Drawing.Point(983, 62);
+            this.btnSettings.Location = new System.Drawing.Point(1311, 76);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(115, 23);
+            this.btnSettings.Size = new System.Drawing.Size(153, 28);
             this.btnSettings.TabIndex = 1;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
@@ -124,9 +129,10 @@
             // btnAbout
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAbout.Location = new System.Drawing.Point(983, 149);
+            this.btnAbout.Location = new System.Drawing.Point(1311, 183);
+            this.btnAbout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(115, 23);
+            this.btnAbout.Size = new System.Drawing.Size(153, 28);
             this.btnAbout.TabIndex = 1;
             this.btnAbout.Text = "About";
             this.btnAbout.UseVisualStyleBackColor = true;
@@ -135,9 +141,10 @@
             // btnLog
             // 
             this.btnLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLog.Location = new System.Drawing.Point(983, 91);
+            this.btnLog.Location = new System.Drawing.Point(1311, 112);
+            this.btnLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(115, 23);
+            this.btnLog.Size = new System.Drawing.Size(153, 28);
             this.btnLog.TabIndex = 1;
             this.btnLog.Text = "Log";
             this.btnLog.UseVisualStyleBackColor = true;
@@ -175,8 +182,8 @@
             this.aFanGauge.GaugeRanges.Add(aGaugeRange1);
             this.aFanGauge.GaugeRanges.Add(aGaugeRange2);
             this.aFanGauge.GaugeRanges.Add(aGaugeRange3);
-            this.aFanGauge.Location = new System.Drawing.Point(4, 17);
-            this.aFanGauge.Margin = new System.Windows.Forms.Padding(2);
+            this.aFanGauge.Location = new System.Drawing.Point(5, 21);
+            this.aFanGauge.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.aFanGauge.MaxValue = 1300F;
             this.aFanGauge.MinValue = 0F;
             this.aFanGauge.Name = "aFanGauge";
@@ -205,7 +212,7 @@
             this.aFanGauge.ScaleNumbersRotation = 0;
             this.aFanGauge.ScaleNumbersStartScaleLine = 0;
             this.aFanGauge.ScaleNumbersStepScaleLines = 1;
-            this.aFanGauge.Size = new System.Drawing.Size(220, 150);
+            this.aFanGauge.Size = new System.Drawing.Size(293, 185);
             this.aFanGauge.TabIndex = 3;
             this.aFanGauge.Text = "aFanGauge";
             this.aFanGauge.Value = 0F;
@@ -226,8 +233,8 @@
             aGaugeRange4.OuterRadius = 50;
             aGaugeRange4.StartValue = 90F;
             this.aHeaterGauge.GaugeRanges.Add(aGaugeRange4);
-            this.aHeaterGauge.Location = new System.Drawing.Point(232, 17);
-            this.aHeaterGauge.Margin = new System.Windows.Forms.Padding(2);
+            this.aHeaterGauge.Location = new System.Drawing.Point(309, 21);
+            this.aHeaterGauge.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.aHeaterGauge.MaxValue = 100F;
             this.aHeaterGauge.MinValue = 0F;
             this.aHeaterGauge.Name = "aHeaterGauge";
@@ -256,7 +263,7 @@
             this.aHeaterGauge.ScaleNumbersRotation = 0;
             this.aHeaterGauge.ScaleNumbersStartScaleLine = 2;
             this.aHeaterGauge.ScaleNumbersStepScaleLines = 1;
-            this.aHeaterGauge.Size = new System.Drawing.Size(220, 150);
+            this.aHeaterGauge.Size = new System.Drawing.Size(293, 185);
             this.aHeaterGauge.TabIndex = 3;
             this.aHeaterGauge.Text = "aFanGauge";
             this.aHeaterGauge.Value = 0F;
@@ -264,11 +271,11 @@
             // trackBar_HeaterPWM
             // 
             this.trackBar_HeaterPWM.LargeChange = 10;
-            this.trackBar_HeaterPWM.Location = new System.Drawing.Point(300, 171);
-            this.trackBar_HeaterPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBar_HeaterPWM.Location = new System.Drawing.Point(400, 210);
+            this.trackBar_HeaterPWM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar_HeaterPWM.Maximum = 255;
             this.trackBar_HeaterPWM.Name = "trackBar_HeaterPWM";
-            this.trackBar_HeaterPWM.Size = new System.Drawing.Size(152, 45);
+            this.trackBar_HeaterPWM.Size = new System.Drawing.Size(203, 56);
             this.trackBar_HeaterPWM.SmallChange = 5;
             this.trackBar_HeaterPWM.TabIndex = 4;
             this.trackBar_HeaterPWM.TickFrequency = 10;
@@ -278,31 +285,31 @@
             // 
             this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLog.Location = new System.Drawing.Point(469, 9);
-            this.txtLog.Margin = new System.Windows.Forms.Padding(2);
+            this.txtLog.Location = new System.Drawing.Point(625, 11);
+            this.txtLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(462, 313);
+            this.txtLog.Size = new System.Drawing.Size(615, 384);
             this.txtLog.TabIndex = 5;
             this.txtLog.Text = "";
             // 
             // txtFldTemp2
             // 
             this.txtFldTemp2.BackColor = System.Drawing.SystemColors.Window;
-            this.txtFldTemp2.Location = new System.Drawing.Point(25, 32);
-            this.txtFldTemp2.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldTemp2.Location = new System.Drawing.Point(33, 39);
+            this.txtFldTemp2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldTemp2.Name = "txtFldTemp2";
             this.txtFldTemp2.ReadOnly = true;
-            this.txtFldTemp2.Size = new System.Drawing.Size(44, 20);
+            this.txtFldTemp2.Size = new System.Drawing.Size(57, 22);
             this.txtFldTemp2.TabIndex = 6;
             // 
             // txtFldTemp3
             // 
             this.txtFldTemp3.BackColor = System.Drawing.SystemColors.Window;
-            this.txtFldTemp3.Location = new System.Drawing.Point(177, 32);
-            this.txtFldTemp3.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldTemp3.Location = new System.Drawing.Point(236, 39);
+            this.txtFldTemp3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldTemp3.Name = "txtFldTemp3";
             this.txtFldTemp3.ReadOnly = true;
-            this.txtFldTemp3.Size = new System.Drawing.Size(41, 20);
+            this.txtFldTemp3.Size = new System.Drawing.Size(53, 22);
             this.txtFldTemp3.TabIndex = 6;
             // 
             // txtFldTemp1
@@ -310,40 +317,37 @@
             this.txtFldTemp1.BackColor = System.Drawing.SystemColors.Window;
             this.txtFldTemp1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtFldTemp1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtFldTemp1.Location = new System.Drawing.Point(96, 32);
-            this.txtFldTemp1.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldTemp1.Location = new System.Drawing.Point(128, 39);
+            this.txtFldTemp1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldTemp1.Name = "txtFldTemp1";
             this.txtFldTemp1.ReadOnly = true;
-            this.txtFldTemp1.Size = new System.Drawing.Size(48, 19);
+            this.txtFldTemp1.Size = new System.Drawing.Size(63, 22);
             this.txtFldTemp1.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 15);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(21, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(80, 17);
             this.label1.TabIndex = 7;
             this.label1.Text = "Mirror temp";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(155, 15);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(207, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.Size = new System.Drawing.Size(111, 17);
             this.label2.TabIndex = 7;
             this.label2.Text = "Secondary temp";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(104, 16);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(139, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(44, 17);
             this.label3.TabIndex = 7;
             this.label3.Text = "Temp";
             // 
@@ -370,9 +374,10 @@
             // btnSimulate
             // 
             this.btnSimulate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSimulate.Location = new System.Drawing.Point(983, 120);
+            this.btnSimulate.Location = new System.Drawing.Point(1311, 148);
+            this.btnSimulate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSimulate.Name = "btnSimulate";
-            this.btnSimulate.Size = new System.Drawing.Size(115, 23);
+            this.btnSimulate.Size = new System.Drawing.Size(153, 28);
             this.btnSimulate.TabIndex = 1;
             this.btnSimulate.Text = "Simulate";
             this.btnSimulate.UseVisualStyleBackColor = true;
@@ -381,13 +386,13 @@
             // trackBar_FanPWM
             // 
             this.trackBar_FanPWM.LargeChange = 10;
-            this.trackBar_FanPWM.Location = new System.Drawing.Point(78, 171);
-            this.trackBar_FanPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBar_FanPWM.Location = new System.Drawing.Point(104, 210);
+            this.trackBar_FanPWM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.trackBar_FanPWM.Maximum = 255;
             this.trackBar_FanPWM.Name = "trackBar_FanPWM";
             this.trackBar_FanPWM.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.trackBar_FanPWM.RightToLeftLayout = true;
-            this.trackBar_FanPWM.Size = new System.Drawing.Size(130, 45);
+            this.trackBar_FanPWM.Size = new System.Drawing.Size(173, 56);
             this.trackBar_FanPWM.SmallChange = 5;
             this.trackBar_FanPWM.TabIndex = 4;
             this.trackBar_FanPWM.TickFrequency = 10;
@@ -412,7 +417,6 @@
             | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.LabelsAngleStep30) 
             | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.LabelsAngleStep45) 
             | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.WordWrap)));
-            chartArea1.AxisX.LabelStyle.Angle = 90;
             chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Arial", 6F);
             chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.BlanchedAlmond;
             chartArea1.AxisX.LabelStyle.Format = "g";
@@ -446,12 +450,12 @@
             stripLine1.IntervalOffset = 0.2D;
             stripLine1.StripWidth = 1.8D;
             stripLine2.BorderColor = System.Drawing.Color.Silver;
-            stripLine3.BackColor = System.Drawing.Color.White;
+            stripLine3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             stripLine3.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            stripLine3.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            stripLine3.BackSecondaryColor = System.Drawing.SystemColors.Highlight;
             stripLine3.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            stripLine3.IntervalOffset = -2D;
-            stripLine3.StripWidth = 1.8D;
+            stripLine3.IntervalOffset = -10D;
+            stripLine3.StripWidth = 10.1D;
             chartArea1.AxisY.StripLines.Add(stripLine1);
             chartArea1.AxisY.StripLines.Add(stripLine2);
             chartArea1.AxisY.StripLines.Add(stripLine3);
@@ -491,6 +495,17 @@
             chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
             chartArea2.AxisY.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
             chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Silver;
+            stripLine4.BackColor = System.Drawing.Color.White;
+            stripLine4.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            stripLine4.BackSecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            stripLine4.StripWidth = 2D;
+            stripLine5.BorderColor = System.Drawing.Color.Gray;
+            stripLine6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            stripLine6.IntervalOffset = -2D;
+            stripLine6.StripWidth = 2D;
+            chartArea2.AxisY.StripLines.Add(stripLine4);
+            chartArea2.AxisY.StripLines.Add(stripLine5);
+            chartArea2.AxisY.StripLines.Add(stripLine6);
             chartArea2.AxisY2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea2.AxisY2.LabelAutoFitMaxFontSize = 7;
             chartArea2.AxisY2.LabelAutoFitMinFontSize = 7;
@@ -549,47 +564,55 @@
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.ChartAreas.Add(chartArea3);
-            this.chart1.Location = new System.Drawing.Point(7, 324);
+            this.chart1.Location = new System.Drawing.Point(9, 399);
             this.chart1.Margin = new System.Windows.Forms.Padding(0);
             this.chart1.Name = "chart1";
+            series1.BorderColor = System.Drawing.SystemColors.HotTrack;
             series1.BorderWidth = 3;
             series1.ChartArea = "ChartArea1_main";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Color = System.Drawing.SystemColors.HotTrack;
             series1.Name = "Temp_main_delta";
             series2.ChartArea = "ChartArea1_main";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             series2.Name = "RPM";
             series2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
             series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series3.BorderWidth = 3;
             series3.ChartArea = "ChartArea2_secondary";
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Color = System.Drawing.Color.Red;
             series3.Name = "Temp_sec_delta";
             series4.ChartArea = "ChartArea2_secondary";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Color = System.Drawing.Color.Green;
             series4.Name = "Heater";
             series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series5.BorderWidth = 3;
             series5.ChartArea = "ChartArea3_temp";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series5.Color = System.Drawing.Color.LightSkyBlue;
+            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             series5.Name = "Temp_ext";
+            series5.ShadowOffset = 2;
             series5.ToolTip = "Temp1 (#VAL{F1} at #VALX{dd.MM.yyyy HH:mm})\\nlast value: #LAST{F1} \\nmin:#MIN{F1}" +
     " max:#MAX{F1} avg:#AVG{F1}\\n";
             series6.ChartArea = "ChartArea3_temp";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series6.Color = System.Drawing.Color.Blue;
             series6.Name = "Temp_main";
             series6.ToolTip = "Temp2 #VAL{F1} (at #VALX{dd.MM.yyyy HH:mm})\\nlast value: #LAST{F1} \\nmin:#MIN{F1}" +
     " max:#MAX{F1} avg:#AVG{F1}\\n";
             series7.ChartArea = "ChartArea3_temp";
             series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series7.Color = System.Drawing.Color.Red;
             series7.Name = "Temp_sec";
             series7.ToolTip = "Temp3 (#VAL{F1} at #VALX{dd.MM.yyyy HH:mm})\\nlast value: #LAST{F1} \\nmin:#MIN{F1}" +
     " max:#MAX{F1} avg:#AVG{F1}\\n";
             series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            series8.BorderWidth = 2;
             series8.ChartArea = "ChartArea3_temp";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             series8.Name = "Humidity";
             series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             this.chart1.Series.Add(series1);
@@ -600,7 +623,7 @@
             this.chart1.Series.Add(series6);
             this.chart1.Series.Add(series7);
             this.chart1.Series.Add(series8);
-            this.chart1.Size = new System.Drawing.Size(1091, 326);
+            this.chart1.Size = new System.Drawing.Size(1455, 401);
             this.chart1.TabIndex = 25;
             this.chart1.Text = "Sensors data";
             title1.DockedToChartArea = "ChartArea1_main";
@@ -625,20 +648,20 @@
             // txtControlFanPWM
             // 
             this.txtControlFanPWM.BackColor = System.Drawing.SystemColors.Window;
-            this.txtControlFanPWM.Location = new System.Drawing.Point(5, 171);
-            this.txtControlFanPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.txtControlFanPWM.Location = new System.Drawing.Point(7, 210);
+            this.txtControlFanPWM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtControlFanPWM.Name = "txtControlFanPWM";
-            this.txtControlFanPWM.Size = new System.Drawing.Size(30, 20);
+            this.txtControlFanPWM.Size = new System.Drawing.Size(39, 22);
             this.txtControlFanPWM.TabIndex = 26;
             this.txtControlFanPWM.TextChanged += new System.EventHandler(this.txtControlFanPWM_TextChanged);
             // 
             // txtControlHeaterPWM
             // 
             this.txtControlHeaterPWM.BackColor = System.Drawing.SystemColors.Window;
-            this.txtControlHeaterPWM.Location = new System.Drawing.Point(232, 171);
-            this.txtControlHeaterPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.txtControlHeaterPWM.Location = new System.Drawing.Point(309, 210);
+            this.txtControlHeaterPWM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtControlHeaterPWM.Name = "txtControlHeaterPWM";
-            this.txtControlHeaterPWM.Size = new System.Drawing.Size(30, 20);
+            this.txtControlHeaterPWM.Size = new System.Drawing.Size(39, 22);
             this.txtControlHeaterPWM.TabIndex = 26;
             this.txtControlHeaterPWM.TextChanged += new System.EventHandler(this.txtControlHeaterPWM_TextChanged);
             // 
@@ -658,11 +681,11 @@
             this.groupBox1.Controls.Add(this.txtSecondaryDelta);
             this.groupBox1.Controls.Add(this.txtMainDelta);
             this.groupBox1.Controls.Add(this.txtFldTemp2);
-            this.groupBox1.Location = new System.Drawing.Point(7, 226);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(9, 278);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(456, 96);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(608, 118);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Temperature";
@@ -670,81 +693,77 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(136, 79);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(181, 97);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(54, 13);
+            this.label5.Size = new System.Drawing.Size(69, 17);
             this.label5.TabIndex = 8;
             this.label5.Text = "Sec Delta";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(52, 79);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(69, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.Size = new System.Drawing.Size(73, 17);
             this.label4.TabIndex = 8;
             this.label4.Text = "Main delta";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(297, 34);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(396, 42);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.Size = new System.Drawing.Size(77, 17);
             this.label7.TabIndex = 7;
             this.label7.Text = "Temp DHT";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(297, 58);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(396, 71);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 13);
+            this.label6.Size = new System.Drawing.Size(62, 17);
             this.label6.TabIndex = 7;
             this.label6.Text = "Humidity";
             // 
             // txtFldDTemp
             // 
             this.txtFldDTemp.BackColor = System.Drawing.SystemColors.Window;
-            this.txtFldDTemp.Location = new System.Drawing.Point(359, 32);
-            this.txtFldDTemp.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldDTemp.Location = new System.Drawing.Point(479, 39);
+            this.txtFldDTemp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldDTemp.Name = "txtFldDTemp";
             this.txtFldDTemp.ReadOnly = true;
-            this.txtFldDTemp.Size = new System.Drawing.Size(41, 20);
+            this.txtFldDTemp.Size = new System.Drawing.Size(53, 22);
             this.txtFldDTemp.TabIndex = 6;
             // 
             // txtFldHumidity
             // 
             this.txtFldHumidity.BackColor = System.Drawing.SystemColors.Window;
-            this.txtFldHumidity.Location = new System.Drawing.Point(359, 55);
-            this.txtFldHumidity.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldHumidity.Location = new System.Drawing.Point(479, 68);
+            this.txtFldHumidity.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldHumidity.Name = "txtFldHumidity";
             this.txtFldHumidity.ReadOnly = true;
-            this.txtFldHumidity.Size = new System.Drawing.Size(41, 20);
+            this.txtFldHumidity.Size = new System.Drawing.Size(53, 22);
             this.txtFldHumidity.TabIndex = 6;
             // 
             // txtSecondaryDelta
             // 
             this.txtSecondaryDelta.BackColor = System.Drawing.SystemColors.Window;
-            this.txtSecondaryDelta.Location = new System.Drawing.Point(139, 55);
-            this.txtSecondaryDelta.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSecondaryDelta.Location = new System.Drawing.Point(185, 68);
+            this.txtSecondaryDelta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSecondaryDelta.Name = "txtSecondaryDelta";
             this.txtSecondaryDelta.ReadOnly = true;
-            this.txtSecondaryDelta.Size = new System.Drawing.Size(44, 20);
+            this.txtSecondaryDelta.Size = new System.Drawing.Size(57, 22);
             this.txtSecondaryDelta.TabIndex = 6;
             // 
             // txtMainDelta
             // 
             this.txtMainDelta.BackColor = System.Drawing.SystemColors.Window;
-            this.txtMainDelta.Location = new System.Drawing.Point(57, 54);
-            this.txtMainDelta.Margin = new System.Windows.Forms.Padding(2);
+            this.txtMainDelta.Location = new System.Drawing.Point(76, 66);
+            this.txtMainDelta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMainDelta.Name = "txtMainDelta";
             this.txtMainDelta.ReadOnly = true;
-            this.txtMainDelta.Size = new System.Drawing.Size(44, 20);
+            this.txtMainDelta.Size = new System.Drawing.Size(57, 22);
             this.txtMainDelta.TabIndex = 6;
             // 
             // groupBox2
@@ -761,20 +780,21 @@
             this.groupBox2.Controls.Add(this.aHeaterGauge);
             this.groupBox2.Controls.Add(this.aFanGauge);
             this.groupBox2.Controls.Add(this.trackBar_FanPWM);
-            this.groupBox2.Location = new System.Drawing.Point(7, 1);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox2.Location = new System.Drawing.Point(9, 1);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(456, 221);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(608, 272);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             // 
             // chkAutoHeatingControlling
             // 
             this.chkAutoHeatingControlling.AutoSize = true;
-            this.chkAutoHeatingControlling.Location = new System.Drawing.Point(232, 196);
+            this.chkAutoHeatingControlling.Location = new System.Drawing.Point(309, 241);
+            this.chkAutoHeatingControlling.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkAutoHeatingControlling.Name = "chkAutoHeatingControlling";
-            this.chkAutoHeatingControlling.Size = new System.Drawing.Size(82, 17);
+            this.chkAutoHeatingControlling.Size = new System.Drawing.Size(105, 21);
             this.chkAutoHeatingControlling.TabIndex = 29;
             this.chkAutoHeatingControlling.Text = "Autocontroll";
             this.chkAutoHeatingControlling.UseVisualStyleBackColor = true;
@@ -783,9 +803,10 @@
             // chkAutoFanControlling
             // 
             this.chkAutoFanControlling.AutoSize = true;
-            this.chkAutoFanControlling.Location = new System.Drawing.Point(5, 196);
+            this.chkAutoFanControlling.Location = new System.Drawing.Point(7, 241);
+            this.chkAutoFanControlling.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.chkAutoFanControlling.Name = "chkAutoFanControlling";
-            this.chkAutoFanControlling.Size = new System.Drawing.Size(82, 17);
+            this.chkAutoFanControlling.Size = new System.Drawing.Size(105, 21);
             this.chkAutoFanControlling.TabIndex = 29;
             this.chkAutoFanControlling.Text = "Autocontroll";
             this.chkAutoFanControlling.UseVisualStyleBackColor = true;
@@ -794,51 +815,49 @@
             // txtFldHeaterPWM
             // 
             this.txtFldHeaterPWM.BackColor = System.Drawing.SystemColors.Control;
-            this.txtFldHeaterPWM.Location = new System.Drawing.Point(319, 140);
-            this.txtFldHeaterPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldHeaterPWM.Location = new System.Drawing.Point(425, 172);
+            this.txtFldHeaterPWM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldHeaterPWM.Name = "txtFldHeaterPWM";
             this.txtFldHeaterPWM.ReadOnly = true;
-            this.txtFldHeaterPWM.Size = new System.Drawing.Size(38, 20);
+            this.txtFldHeaterPWM.Size = new System.Drawing.Size(49, 22);
             this.txtFldHeaterPWM.TabIndex = 28;
             this.txtFldHeaterPWM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(49, 8);
-            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Location = new System.Drawing.Point(65, 10);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(131, 13);
+            this.label9.Size = new System.Drawing.Size(178, 17);
             this.label9.TabIndex = 27;
             this.label9.Text = "Main mirror fan speed, rpm";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(260, 8);
-            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Location = new System.Drawing.Point(347, 10);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(165, 13);
+            this.label8.Size = new System.Drawing.Size(224, 17);
             this.label8.TabIndex = 27;
             this.label8.Text = "Secondary mirror heater power, %";
             // 
             // txtFldRPM
             // 
             this.txtFldRPM.BackColor = System.Drawing.SystemColors.Control;
-            this.txtFldRPM.Location = new System.Drawing.Point(95, 140);
-            this.txtFldRPM.Margin = new System.Windows.Forms.Padding(2);
+            this.txtFldRPM.Location = new System.Drawing.Point(127, 172);
+            this.txtFldRPM.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtFldRPM.Name = "txtFldRPM";
             this.txtFldRPM.ReadOnly = true;
-            this.txtFldRPM.Size = new System.Drawing.Size(38, 20);
+            this.txtFldRPM.Size = new System.Drawing.Size(49, 22);
             this.txtFldRPM.TabIndex = 26;
             this.txtFldRPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // MainForm
             // 
             this.AcceptButton = this.btnStart;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1112, 648);
+            this.ClientSize = new System.Drawing.Size(1483, 798);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chart1);
@@ -849,7 +868,8 @@
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnStart);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(900, 650);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MinimumSize = new System.Drawing.Size(1194, 789);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Telescope Temp Control";
