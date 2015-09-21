@@ -97,6 +97,8 @@ namespace TelescopeTempControl
         public List<double> DeltaTemp_Secondary_List = new List<double>();
 
         public const int SENSOR_HISTORY_LENGTH = 10;
+
+        public double DewPoint = -100.0;
         #endregion
 
 
@@ -673,6 +675,10 @@ namespace TelescopeTempControl
                                 tagValue_dbl = Math.Max(tagValue_dbl,0);
                                 tagValue_dbl = Math.Min(tagValue_dbl, 255);
                             }
+                            else if (tagName == "DH1")
+                            {
+                                DewPoint = calcDewPoint(SensorsList["Temp1"].LastValue, SensorsList["Hum1"].LastValue);
+                            }
                             else if (tagName == "Pwm")
                             {
                                 tagValue_dbl = Math.Max(tagValue_dbl, 0);
@@ -1039,5 +1045,22 @@ namespace TelescopeTempControl
             }
         }    
     
+
+        /// <summary>
+        /// Calculates dew point temperature (very good approximation)
+        /// </summary>
+        /// <param name="Temp">Ambient temperature</param>
+        /// <param name="Hum">Current humidity</param>
+        /// <returns></returns>
+        public double calcDewPoint(double Temp, double Hum)
+        {
+            double a = 17.271;
+            double b = 237.7;
+            double te = (a * Temp) / (b + Temp) + Math.Log(Hum / 100);
+            double Td = (b * te) / (a - te);
+
+            return Td;
+        }
     }
+
 }

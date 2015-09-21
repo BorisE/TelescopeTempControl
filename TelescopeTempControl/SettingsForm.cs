@@ -198,7 +198,7 @@ namespace TelescopeTempControl
             double curMainB = Utils.ConvertToDouble(txtCurve_Main_b.Text);
             double curMainC = Utils.ConvertToDouble(txtCurve_Main_c.Text);
 
-            double stepx = 0.1;
+            double stepx = 0.05;
             double y = 0.0;
 
             //clear all points
@@ -208,7 +208,7 @@ namespace TelescopeTempControl
             }
 
             //add intermediate curve
-            for (double x = curTempDelta_Main_Target; x <= curTempDelta_Main_MaxEffortZone+0.001; x+= stepx)
+            for (double x = Math.Max(curTempDelta_Main_DewRiskZone, curTempDelta_Main_Target); x <= curTempDelta_Main_MaxEffortZone + 0.001; x += stepx)
             {
                 y = curMainA * x * x + curMainB * x + curMainC;
                 chartMainCurve.Series["curve"].Points.AddXY(x, y);
@@ -222,8 +222,9 @@ namespace TelescopeTempControl
             }
 
             //add early part
-            for (double x = 0; x <= curTempDelta_Main_Target+0.001; x += stepx)
+            for (double x = 0; x <= Math.Max(curTempDelta_Main_DewRiskZone,curTempDelta_Main_Target)+0.001; x += stepx)
             {
+                x=Math.Round(x, 3);
                 if (x < curTempDelta_Main_DewRiskZone)
                 {
                     y = 100;
@@ -239,7 +240,7 @@ namespace TelescopeTempControl
                 }
                 chartMainCurve.Series["minzone"].Points.AddXY(x, y);
             }
-            chartMainCurve.Series["minzone"].Points.AddXY(0.1, 0);
+            //chartMainCurve.Series["minzone"].Points.AddXY(x, 0);
 
             // Adjust Y & X axis scale
             chartMainCurve.ResetAutoValues();
@@ -258,7 +259,7 @@ namespace TelescopeTempControl
             double curSecondB = Utils.ConvertToDouble(txtCurve_Second_b.Text);
             double curSecondC = Utils.ConvertToDouble(txtCurve_Second_c.Text);
 
-            double stepx = 0.1;
+            double stepx = 0.05;
             double y = 0.0;
 
             //clear all points
@@ -268,21 +269,21 @@ namespace TelescopeTempControl
             }
 
             //add intermediate curve
-            for (double x = curTempDelta_Second_MaxEffortZone; x <= curTempDelta_Second_Target + 0.0001; x += stepx)
+            for (double x = curTempDelta_Second_MaxEffortZone; x <= curTempDelta_Second_Target + 0.001; x += stepx)
             {
                 y = curSecondA * x * x + curSecondB * x + curSecondC;
                 chartSecondCurve.Series["curve"].Points.AddXY(x, y);
             }
 
             //add late part
-            for (double x = curTempDelta_Second_Target; x <= curTempDelta_Second_Target + stepx * 2; x += stepx)
+            for (double x = curTempDelta_Second_Target; x <= curTempDelta_Second_Target + 0.001 + stepx * 2; x += stepx)
             {
                 y = 0;
                 chartSecondCurve.Series["maxzone"].Points.AddXY(x, y);
             }
 
             //add early part
-            for (double x = 0; x <= curTempDelta_Second_MaxEffortZone; x += stepx)
+            for (double x = 0; x <= curTempDelta_Second_MaxEffortZone + 0.001; x += stepx)
             {
                 y = 100;
                 chartSecondCurve.Series["minzone"].Points.AddXY(x, y);

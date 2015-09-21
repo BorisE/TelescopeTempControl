@@ -377,6 +377,7 @@ Current HEATER PWM value: 36
             {
                 if (Hardware.SensorsList["FPWM"].CheckLastValue())
                 {
+                    bManualFanPWMChange = false; //temporary disable resending command to serial (will be autoreseted)
                     txtControlFanPWM.Text = Convert.ToString(Hardware.SensorsList["FPWM"].LastValue);
                     bReadFanPWMValue = true;
                 }
@@ -387,6 +388,7 @@ Current HEATER PWM value: 36
             {
                 if (Hardware.SensorsList["Heater"].CheckLastValue())
                 {
+                    bManualHeaterPWMChange = false; //temporary disable resending command to serial (will be autoreseted)
                     txtControlHeaterPWM.Text = Convert.ToString(Math.Round(Hardware.SensorsList["Heater"].LastValue));
                     bReadHeaterPWMValue = true;
                 }
@@ -395,7 +397,9 @@ Current HEATER PWM value: 36
             //Calculated fields (custom fields)
             txtMainDelta.Text = Convert.ToString(Math.Round(Hardware.DeltaTemp_Main,1));
             txtSecondaryDelta.Text = Convert.ToString(Math.Round(Hardware.DeltaTemp_Secondary, 1));
-            
+
+            txtDewPoint.Text = Convert.ToString(Math.Round(Hardware.DewPoint, 1));
+
 
             //Cloud index coloring
             /*
@@ -459,6 +463,10 @@ Current HEATER PWM value: 36
             if (Hardware.SensorsList["Temp3"].CheckLastValue())
             {
                 addGraphicsPoint(chart1, "Temp_sec", curX, Hardware.SensorsList["Temp3"].LastValue);
+            }
+            if (Hardware.CheckData(Hardware.DewPoint,SensorTypeEnum.Temp))
+            {
+                addGraphicsPoint(chart1, "Dew_point", curX, Hardware.DewPoint);
             }
 
             changeYScale(chart1, chart1.ChartAreas["ChartArea3_temp"]);
@@ -536,13 +544,22 @@ Current HEATER PWM value: 36
             //curChartArea.AxisY.Minimum = (Math.Floor((min / 10)) * 10);
         }
 
+        bool bManualFanPWMChange = true;
+        bool bManualHeaterPWMChange = true;
         /// <summary>
         /// Handle changing trackBar FanPWM
         /// </summary>
         private void trackBar_FanPWM_ValueChanged(object sender, EventArgs e)
         {
             txtControlFanPWM.Text = trackBar_FanPWM.Value.ToString();
-            Hardware.SetFanPWM(trackBar_FanPWM.Value);
+            if (bManualFanPWMChange)
+            {
+                Hardware.SetFanPWM(trackBar_FanPWM.Value);
+            }
+            else
+            {
+                bManualFanPWMChange = true;
+            }
         }
 
         /// <summary>
@@ -550,7 +567,6 @@ Current HEATER PWM value: 36
         /// </summary>
         private void txtControlFanPWM_TextChanged(object sender, EventArgs e)
         {
-
             TextBox TxtBox = sender as TextBox;
             Int32 nCI=0;
             if (Int32.TryParse(TxtBox.Text, out nCI) && (nCI>=trackBar_FanPWM.Minimum) && (nCI<=trackBar_FanPWM.Maximum))
@@ -570,7 +586,14 @@ Current HEATER PWM value: 36
             aHeaterGauge.Value = Convert.ToSByte(trackBar_HeaterPWM.Value / 255.0 * 100.0);
             //txtFldHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
 
-            Hardware.SetHeaterPWM(trackBar_HeaterPWM.Value);
+            if (bManualHeaterPWMChange)
+            {
+                Hardware.SetHeaterPWM(trackBar_HeaterPWM.Value);
+            }
+            else
+            {
+                bManualHeaterPWMChange = true;
+            }
         }
 
         /// <summary>
