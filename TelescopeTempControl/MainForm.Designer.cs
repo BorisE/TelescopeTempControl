@@ -98,6 +98,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtFldRPM = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtDebugLogListSize = new System.Windows.Forms.TextBox();
+            this.txtDebugLogTxtSize = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HeaterPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_FanPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -413,15 +415,20 @@
             chartArea1.AxisX.LabelAutoFitStyle = ((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles)(((System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.IncreaseFont | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.DecreaseFont) 
             | System.Windows.Forms.DataVisualization.Charting.LabelAutoFitStyles.WordWrap)));
             chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F);
+            chartArea1.AxisX.LabelStyle.Interval = 1D;
+            chartArea1.AxisX.LabelStyle.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Hours;
             chartArea1.AxisX.MajorGrid.Interval = 1D;
             chartArea1.AxisX.MajorGrid.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Hours;
             chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
             chartArea1.AxisX.MajorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
-            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Silver;
+            chartArea1.AxisX.MajorTickMark.Interval = 1D;
+            chartArea1.AxisX.MajorTickMark.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Hours;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.DarkRed;
             chartArea1.AxisX.MaximumAutoSize = 7F;
             chartArea1.AxisX.MinorGrid.Enabled = true;
             chartArea1.AxisX.MinorGrid.LineColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisX.MinorGrid.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            chartArea1.AxisX.MinorTickMark.LineColor = System.Drawing.Color.Yellow;
             chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisY.LabelAutoFitMaxFontSize = 7;
@@ -509,7 +516,7 @@
             chartArea2.Position.Auto = false;
             chartArea2.Position.Height = 30F;
             chartArea2.Position.Width = 100F;
-            chartArea2.Position.Y = 38F;
+            chartArea2.Position.Y = 37F;
             chartArea3.AlignWithChartArea = "ChartArea1_main";
             chartArea3.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea3.AxisX.LabelAutoFitMaxFontSize = 7;
@@ -547,7 +554,7 @@
             chartArea3.Position.Auto = false;
             chartArea3.Position.Height = 30F;
             chartArea3.Position.Width = 100F;
-            chartArea3.Position.Y = 70F;
+            chartArea3.Position.Y = 69F;
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.ChartAreas.Add(chartArea3);
@@ -616,7 +623,7 @@
             this.chart1.Series.Add(series7);
             this.chart1.Series.Add(series8);
             this.chart1.Series.Add(series9);
-            this.chart1.Size = new System.Drawing.Size(993, 379);
+            this.chart1.Size = new System.Drawing.Size(993, 381);
             this.chart1.TabIndex = 25;
             this.chart1.Text = "Sensors data";
             title1.DockedToChartArea = "ChartArea1_main";
@@ -859,7 +866,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(254, 6);
+            this.label8.Location = new System.Drawing.Point(250, 11);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(165, 13);
@@ -877,12 +884,28 @@
             this.txtFldRPM.TabIndex = 26;
             this.txtFldRPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // txtDebugLogListSize
+            // 
+            this.txtDebugLogListSize.Location = new System.Drawing.Point(889, 219);
+            this.txtDebugLogListSize.Name = "txtDebugLogListSize";
+            this.txtDebugLogListSize.Size = new System.Drawing.Size(100, 20);
+            this.txtDebugLogListSize.TabIndex = 29;
+            // 
+            // txtDebugLogTxtSize
+            // 
+            this.txtDebugLogTxtSize.Location = new System.Drawing.Point(889, 253);
+            this.txtDebugLogTxtSize.Name = "txtDebugLogTxtSize";
+            this.txtDebugLogTxtSize.Size = new System.Drawing.Size(100, 20);
+            this.txtDebugLogTxtSize.TabIndex = 29;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1007, 687);
+            this.ClientSize = new System.Drawing.Size(1007, 692);
+            this.Controls.Add(this.txtDebugLogTxtSize);
+            this.Controls.Add(this.txtDebugLogListSize);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chart1);
@@ -906,6 +929,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -954,6 +978,8 @@
         private System.Windows.Forms.CheckBox chkAutoHeatingControlling;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtDewPoint;
+        private System.Windows.Forms.TextBox txtDebugLogListSize;
+        private System.Windows.Forms.TextBox txtDebugLogTxtSize;
     }
 }
 

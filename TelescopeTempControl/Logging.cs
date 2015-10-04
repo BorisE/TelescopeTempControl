@@ -45,7 +45,7 @@ namespace TelescopeTempControl
         /// <summary>
         /// Log text
         /// </summary>
-        private static List<LogRecord> LogList;
+        internal static List<LogRecord> LOGLIST;
 
 
         public static bool LogFileFlag = true;
@@ -60,7 +60,7 @@ namespace TelescopeTempControl
 
         static Logging()
         {
-            LogList = new List<LogRecord>();
+            LOGLIST = new List<LogRecord>();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace TelescopeTempControl
         }
 
         /// <summary>
-        /// Add log record to DataBase (LogList LIST)
+        /// Add log record to DataBase (LOGLIST LIST)
         /// </summary>
         /// <param name="logMessage"></param>
         /// <param name="LogLevel"></param>
@@ -90,24 +90,24 @@ namespace TelescopeTempControl
             LogRec.Message = logMessage;
             LogRec.LogLevel = LogLevel;
             LogRec.Highlight = ColorHighlight;
-            LogList.Add(LogRec);
+            LOGLIST.Add(LogRec);
         }
 
         /// <summary>
-        /// Dump to file Log Contents (LogList LIST)
+        /// Dump to file Log Contents (LOGLIST LIST)
         /// </summary>
         public static void DumpToFile(LogLevel LogLevel = LogLevel.All)
         {
             List<LogRecord> LogListNew = new List<LogRecord>();
 
             //sort new (not saved) records
-            for (var i = 0; i < LogList.Count; i++)
+            for (var i = 0; i < LOGLIST.Count; i++)
             {
                 // if current line wasn't written to file
-                if (!LogList[i].dumpedToFile)
+                if (!LOGLIST[i].dumpedToFile)
                 {
-                    LogListNew.Add(LogList[i]); //add to newrecords array
-                    LogList[i].dumpedToFile = true; //mark as written
+                    LogListNew.Add(LOGLIST[i]); //add to newrecords array
+                    LOGLIST[i].dumpedToFile = true; //mark as written
                 }
             }
 
@@ -133,6 +133,18 @@ namespace TelescopeTempControl
                             }
                         }
                     }
+                
+                    //Clean LOGFILE from records already dumped
+                    for (var i = 0; i < LOGLIST.Count; i++)
+                    {
+                        if (LOGLIST[i].dumpedToFile)
+                        {
+                            // if current line was written to file remove it
+                            LOGLIST.RemoveAt(i);
+                        }
+                    }
+                    
+                
                 }
                 catch (Exception Ex)
                 {
@@ -148,18 +160,18 @@ namespace TelescopeTempControl
         public static string DumpToString(LogLevel LogLevel = LogLevel.Activity)
         {
             string RetStr = "";
-            for (var i = 0; i < LogList.Count; i++)
+            for (var i = 0; i < LOGLIST.Count; i++)
             {
                 // if current line wasn't written to file
-                if (!LogList[i].displayed)
+                if (!LOGLIST[i].displayed)
                 {
                     // if current log level is less then DebugLevel
-                    if (LogList[i].LogLevel <= LogLevel)
+                    if (LOGLIST[i].LogLevel <= LogLevel)
                     {
-                        RetStr += String.Format("{0} {1}", LogList[i].Time.ToString("yyyy-MM-dd"), LogList[i].Time.ToString("HH:mm:ss"));
-                        RetStr += String.Format(": {0}", LogList[i].Message) + Environment.NewLine;
+                        RetStr += String.Format("{0} {1}", LOGLIST[i].Time.ToString("yyyy-MM-dd"), LOGLIST[i].Time.ToString("HH:mm:ss"));
+                        RetStr += String.Format(": {0}", LOGLIST[i].Message) + Environment.NewLine;
                     }
-                    LogList[i].displayed = true;
+                    LOGLIST[i].displayed = true;
                 }
             }
             return RetStr;
@@ -173,13 +185,13 @@ namespace TelescopeTempControl
             List<LogRecord> LogListNew = new List<LogRecord>();
 
             //sort new (not saved) records
-            for (var i = 0; i < LogList.Count; i++)
+            for (var i = 0; i < LOGLIST.Count; i++)
             {
                 // if current line wasn't displayed
-                if (!LogList[i].displayed)
+                if (!LOGLIST[i].displayed)
                 {
-                    LogListNew.Add(LogList[i]); //add to newrecords array
-                    LogList[i].displayed = true; //mark as written
+                    LogListNew.Add(LOGLIST[i]); //add to newrecords array
+                    LOGLIST[i].displayed = true; //mark as written
                 }
             }
 

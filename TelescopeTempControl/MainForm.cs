@@ -109,6 +109,7 @@ namespace TelescopeTempControl
                 else
                 {
                     //btnStart.Text = LocRM.GetString("Start");
+                    timer_main.Enabled = false;
                     btnStart.Text = "Start";
                     Logging.AddLog("Monitoring on [" + Hardware.PortName + "] was stopped",LogLevel.Activity);
                     //LogForm.txtLog.AppendText("Monitoring on [" + Hardware.PortName + "] was stopped");
@@ -206,6 +207,10 @@ namespace TelescopeTempControl
 
             //write to file
             Logging.DumpToFile();
+
+
+            txtDebugLogListSize.Text=Logging.LOGLIST.Count().ToString();
+            txtDebugLogTxtSize.Text = txtLog.Lines.Count().ToString();
         }
         
        

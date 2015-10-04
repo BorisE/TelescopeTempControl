@@ -59,6 +59,9 @@ namespace TelescopeTempControl
 
         }
 
+        /// <summary>
+        /// Click ok button - save settings
+        /// </summary>
         private void btnOk_Click(object sender, EventArgs e)
         {
             Logging.AddLog("Settings save starting...", LogLevel.Trace);
@@ -68,8 +71,12 @@ namespace TelescopeTempControl
                 //Debuglevel combobox
                 Properties.Settings.Default.LogLevel = (cmbLogLevel.SelectedIndex + 1).ToString();
 
+
+                //Commit changes
+                Properties.Settings.Default.Save(); 
                 Logging.AddLog("Settings were saved", LogLevel.Activity);
 
+                //Reload settings into working variables
                 LoadParams();
                 Logging.AddLog("Settings were reloaded into program", LogLevel.Activity);
 
@@ -98,6 +105,138 @@ namespace TelescopeTempControl
             }
 
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Do you want to reset all settings to their default values (this can't be undone)?", "Reset to default values", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                Properties.Settings.Default.Reset();
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Redraw_MainMirrorCurve();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Redraw_SecondaryMirrorCurve();
+        }
+
+
+        private void Redraw_MainMirrorCurve()
+        {
+            double curTempDelta_Main_Target = Utils.ConvertToDouble(txtTempTargetDelta_Main.Text);
+            double curTempDelta_Main_MaxEffortZone = Utils.ConvertToDouble(txtTempDelta_Main_MaxEffort.Text);
+            double curTempDelta_Main_DewRiskZone = Utils.ConvertToDouble(txtTempDelta_Main_DewRiskZone.Text);
+
+            double curMainA = Utils.ConvertToDouble(txtCurve_Main_a.Text);
+            double curMainB = Utils.ConvertToDouble(txtCurve_Main_b.Text);
+            double curMainC = Utils.ConvertToDouble(txtCurve_Main_c.Text);
+
+            double stepx = 0.05;
+            double y = 0.0;
+
+            //clear all points
+            foreach (var series in chartMainCurve.Series)
+            {
+                series.Points.Clear();
+            }
+
+            //add intermediate curve
+            for (double x = Math.Max(curTempDelta_Main_DewRiskZone, curTempDelta_Main_Target); x <= curTempDelta_Main_MaxEffortZone + 0.001; x += stepx)
+            {
+                y = curMainA * x * x + curMainB * x + curMainC;
+                chartMainCurve.Series["curve"].Points.AddXY(x, y);
+            }
+
+            //add late part
+            for (double x = curTempDelta_Main_MaxEffortZone; x <= curTempDelta_Main_MaxEffortZone + stepx * 2; x += stepx)
+            {
+                y = 100;
+                chartMainCurve.Series["maxzone"].Points.AddXY(x, y);
+            }
+
+            //add early part
+            for (double x = 0; x <= Math.Max(curTempDelta_Main_DewRiskZone, curTempDelta_Main_Target) + 0.001; x += stepx)
+            {
+                x = Math.Round(x, 3);
+                if (x < curTempDelta_Main_DewRiskZone)
+                {
+                    y = 100;
+                }
+                else if (x == curTempDelta_Main_DewRiskZone)
+                {
+                    chartMainCurve.Series["minzone"].Points.AddXY(x, 100); //add one more point for better rendering this part
+                    y = 0;
+                }
+                else
+                {
+                    y = 0;
+                }
+                chartMainCurve.Series["minzone"].Points.AddXY(x, y);
+            }
+            //chartMainCurve.Series["minzone"].Points.AddXY(x, 0);
+
+            // Adjust Y & X axis scale
+            chartMainCurve.ResetAutoValues();
+
+            // Invalidate chart
+            chartMainCurve.Invalidate();
+        }
+
+
+        private void Redraw_SecondaryMirrorCurve()
+        {
+            double curTempDelta_Second_Target = Utils.ConvertToDouble(txtTempTargetDelta_Second.Text);
+            double curTempDelta_Second_MaxEffortZone = Utils.ConvertToDouble(txtTempDelta_Second_MaxEffort.Text);
+
+            double curSecondA = Utils.ConvertToDouble(txtCurve_Second_a.Text);
+            double curSecondB = Utils.ConvertToDouble(txtCurve_Second_b.Text);
+            double curSecondC = Utils.ConvertToDouble(txtCurve_Second_c.Text);
+
+            double stepx = 0.05;
+            double y = 0.0;
+
+            //clear all points
+            foreach (var series in chartSecondCurve.Series)
+            {
+                series.Points.Clear();
+            }
+
+            //add intermediate curve
+            for (double x = curTempDelta_Second_MaxEffortZone; x <= curTempDelta_Second_Target + 0.001; x += stepx)
+            {
+                y = curSecondA * x * x + curSecondB * x + curSecondC;
+                chartSecondCurve.Series["curve"].Points.AddXY(x, y);
+            }
+
+            //add late part
+            for (double x = curTempDelta_Second_Target; x <= curTempDelta_Second_Target + 0.001 + stepx * 2; x += stepx)
+            {
+                y = 0;
+                chartSecondCurve.Series["maxzone"].Points.AddXY(x, y);
+            }
+
+            //add early part
+            for (double x = 0; x <= curTempDelta_Second_MaxEffortZone + 0.001; x += stepx)
+            {
+                y = 100;
+                chartSecondCurve.Series["minzone"].Points.AddXY(x, y);
+            }
+
+            // Adjust Y & X axis scale
+            chartSecondCurve.ResetAutoValues();
+
+            // Invalidate chart
+            chartSecondCurve.Invalidate();
+        }
+
 
         public void LoadParams()
         {
@@ -175,125 +314,6 @@ namespace TelescopeTempControl
             }
             Logging.AddLog("Loading saved parameters end", LogLevel.Trace);
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Redraw_MainMirrorCurve();
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Redraw_SecondaryMirrorCurve();
-        }
-
-
-        private void Redraw_MainMirrorCurve()
-        {
-            double curTempDelta_Main_Target = Utils.ConvertToDouble(txtTempTargetDelta_Main.Text);
-            double curTempDelta_Main_MaxEffortZone = Utils.ConvertToDouble(txtTempDelta_Main_MaxEffort.Text);
-            double curTempDelta_Main_DewRiskZone = Utils.ConvertToDouble(txtTempDelta_Main_DewRiskZone.Text);
-
-            double curMainA = Utils.ConvertToDouble(txtCurve_Main_a.Text);
-            double curMainB = Utils.ConvertToDouble(txtCurve_Main_b.Text);
-            double curMainC = Utils.ConvertToDouble(txtCurve_Main_c.Text);
-
-            double stepx = 0.05;
-            double y = 0.0;
-
-            //clear all points
-            foreach (var series in chartMainCurve.Series)
-            {
-                series.Points.Clear();
-            }
-
-            //add intermediate curve
-            for (double x = Math.Max(curTempDelta_Main_DewRiskZone, curTempDelta_Main_Target); x <= curTempDelta_Main_MaxEffortZone + 0.001; x += stepx)
-            {
-                y = curMainA * x * x + curMainB * x + curMainC;
-                chartMainCurve.Series["curve"].Points.AddXY(x, y);
-            }
-
-            //add late part
-            for (double x = curTempDelta_Main_MaxEffortZone; x <= curTempDelta_Main_MaxEffortZone+ stepx*2; x += stepx)
-            {
-                y = 100;
-                chartMainCurve.Series["maxzone"].Points.AddXY(x, y);
-            }
-
-            //add early part
-            for (double x = 0; x <= Math.Max(curTempDelta_Main_DewRiskZone,curTempDelta_Main_Target)+0.001; x += stepx)
-            {
-                x=Math.Round(x, 3);
-                if (x < curTempDelta_Main_DewRiskZone)
-                {
-                    y = 100;
-                }
-                else if (x == curTempDelta_Main_DewRiskZone)
-                {
-                    chartMainCurve.Series["minzone"].Points.AddXY(x, 100); //add one more point for better rendering this part
-                    y = 0;
-                }
-                else
-                {
-                    y = 0;
-                }
-                chartMainCurve.Series["minzone"].Points.AddXY(x, y);
-            }
-            //chartMainCurve.Series["minzone"].Points.AddXY(x, 0);
-
-            // Adjust Y & X axis scale
-            chartMainCurve.ResetAutoValues();
-
-            // Invalidate chart
-            chartMainCurve.Invalidate();
-        }
-
-
-        private void Redraw_SecondaryMirrorCurve()
-        {
-            double curTempDelta_Second_Target = Utils.ConvertToDouble(txtTempTargetDelta_Second.Text);
-            double curTempDelta_Second_MaxEffortZone = Utils.ConvertToDouble(txtTempDelta_Second_MaxEffort.Text);
-
-            double curSecondA = Utils.ConvertToDouble(txtCurve_Second_a.Text);
-            double curSecondB = Utils.ConvertToDouble(txtCurve_Second_b.Text);
-            double curSecondC = Utils.ConvertToDouble(txtCurve_Second_c.Text);
-
-            double stepx = 0.05;
-            double y = 0.0;
-
-            //clear all points
-            foreach (var series in chartSecondCurve.Series)
-            {
-                series.Points.Clear();
-            }
-
-            //add intermediate curve
-            for (double x = curTempDelta_Second_MaxEffortZone; x <= curTempDelta_Second_Target + 0.001; x += stepx)
-            {
-                y = curSecondA * x * x + curSecondB * x + curSecondC;
-                chartSecondCurve.Series["curve"].Points.AddXY(x, y);
-            }
-
-            //add late part
-            for (double x = curTempDelta_Second_Target; x <= curTempDelta_Second_Target + 0.001 + stepx * 2; x += stepx)
-            {
-                y = 0;
-                chartSecondCurve.Series["maxzone"].Points.AddXY(x, y);
-            }
-
-            //add early part
-            for (double x = 0; x <= curTempDelta_Second_MaxEffortZone + 0.001; x += stepx)
-            {
-                y = 100;
-                chartSecondCurve.Series["minzone"].Points.AddXY(x, y);
-            }
-
-            // Adjust Y & X axis scale
-            chartSecondCurve.ResetAutoValues();
-
-            // Invalidate chart
-            chartSecondCurve.Invalidate();
         }
 
 

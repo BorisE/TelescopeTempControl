@@ -5,6 +5,10 @@ Change log
 to do:
 - socket commands: relay switching, parameters querying
 
+1.0.1 (2015-10-04)
+- memory optimization - cleaning loglist after dumping to file
+- bug with settings saving
+
 1.0.0 (2015-09-21)
 - dew point calculation and displayin
 - prevent to double send control values to serial
