@@ -32,9 +32,9 @@ namespace TelescopeTempControl
             Logging.AddLog("Settings Form load starting...", LogLevel.Trace);
 
             //READ COM PORT LIST
-            COM11.Items.Clear();
+            cmbPortList.Items.Clear();
             foreach (string s in SerialPort.GetPortNames())
-                COM11.Items.Add(s);
+                cmbPortList.Items.Add(s);
 
             //POPULATE LogLevel combobox
             cmbLogLevel.Items.Clear(); int nI = 0;
@@ -68,6 +68,9 @@ namespace TelescopeTempControl
 
             try
             {
+                //Comport combobox
+                string t = Properties.Settings.Default.comport;
+
                 //Debuglevel combobox
                 Properties.Settings.Default.LogLevel = (cmbLogLevel.SelectedIndex + 1).ToString();
 

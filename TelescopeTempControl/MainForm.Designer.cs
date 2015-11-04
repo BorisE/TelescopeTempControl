@@ -98,8 +98,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtFldRPM = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.txtDebugLogListSize = new System.Windows.Forms.TextBox();
-            this.txtDebugLogTxtSize = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HeaterPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_FanPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -884,28 +882,12 @@
             this.txtFldRPM.TabIndex = 26;
             this.txtFldRPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtDebugLogListSize
-            // 
-            this.txtDebugLogListSize.Location = new System.Drawing.Point(889, 219);
-            this.txtDebugLogListSize.Name = "txtDebugLogListSize";
-            this.txtDebugLogListSize.Size = new System.Drawing.Size(100, 20);
-            this.txtDebugLogListSize.TabIndex = 29;
-            // 
-            // txtDebugLogTxtSize
-            // 
-            this.txtDebugLogTxtSize.Location = new System.Drawing.Point(889, 253);
-            this.txtDebugLogTxtSize.Name = "txtDebugLogTxtSize";
-            this.txtDebugLogTxtSize.Size = new System.Drawing.Size(100, 20);
-            this.txtDebugLogTxtSize.TabIndex = 29;
-            // 
             // MainForm
             // 
             this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 692);
-            this.Controls.Add(this.txtDebugLogTxtSize);
-            this.Controls.Add(this.txtDebugLogListSize);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chart1);
@@ -929,7 +911,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -978,8 +959,6 @@
         private System.Windows.Forms.CheckBox chkAutoHeatingControlling;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtDewPoint;
-        private System.Windows.Forms.TextBox txtDebugLogListSize;
-        private System.Windows.Forms.TextBox txtDebugLogTxtSize;
     }
 }
 

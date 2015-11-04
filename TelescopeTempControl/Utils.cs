@@ -344,12 +344,12 @@ namespace TelescopeTempControl
                 //2.1. Automatic decimal point correction
                 char Separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
                 char BadSeparator = '.';
-                            
+
                 if (Separator == '.') { BadSeparator = ','; }
                 if (Separator == ',') { BadSeparator = '.'; }
 
                 string Val_st = Val.Replace(BadSeparator, Separator);
-                            
+
                 //2.2. Try to convert to double. 
                 try
                 {
@@ -359,6 +359,7 @@ namespace TelescopeTempControl
                 {
                     throw;
                 }
+
                 return DblRes;
             }
         }

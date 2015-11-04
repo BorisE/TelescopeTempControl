@@ -73,7 +73,7 @@
             this.chkWatchdog = new System.Windows.Forms.CheckBox();
             this.btnOpenWriteToFile = new System.Windows.Forms.Button();
             this.btnOpenReadFromFile = new System.Windows.Forms.Button();
-            this.COM11 = new System.Windows.Forms.ComboBox();
+            this.cmbPortList = new System.Windows.Forms.ComboBox();
             this.tabPage_Modeling = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -448,7 +448,7 @@
             this.groupBox1.Controls.Add(this.chkWatchdog);
             this.groupBox1.Controls.Add(this.btnOpenWriteToFile);
             this.groupBox1.Controls.Add(this.btnOpenReadFromFile);
-            this.groupBox1.Controls.Add(this.COM11);
+            this.groupBox1.Controls.Add(this.cmbPortList);
             this.groupBox1.Location = new System.Drawing.Point(5, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(307, 101);
@@ -530,14 +530,15 @@
             this.btnOpenReadFromFile.Text = "...";
             this.btnOpenReadFromFile.UseVisualStyleBackColor = true;
             // 
-            // COM11
+            // cmbPortList
             // 
-            this.COM11.DataBindings.Add(new System.Windows.Forms.Binding("Name", global::TelescopeTempControl.Properties.Settings.Default, "comport", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.COM11.FormattingEnabled = true;
-            this.COM11.Location = new System.Drawing.Point(7, 19);
-            this.COM11.Name = global::TelescopeTempControl.Properties.Settings.Default.comport;
-            this.COM11.Size = new System.Drawing.Size(72, 21);
-            this.COM11.TabIndex = 0;
+            this.cmbPortList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "comport", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cmbPortList.FormattingEnabled = true;
+            this.cmbPortList.Location = new System.Drawing.Point(7, 19);
+            this.cmbPortList.Name = "cmbPortList";
+            this.cmbPortList.Size = new System.Drawing.Size(72, 21);
+            this.cmbPortList.TabIndex = 0;
+            this.cmbPortList.Text = global::TelescopeTempControl.Properties.Settings.Default.comport;
             // 
             // tabPage_Modeling
             // 
@@ -1069,7 +1070,7 @@
         private System.Windows.Forms.CheckBox chkWatchdog;
         private System.Windows.Forms.Button btnOpenWriteToFile;
         private System.Windows.Forms.Button btnOpenReadFromFile;
-        private System.Windows.Forms.ComboBox COM11;
+        private System.Windows.Forms.ComboBox cmbPortList;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;

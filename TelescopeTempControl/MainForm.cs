@@ -208,9 +208,6 @@ namespace TelescopeTempControl
             //write to file
             Logging.DumpToFile();
 
-
-            txtDebugLogListSize.Text=Logging.LOGLIST.Count().ToString();
-            txtDebugLogTxtSize.Text = txtLog.Lines.Count().ToString();
         }
         
        
