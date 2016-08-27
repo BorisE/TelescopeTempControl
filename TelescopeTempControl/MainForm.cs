@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -379,7 +380,7 @@ Current HEATER PWM value: 36
             {
                 if (Hardware.SensorsList["FPWM"].CheckLastValue())
                 {
-                    bManualFanPWMChange = false; //temporary disable resending command to serial (will be autoreseted)
+                    bAutomaticFanPWMChange = true; //temporary disable resending command to serial (will be autoreseted)
                     txtControlFanPWM.Text = Convert.ToString(Hardware.SensorsList["FPWM"].LastValue);
                     bReadFanPWMValue = true;
                 }
@@ -390,7 +391,7 @@ Current HEATER PWM value: 36
             {
                 if (Hardware.SensorsList["Heater"].CheckLastValue())
                 {
-                    bManualHeaterPWMChange = false; //temporary disable resending command to serial (will be autoreseted)
+                    bAutomaticHeaterPWMChange = true; //temporary disable resending command to serial (will be autoreseted)
                     txtControlHeaterPWM.Text = Convert.ToString(Math.Round(Hardware.SensorsList["Heater"].LastValue));
                     bReadHeaterPWMValue = true;
                 }
@@ -546,22 +547,50 @@ Current HEATER PWM value: 36
             //curChartArea.AxisY.Minimum = (Math.Floor((min / 10)) * 10);
         }
 
-        bool bManualFanPWMChange = true;
-        bool bManualHeaterPWMChange = true;
+        bool bAutomaticFanPWMChange = true;
+        bool bAutomaticHeaterPWMChange = true;
+        System.Threading.Timer FanPWM_ValueChanged_TimerObj = null;
+        System.Threading.Timer HeaterPWM_ValueChanged_TimerObj = null;
+        int ReactionDelay = 500;
+
         /// <summary>
         /// Handle changing trackBar FanPWM
         /// </summary>
         private void trackBar_FanPWM_ValueChanged(object sender, EventArgs e)
         {
             txtControlFanPWM.Text = trackBar_FanPWM.Value.ToString();
-            if (bManualFanPWMChange)
+
+            //Что бы избежать запусков метода при автоматической корректировке, проверить - было ли это автоматическое изменение
+            if (bAutomaticFanPWMChange==false)
             {
-                Hardware.SetFanPWM(trackBar_FanPWM.Value);
+                //Если таймер ожидания уже запущен - отложить его!
+                if (FanPWM_ValueChanged_TimerObj != null)
+                {
+                    FanPWM_ValueChanged_TimerObj.Change(ReactionDelay, Timeout.Infinite);
+                }
+                else
+                {
+                    //Если таймер ожидания еще не запущен - запустить!
+                    FanPWM_ValueChanged_TimerObj = new System.Threading.Timer((obj) =>
+                                {
+                                    int valtoset = -1;
+                                    this.Invoke(new MethodInvoker(() => valtoset = trackBar_FanPWM.Value)); //так как доступ к элементам формы может быть осуществлен только из UI thread
+                                    Hardware.SetFanPWM(valtoset);
+
+                                    //уничтожить объект, чтобы следующий таймер запустился
+                                    FanPWM_ValueChanged_TimerObj.Dispose();
+                                    FanPWM_ValueChanged_TimerObj = null;
+                                },
+                            null, ReactionDelay, Timeout.Infinite);
+
+                }
             }
             else
             {
-                bManualFanPWMChange = true;
+                //сбросить флаг автоматического изменения (чтобы проходили ручные)
+                bAutomaticFanPWMChange = false;
             }
+
         }
 
         /// <summary>
@@ -585,16 +614,40 @@ Current HEATER PWM value: 36
         {
             txtControlHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
 
-            aHeaterGauge.Value = Convert.ToSByte(trackBar_HeaterPWM.Value / 255.0 * 100.0);
-            //txtFldHeaterPWM.Text = trackBar_HeaterPWM.Value.ToString();
-
-            if (bManualHeaterPWMChange)
+            //Что бы избежать запусков метода при автоматической корректировке, проверить - было ли это автоматическое изменение
+            if (bAutomaticHeaterPWMChange == false)
             {
-                Hardware.SetHeaterPWM(trackBar_HeaterPWM.Value);
+
+                //Если таймер ожидания уже запущен - отложить его!
+                if (HeaterPWM_ValueChanged_TimerObj != null)
+                {
+                    HeaterPWM_ValueChanged_TimerObj.Change(ReactionDelay, Timeout.Infinite);
+                }
+                else
+                {
+                    //Если таймер ожидания еще не запущен - запустить!
+                    HeaterPWM_ValueChanged_TimerObj = new System.Threading.Timer((obj) =>
+                    {
+                        int valtoset = -1;
+                        this.Invoke(new MethodInvoker(() => valtoset = trackBar_HeaterPWM.Value)); //так как доступ к элементам формы может быть осуществлен только из UI thread
+
+                        this.Invoke(new MethodInvoker(() => aHeaterGauge.Value = Convert.ToSByte(trackBar_HeaterPWM.Value / 255.0 * 100.0))); //так как доступ к элементам формы может быть осуществлен только из UI thread
+
+
+                        Hardware.SetHeaterPWM(valtoset);
+
+                        //уничтожить объект, чтобы следующий таймер запустился
+                        HeaterPWM_ValueChanged_TimerObj.Dispose();
+                        HeaterPWM_ValueChanged_TimerObj = null;
+                    },
+                            null, ReactionDelay, Timeout.Infinite);
+
+                }
             }
             else
             {
-                bManualHeaterPWMChange = true;
+                //сбросить флаг автоматического изменения (чтобы проходили ручные)
+                bAutomaticHeaterPWMChange = false;
             }
         }
 

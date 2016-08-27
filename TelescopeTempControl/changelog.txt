@@ -5,6 +5,9 @@ Change log
 to do:
 - socket commands: relay switching, parameters querying
 
+1.1 (2016-08-27)
+- delay on trackbar change for user convience
+
 1.0.2 (2015-11-04)
 - comport name bug
 
