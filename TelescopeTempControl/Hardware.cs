@@ -8,6 +8,7 @@ using System.IO;
 
 namespace TelescopeTempControl
 {
+
     public partial class Hardware
     {
         /// <summary>
@@ -70,7 +71,6 @@ namespace TelescopeTempControl
         public int Relay1 = 0;
         public DateTime LastHeating1SwitchOn = new DateTime(2014, 1, 1, 0, 0, 1), LastHeating1SwitchOff = new DateTime(2014, 1, 1, 0, 0, 1);
         public int SinceLastHeating1;
-        public bool CloudSensorNeedHeatingFlag = false;
         public int Heating1Off_SecondsPassed = 0, Heating1On_SecondsPassed = 0;
         #endregion
 
@@ -99,6 +99,8 @@ namespace TelescopeTempControl
         public const int SENSOR_HISTORY_LENGTH = 10;
 
         public double DewPoint = -100.0;
+
+        public TelescopeTempControlData TTCData;
         #endregion
 
 
@@ -146,6 +148,8 @@ namespace TelescopeTempControl
             //if (MF != null) ParentMainForm = MF; 
 
             initSensorList();
+
+            TTCData = new TelescopeTempControlData();
 
             CommandParser = new CommandInterpretator();
             InitComandInterpretator();
@@ -653,6 +657,8 @@ namespace TelescopeTempControl
                                 }
                             }
 
+                            LastTimeDataParsed = DateTime.Now;
+
                             //2. PARSING PARTICULAR CASES
                             if (tagName == "Obj")
                             {
@@ -755,6 +761,19 @@ namespace TelescopeTempControl
 
             HeaterPWM = Convert.ToInt16(SensorsList["Heater"].LastValue);
             HeaterPower = (double)HeaterPWM / 255.0 * 100.0;
+
+            //Add data to obj
+            TTCData.AutoControl_FanSpeed = AutoControl_FanSpeed;
+            TTCData.AutoControl_Heater = AutoControl_Heater;
+            TTCData.DeltaTemp_Main = DeltaTemp_Main;
+            TTCData.DeltaTemp_Secondary = DeltaTemp_Secondary;
+            TTCData.DewPoint = DewPoint;
+            TTCData.FAN_FPWM = SensorsList["FPWM"].LastValue;
+            TTCData.FAN_RPM = SensorsList["RPM"].LastValue;
+            TTCData.HeaterPower = HeaterPower;
+            TTCData.HeaterPWM = HeaterPWM;
+            TTCData.LastTimeDataParsed = LastTimeDataParsed;
+
 
             AutoControl_CYCLE();
 
@@ -959,7 +978,8 @@ namespace TelescopeTempControl
         public double HeatingPowerCurve_a = 22.7;
         public double HeatingPowerCurve_b = -104.5;
         public double HeatingPowerCurve_c = 120.0;
-         
+        private DateTime LastTimeDataParsed;
+
 
         /// <summary>
         /// Procedure to automatically set Heater power based on DeltaTemp
@@ -1061,6 +1081,37 @@ namespace TelescopeTempControl
 
             return Td;
         }
+
+
+        public string getDataJSONString()
+        {
+
+            Logging.AddLog("getDataJSONString enter", LogLevel.Trace);
+
+            string st = "";
+
+            st += (st != String.Empty ? ", " : "") + @"""LastTimeParsed"": " + @"""" + Convert.ToString(TTCData.LastTimeDataParsed) + @"""";
+
+            st += (st != String.Empty ? ", " : "") + @"""FAN_RPM"": " + Convert.ToString(TTCData.FAN_RPM);
+            st += (st != String.Empty ? ", " : "") + @"""FAN_FPWM"": " + Convert.ToString(TTCData.FAN_FPWM);
+
+            st += (st != String.Empty ? ", " : "") + @"""HeaterPower"": " + Convert.ToString(TTCData.HeaterPower);
+            st += (st != String.Empty ? ", " : "") + @"""HeaterPWM"": " + Convert.ToString(TTCData.HeaterPWM);
+
+            st += (st != String.Empty ? ", " : "") + @"""AutoControl_FanSpeed"": " + Convert.ToString(TTCData.AutoControl_FanSpeed);
+            st += (st != String.Empty ? ", " : "") + @"""AutoControl_Heater"": " + Convert.ToString(TTCData.AutoControl_Heater);
+
+            st += (st != String.Empty ? ", " : "") + @"""DeltaTemp_Main"": " + Convert.ToString(TTCData.DeltaTemp_Main);
+            st += (st != String.Empty ? ", " : "") + @"""DeltaTemp_Secondary"": " + Convert.ToString(TTCData.DeltaTemp_Secondary);
+            st += (st != String.Empty ? ", " : "") + @"""DewPoint"": " + Convert.ToString(TTCData.DewPoint);
+
+            if (st != String.Empty) st = "{" + st + "}";
+
+            Logging.AddLog("getDataJSONString exit, ret: [" + st + "]", LogLevel.Trace);
+            return st;
+
+        }
+
     }
 
 }

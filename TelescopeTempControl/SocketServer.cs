@@ -17,7 +17,7 @@ namespace TelescopeTempControl
         /// Server parameters
         /// </summary>
         IPAddress serverIP=IPAddress.Any;
-        public Int32 serverPort=1400;
+        public Int32 serverPort=1054;
 
         /// <summary>
         /// Main socket listener
@@ -51,6 +51,10 @@ namespace TelescopeTempControl
             ParentMainForm=MF;
         }
 
+        /// <summary>
+        /// Start server listener.
+        /// After receiving incoming connection - run initClientConnection
+        /// </summary>
         public void StartListenSocket()
         {
             try
@@ -74,6 +78,11 @@ namespace TelescopeTempControl
             }
         }
 
+        /// <summary>
+        /// This handler is run when new client init connection
+        /// It create new object ClientManager for this client and pass control to it
+        /// </summary>
+        /// <param name="curSocket">Server</param>
         public void initClientConnection(Socket curSocket)
         {
             Logging.AddLog("Connection from " + curSocket.RemoteEndPoint + " accepted",LogLevel.Activity);
@@ -96,6 +105,13 @@ namespace TelescopeTempControl
             return clientsList.Count;
         }
 
+
+        /// <summary>
+        /// Connect to another socket server
+        /// </summary>
+        /// <param name="ipAddr">server addres</param>
+        /// <param name="port"></param>
+        /// <param name="message"></param>
         public void MakeClientConnectionToServer(IPAddress ipAddr, Int32 port, string message)
         {
             // Буфер для входящих данных
@@ -173,7 +189,7 @@ namespace TelescopeTempControl
         public SocketServerClass ParentSocketServer;
         public MainForm ParentMainFormLink;
 
-        private byte[] welcomeMsg = Encoding.UTF8.GetBytes("Connected to WeatherStation Monitor\n\r");
+        private byte[] welcomeMsg = Encoding.UTF8.GetBytes("Connected to TelescopeTempControl\n\r");
         const string STOP_MESSAGE = "TheEnd";
 
         // Буфер для входящих данных

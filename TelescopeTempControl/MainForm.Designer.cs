@@ -98,6 +98,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtFldRPM = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnOnOff = new System.Windows.Forms.Button();
+            this.backgroundWorker_SocketServer = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HeaterPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_FanPWM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -119,7 +121,7 @@
             // btnSettings
             // 
             this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettings.Location = new System.Drawing.Point(878, 62);
+            this.btnSettings.Location = new System.Drawing.Point(878, 98);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(115, 23);
             this.btnSettings.TabIndex = 1;
@@ -130,7 +132,7 @@
             // btnAbout
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAbout.Location = new System.Drawing.Point(878, 168);
+            this.btnAbout.Location = new System.Drawing.Point(878, 204);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(115, 23);
             this.btnAbout.TabIndex = 1;
@@ -141,7 +143,7 @@
             // btnLog
             // 
             this.btnLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLog.Location = new System.Drawing.Point(878, 91);
+            this.btnLog.Location = new System.Drawing.Point(878, 127);
             this.btnLog.Name = "btnLog";
             this.btnLog.Size = new System.Drawing.Size(115, 23);
             this.btnLog.TabIndex = 1;
@@ -376,7 +378,7 @@
             // btnSimulate
             // 
             this.btnSimulate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSimulate.Location = new System.Drawing.Point(878, 140);
+            this.btnSimulate.Location = new System.Drawing.Point(878, 176);
             this.btnSimulate.Name = "btnSimulate";
             this.btnSimulate.Size = new System.Drawing.Size(115, 23);
             this.btnSimulate.TabIndex = 1;
@@ -882,6 +884,21 @@
             this.txtFldRPM.TabIndex = 26;
             this.txtFldRPM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // btnOnOff
+            // 
+            this.btnOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOnOff.Location = new System.Drawing.Point(878, 45);
+            this.btnOnOff.Name = "btnOnOff";
+            this.btnOnOff.Size = new System.Drawing.Size(115, 23);
+            this.btnOnOff.TabIndex = 1;
+            this.btnOnOff.Text = "On";
+            this.btnOnOff.UseVisualStyleBackColor = true;
+            this.btnOnOff.Click += new System.EventHandler(this.btnOnOff_Click);
+            // 
+            // backgroundWorker_SocketServer
+            // 
+            this.backgroundWorker_SocketServer.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_SocketServer_DoWork);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnStart;
@@ -896,6 +913,7 @@
             this.Controls.Add(this.btnSimulate);
             this.Controls.Add(this.btnLog);
             this.Controls.Add(this.btnSettings);
+            this.Controls.Add(this.btnOnOff);
             this.Controls.Add(this.btnStart);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(900, 648);
@@ -959,6 +977,8 @@
         private System.Windows.Forms.CheckBox chkAutoHeatingControlling;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtDewPoint;
+        private System.Windows.Forms.Button btnOnOff;
+        private System.ComponentModel.BackgroundWorker backgroundWorker_SocketServer;
     }
 }
 

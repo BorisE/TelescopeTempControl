@@ -141,6 +141,23 @@ namespace TelescopeTempControl
 
     #endregion
 
+    /// <summary>
+    /// TelescopeTempControl data fields
+    /// </summary>        
+    public class TelescopeTempControlData
+    {
+        public DateTime LastTimeDataParsed;
+
+        public double FAN_RPM = -1; //rpm 0 - 1300
+        public double FAN_FPWM = -1; //0-255
+        public double HeaterPower = -1; //0-100
+        public double HeaterPWM = -1; //0-255
+        public bool AutoControl_FanSpeed = false;
+        public bool AutoControl_Heater = false;
+        public double DeltaTemp_Main = -100.0;
+        public double DeltaTemp_Secondary = -100.0;
+        public double DewPoint = -100.0;
+    }
 
     public partial class Hardware
     {
@@ -288,7 +305,8 @@ namespace TelescopeTempControl
 
             //CommandParser.Commands.Add("GET_BASETEMP", () => this.getBaseTemp());
             //CommandParser.Commands.Add("GET_SENSOR_VALUES", () => this.getSensorsString());
-            //CommandParser.Commands.Add("HELP", () => CommandParser.ListCommands());
+            CommandParser.Commands.Add("GET_DATA_JSON", () => this.getDataJSONString());
+            CommandParser.Commands.Add("HELP", () => CommandParser.ListCommands());
             CommandParser.Commands.Add("VERSION", () => VersionData.getVersionString());
 
             Logging.AddLog("InitComandInterpretator exit", LogLevel.Trace);

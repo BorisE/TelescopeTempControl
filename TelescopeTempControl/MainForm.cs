@@ -26,6 +26,10 @@ namespace TelescopeTempControl
         private bool bReadFanPWMValue = false;
         private bool bReadHeaterPWMValue = false;
 
+        /// <summary>
+        /// Socket server
+        /// </summary>
+        public SocketServerClass SocketServer;
 
 
         //For graphs
@@ -43,6 +47,14 @@ namespace TelescopeTempControl
             AboutForm = new AboutBox();
             SettingsObj = new SettingsForm(this);
             LogFormObj = new LogForm(this);
+
+            //Create SocketServer obj (even if it wouldn't run)
+            SocketServer = new SocketServerClass(this);
+            //Give a link to it for Harware class
+            Hardware.SocketServer = SocketServer;
+
+            //Sync consntans 
+            SocketServer.MAX_BUFFER_LEN = Hardware.MAX_BUFFER_LEN;
 
             InitializeComponent();
         }
@@ -87,8 +99,37 @@ namespace TelescopeTempControl
             chart1.ChartAreas[0].AxisX.MinorTickMark.Interval = 1;
             chart1.ChartAreas[0].AxisX.MinorTickMark.IntervalType = DateTimeIntervalType.Minutes;
             chart1.ChartAreas[0].AxisX.MinorTickMark.Interval = 1;
+
+            //Start tcp server
+            if (bRunSocketServerFlag)
+            {
+                RunSocketServer();
+            }
         }
 
+        public void RunSocketServer(Int32 PortNumber = 0)
+        {
+            StopSocketServer(); //try to stop if it was running
+            backgroundWorker_SocketServer.RunWorkerAsync();
+        }
+
+        /// <summary>
+        /// Actualy not working - need to implement Worker.CancellationPending, but it to complex cause also includes client threads management
+        /// </summary>
+        public void StopSocketServer()
+        {
+            if (backgroundWorker_SocketServer.IsBusy)
+            //Stop if run before
+            {
+                backgroundWorker_SocketServer.CancelAsync();
+            }
+        }
+
+
+        private void backgroundWorker_SocketServer_DoWork(object sender, DoWorkEventArgs e)
+        {
+            SocketServer.StartListenSocket();
+        }
 
 
         #region Buttons handlers
@@ -553,6 +594,8 @@ Current HEATER PWM value: 36
         System.Threading.Timer HeaterPWM_ValueChanged_TimerObj = null;
         int ReactionDelay = 500;
 
+        public bool bRunSocketServerFlag = true;
+
         /// <summary>
         /// Handle changing trackBar FanPWM
         /// </summary>
@@ -705,8 +748,41 @@ Current HEATER PWM value: 36
             }
         }
 
+        private void btnOnOff_Click(object sender, EventArgs e)
+        {
+            Button curBtn = (Button)sender;
+            if (curBtn.Text == "On")
+            {
+                //start
 
+                //start if it was stoped
+                if (btnStart.Text == "Start") btnStart_Click(btnStart, e);
+                
+                //if start was success (or already started...)
+                if (btnStart.Text == "Stop")
+                {
+                    Hardware.AutoControl_FanSpeed = true;
+                    chkAutoFanControlling.Checked = true;
 
+                    Hardware.AutoControl_Heater = true;
+                    chkAutoHeatingControlling.Checked = true;
 
+                    curBtn.Text = "Off";
+                }
+            }
+            else if (curBtn.Text == "Off")
+            {
+                //stop
+                txtControlFanPWM.Text = "255";
+                Hardware.AutoControl_FanSpeed = false;
+                chkAutoFanControlling.Checked = false;
+
+                txtControlHeaterPWM.Text = "0";
+                Hardware.AutoControl_Heater = false;
+                chkAutoHeatingControlling.Checked = false;
+
+                curBtn.Text = "On";
+            }
+        }
     }
 }

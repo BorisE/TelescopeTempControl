@@ -5,6 +5,10 @@ Change log
 to do:
 - socket commands: relay switching, parameters querying
 
+1.2 (2016-10-24)
+- socket server
+- on/off button
+
 1.1 (2016-08-27)
 - delay on trackbar change for user convience
 
