@@ -275,6 +275,11 @@ namespace TelescopeTempControl
         {
             string msg = "";
 
+            //Trim etc command string
+            cmd = cmd.Replace("\n", String.Empty).Replace("\r", String.Empty);
+            cmd = cmd.Replace("\t", String.Empty);
+            cmd = cmd.Trim();
+
             //if it is sensor value - add ir to buffer
             if (cmd.StartsWith("[!"))
             {
@@ -312,7 +317,8 @@ namespace TelescopeTempControl
                         {
                             Logging.AddLog("Client [" + ClientSocket.RemoteEndPoint + "]: " + "command [" + cmd + "] successfully run", LogLevel.Activity, Highlight.Normal);
                             Logging.AddLog("Client [" + ClientSocket.RemoteEndPoint + "]: " + "command [" + cmd + "] successfully run. Output: " + cmd_output, LogLevel.Activity, Highlight.Normal);
-                            msg = "Command [" + cmd + "] was run. Output: " + cmd_output;
+                            msg = "Command [" + cmd + "] was run. Output: " + cmd_output; //for debug
+                            msg = cmd_output;
                         }
                         else
                         {

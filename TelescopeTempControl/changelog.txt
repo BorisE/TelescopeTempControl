@@ -5,6 +5,10 @@ Change log
 to do:
 - socket commands: relay switching, parameters querying
 
+1.2.1 (2016-11-27)
+- more data through socket
+- migrated to newtonsoft.json lib
+
 1.2 (2016-10-24)
 - socket server
 - on/off button

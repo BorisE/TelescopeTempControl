@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using System.IO;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace TelescopeTempControl
 {
@@ -765,6 +767,13 @@ namespace TelescopeTempControl
             //Add data to obj
             TTCData.AutoControl_FanSpeed = AutoControl_FanSpeed;
             TTCData.AutoControl_Heater = AutoControl_Heater;
+            TTCData.Temp = SensorsList["Temp1"].LastValue;
+            TTCData.Humidity = SensorsList["Hum1"].LastValue;
+            TTCData.DHT_Temp = SensorsList["DTemp1"].LastValue;
+
+            TTCData.MainMirrorTemp= SensorsList["Temp2"].LastValue;
+            TTCData.SecondMirrorTemp = SensorsList["Temp3"].LastValue;
+
             TTCData.DeltaTemp_Main = DeltaTemp_Main;
             TTCData.DeltaTemp_Secondary = DeltaTemp_Secondary;
             TTCData.DewPoint = DewPoint;
@@ -1088,7 +1097,7 @@ namespace TelescopeTempControl
 
             Logging.AddLog("getDataJSONString enter", LogLevel.Trace);
 
-            string st = "";
+            string st = "",st2="",st3="",st4="";
 
             st += (st != String.Empty ? ", " : "") + @"""LastTimeParsed"": " + @"""" + Convert.ToString(TTCData.LastTimeDataParsed) + @"""";
 
@@ -1101,14 +1110,29 @@ namespace TelescopeTempControl
             st += (st != String.Empty ? ", " : "") + @"""AutoControl_FanSpeed"": " + Convert.ToString(TTCData.AutoControl_FanSpeed);
             st += (st != String.Empty ? ", " : "") + @"""AutoControl_Heater"": " + Convert.ToString(TTCData.AutoControl_Heater);
 
+            st += (st != String.Empty ? ", " : "") + @"""Temp"": " + Convert.ToString(TTCData.Temp);
+            st += (st != String.Empty ? ", " : "") + @"""Humidity"": " + Convert.ToString(TTCData.Humidity);
+            st += (st != String.Empty ? ", " : "") + @"""DHT_Temp"": " + Convert.ToString(TTCData.DHT_Temp);
+
             st += (st != String.Empty ? ", " : "") + @"""DeltaTemp_Main"": " + Convert.ToString(TTCData.DeltaTemp_Main);
             st += (st != String.Empty ? ", " : "") + @"""DeltaTemp_Secondary"": " + Convert.ToString(TTCData.DeltaTemp_Secondary);
             st += (st != String.Empty ? ", " : "") + @"""DewPoint"": " + Convert.ToString(TTCData.DewPoint);
 
             if (st != String.Empty) st = "{" + st + "}";
 
-            Logging.AddLog("getDataJSONString exit, ret: [" + st + "]", LogLevel.Trace);
-            return st;
+
+            var jss = new JavaScriptSerializer();
+            st2 = jss.Serialize(TTCData);
+
+            st3 = JsonConvert.SerializeObject(TTCData);
+
+            TelescopeTempControlData TTCData2 = JsonConvert.DeserializeObject<TelescopeTempControlData>(st3);
+
+            st4 = JsonConvert.SerializeObject(TTCData2);
+
+
+            Logging.AddLog("getDataJSONString exit, ret: [" + st + "]["+st2+ "][" + st3 + "][" + st4 + "]", LogLevel.Trace);
+            return st3;
 
         }
 
