@@ -8,32 +8,16 @@ namespace TelescopeTempControl
 {
     public class CommandInterpretator
     {
-        public Dictionary<string, Func<string>> Commands = new Dictionary<string, Func<string>>();
+        public Dictionary<string, Func<string[],string>> Commands = new Dictionary<string, Func<string[], string>>();
 
         public CommandInterpretator()
         {
             //Commands = PassedCommands;
         }
 
-        /// <summary>
-        /// Method which doesn't return command output 
-        /// </summary>
-        /// <param name="CommandString">command</param>
-        /// <returns>false if command doesn't exist</returns>
-        public bool ParseSingleCommand(string CommandString)
-        {
-            bool ret = true;
-            if (!Commands.ContainsKey(CommandString))
-            {
-                Logging.AddLog("Команды [" + CommandString + "] не существует", 0, Highlight.Error);
-                ret = false;
-            }
-            string cmd_output = Commands[CommandString]();
-            return ret;
-        }
 
         /// <summary>
-        /// Method override which returns command output 
+        /// Base method which returns command output 
         /// </summary>
         /// <param name="CommandString">command</param>
         /// <param name="cmd_output">command output</param>
@@ -41,25 +25,56 @@ namespace TelescopeTempControl
         public bool ParseSingleCommand(string CommandString, out string cmd_output)
         {
             bool ret = true;
-            if (!Commands.ContainsKey(CommandString))
+            string CommandString_pure = "";
+            string[] CommandString_param_arr = new string[0];
+
+            //Check if command contains space
+            if (CommandString.Contains(" "))
             {
-                Logging.AddLog("Команды [" + CommandString + "] не существует", 0, Highlight.Error);
+                //Split
+                string[] CommandString_arr = CommandString.Split(' ');
+                CommandString_pure = CommandString_arr[0];
+                CommandString_param_arr = CommandString_arr.Skip(1).ToArray();
+            }
+            else {
+            }
+
+
+            if (!Commands.ContainsKey(CommandString_pure))
+            {
+                Logging.AddLog("Команды [" + CommandString_pure + "] не существует", 0, Highlight.Error);
                 cmd_output = "";
                 ret = false;
             }
             else
             {
-                cmd_output = Commands[CommandString]();
+                cmd_output = Commands[CommandString](CommandString_param_arr);
             }
             return ret;
         }
 
 
+        /// <summary>
+        /// Method override which doesn't return command output 
+        /// </summary>
+        /// <param name="CommandString">command</param>
+        /// <returns>false if command doesn't exist</returns>
+        public bool ParseSingleCommand(string CommandString)
+        {
+            string cmd_output_dummy = "";
+            return ParseSingleCommand(CommandString, out cmd_output_dummy);
+        }
+
+
+        /// <summary>
+        /// List all commands
+        /// </summary>
+        /// <returns>string list of commands</returns>
         public string ListCommands()
         {
             string st = "";
 
-            foreach (KeyValuePair<string, Func<string>> entry in Commands)
+            foreach (KeyValuePair<string, Func<string[],string>> entry in Commands)
             {
                 st += entry.Key + ";";
             }

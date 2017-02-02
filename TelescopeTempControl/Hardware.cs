@@ -1092,7 +1092,7 @@ namespace TelescopeTempControl
         }
 
 
-        public string getDataJSONString()
+        public string getDataJSONString(string[] Params)
         {
 
             Logging.AddLog("getDataJSONString enter", LogLevel.Trace);
@@ -1134,6 +1134,11 @@ namespace TelescopeTempControl
             Logging.AddLog("getDataJSONString exit, ret: [" + st + "]["+st2+ "][" + st3 + "][" + st4 + "]", LogLevel.Trace);
             return st3;
 
+        }
+
+        public string setFanDataFromSocket()
+        {
+            return "Command not ready yet";
         }
 
     }

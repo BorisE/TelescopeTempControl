@@ -313,6 +313,8 @@ namespace TelescopeTempControl
                         break;
                     default:
                         string cmd_output = "";
+
+                        //parse given command
                         if (ParentMainFormLink.Hardware.CommandParser.ParseSingleCommand(cmd, out cmd_output))
                         {
                             Logging.AddLog("Client [" + ClientSocket.RemoteEndPoint + "]: " + "command [" + cmd + "] successfully run", LogLevel.Activity, Highlight.Normal);

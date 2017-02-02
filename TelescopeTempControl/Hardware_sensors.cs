@@ -311,9 +311,12 @@ namespace TelescopeTempControl
         {
             Logging.AddLog("InitComandInterpretator enter", LogLevel.Trace);
 
+            string[] Params = new string[0];
+
             //CommandParser.Commands.Add("GET_BASETEMP", () => this.getBaseTemp());
             //CommandParser.Commands.Add("GET_SENSOR_VALUES", () => this.getSensorsString());
             CommandParser.Commands.Add("GET_DATA_JSON", () => this.getDataJSONString());
+            CommandParser.Commands.Add("SET_FAN", () => this.setFanDataFromSocket());
             CommandParser.Commands.Add("HELP", () => CommandParser.ListCommands());
             CommandParser.Commands.Add("VERSION", () => VersionData.getVersionString());
 
