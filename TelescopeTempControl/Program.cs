@@ -33,8 +33,8 @@ namespace TelescopeTempControl
 
                 //If it is first run chek for setup
                 AuxilaryProc.CreateAutoStartLink();
-            
-            
+
+                if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
@@ -46,5 +46,8 @@ namespace TelescopeTempControl
                 Utils.SetCurrentWindowToForeground();
             }
         }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
     }
 }

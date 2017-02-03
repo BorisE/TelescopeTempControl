@@ -1092,7 +1092,7 @@ namespace TelescopeTempControl
         }
 
 
-        public string getDataJSONString(string[] Params)
+        public string getDataJSONString()
         {
 
             Logging.AddLog("getDataJSONString enter", LogLevel.Trace);
