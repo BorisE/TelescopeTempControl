@@ -79,6 +79,14 @@ namespace TelescopeTempControl
         }
 
         /// <summary>
+        /// Stop socket
+        /// </summary>
+        public void StopListenSocket()
+        {
+            listenerSocket.Shutdown(SocketShutdown.Send);
+        }
+
+        /// <summary>
         /// This handler is run when new client init connection
         /// It create new object ClientManager for this client and pass control to it
         /// </summary>
@@ -189,7 +197,7 @@ namespace TelescopeTempControl
         public SocketServerClass ParentSocketServer;
         public MainForm ParentMainFormLink;
 
-        private byte[] welcomeMsg = Encoding.UTF8.GetBytes("Connected to TelescopeTempControl\n\r");
+        private byte[] welcomeMsg = Encoding.UTF8.GetBytes("Connected to TelescopeTempControl\r\n");
         const string STOP_MESSAGE = "TheEnd";
 
         // Буфер для входящих данных
@@ -224,7 +232,7 @@ namespace TelescopeTempControl
                     // Получаем ответ от клиента
                     int bytesRec = ClientSocket.Receive(incomingBuffer);
 
-                    if (!(bytesRec == 2 && incomingBuffer[0] == 13 && incomingBuffer[1] == 10))
+                    if (!(bytesRec == 2 && incomingBuffer[0] == 13 && incomingBuffer[1] == 10)) // \r\n  i.e.  \r = 0D, 13  \n = 0A, 10
                     {
                         //Convert message from UTF8
                         string incomingMess = Encoding.UTF8.GetString(incomingBuffer, 0, bytesRec);
@@ -237,7 +245,7 @@ namespace TelescopeTempControl
                         if (cmdMess == STOP_MESSAGE) {break; }
 
                         //Output return string
-                        byte[] msg2 = Encoding.UTF8.GetBytes(cmdMess + "\n\r");
+                        byte[] msg2 = Encoding.UTF8.GetBytes(cmdMess + "\r\n");
                         ClientSocket.Send(msg2);
                     }
                 }
@@ -252,10 +260,21 @@ namespace TelescopeTempControl
             //ParentMainForm.toolStripStatus_Connection.Text = "CONNECTION: " + clientsList.Count;
         }
 
+        /// <summary>
+        /// Stop client socket and thread
+        /// </summary>
+        public void StopClientThread()
+        {
+            ClientSocket.Shutdown(SocketShutdown.Both);
+            ClientSocket.Close();
+
+            //curThread.Abort(); // НЕ НУЖНО! Поток и так завершиться после BREAK в цикле
+        }
+
         public string SendCommandToClient(string cmd)
         {
             //not working yet
-            byte[] msg = Encoding.UTF8.GetBytes(cmd + "\n\r");
+            byte[] msg = Encoding.UTF8.GetBytes(cmd + "\r\n");
             Logging.AddLog("Send command to сlient [" + ClientSocket.RemoteEndPoint + "]: " + cmd, LogLevel.Activity);
             ClientSocket.Send(msg);
 
@@ -271,6 +290,12 @@ namespace TelescopeTempControl
             return cmd;
         }
 
+
+        /// <summary>
+        /// SocketCommandInterpretator
+        /// </summary>
+        /// <param name="cmd">command</param>
+        /// <returns>output message</returns>
         public string SocketCommandInterpretator(string cmd)
         {
             string msg = "";
@@ -307,8 +332,7 @@ namespace TelescopeTempControl
                     case STOP_MESSAGE:
                         // Освобождаем сокет
                         Logging.AddLog("Client [" + ClientSocket.RemoteEndPoint + "] has ended connection", LogLevel.Activity);
-                        ClientSocket.Shutdown(SocketShutdown.Both);
-                        ClientSocket.Close();
+                        StopClientThread();
                         msg = STOP_MESSAGE;
                         break;
                     default:
@@ -317,7 +341,6 @@ namespace TelescopeTempControl
                         //parse given command
                         if (ParentMainFormLink.Hardware.CommandParser.ParseSingleCommand(cmd, out cmd_output))
                         {
-                            Logging.AddLog("Client [" + ClientSocket.RemoteEndPoint + "]: " + "command [" + cmd + "] successfully run", LogLevel.Activity, Highlight.Normal);
                             Logging.AddLog("Client [" + ClientSocket.RemoteEndPoint + "]: " + "command [" + cmd + "] successfully run. Output: " + cmd_output, LogLevel.Activity, Highlight.Normal);
                             msg = "Command [" + cmd + "] was run. Output: " + cmd_output; //for debug
                             msg = cmd_output;

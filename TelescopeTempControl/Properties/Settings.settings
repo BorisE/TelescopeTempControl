@@ -83,5 +83,8 @@
     <Setting Name="Curve_Second_c" Type="System.String" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
+    <Setting Name="SocketServerPort" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1054</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

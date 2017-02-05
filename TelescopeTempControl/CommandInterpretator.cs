@@ -18,9 +18,12 @@ namespace TelescopeTempControl
 
         /// <summary>
         /// Base method which returns command output 
+        /// 1. Split command for COMMAND and its PARAMETERS (e.g."SET_FAN 10")
+        /// 2. Checks if COMMAND exists
+        /// 3. Run command (based on dictionary list)
         /// </summary>
-        /// <param name="CommandString">command</param>
-        /// <param name="cmd_output">command output</param>
+        /// <param name="CommandString">Command string</param>
+        /// <param name="cmd_output">OUT - command output</param>
         /// <returns>false if command doesn't exist</returns>
         public bool ParseSingleCommand(string CommandString, out string cmd_output)
         {
@@ -28,7 +31,7 @@ namespace TelescopeTempControl
             string CommandString_pure = "";
             string[] CommandString_param_arr = new string[0];
 
-            //Check if command contains space
+            //1. Split command string into COMMAND and PARAMETERS
             if (CommandString.Contains(" "))
             {
                 //Split
@@ -37,9 +40,10 @@ namespace TelescopeTempControl
                 CommandString_param_arr = CommandString_arr.Skip(1).ToArray();
             }
             else {
+                CommandString_pure = CommandString;
             }
 
-
+            //2. Check if COMMAND exists
             if (!Commands.ContainsKey(CommandString_pure))
             {
                 Logging.AddLog("Команды [" + CommandString_pure + "] не существует", 0, Highlight.Error);
@@ -48,7 +52,8 @@ namespace TelescopeTempControl
             }
             else
             {
-                cmd_output = Commands[CommandString](CommandString_param_arr);
+                //3. Run COMMAND
+                cmd_output = Commands[CommandString_pure](CommandString_param_arr);
             }
             return ret;
         }

@@ -270,6 +270,8 @@ namespace TelescopeTempControl
                 //Logging.DataFileFlag = Properties.Settings.Default.CSVFileFlag;
                 Logging.SerialLogFileFlag = Properties.Settings.Default.SerialLogFileFlag;
 
+                //Socket server
+                ParentMainForm.SocketServer.serverPort = Convert.ToInt32(Properties.Settings.Default.SocketServerPort);
 
                 //Modeling
                 ParentMainForm.Hardware.TempDelta_Main_Target = Utils.ConvertToDouble(Properties.Settings.Default.TempDelta_Main_Target);

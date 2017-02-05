@@ -1136,9 +1136,33 @@ namespace TelescopeTempControl
 
         }
 
-        public string setFanDataFromSocket()
+
+        /// <summary>
+        /// Wrapper to run SetFanPWM from socket server
+        /// </summary>
+        /// <param name="CommandString_param_arr"></param>
+        /// <returns></returns>
+        public string setFanPWR_FromSocket(string[] CommandString_param_arr)
         {
-            return "Command not ready yet";
+            int FanPwr = Convert.ToInt16(CommandString_param_arr[0]);
+
+            this.SetFanPWM(FanPwr);
+
+            return "Command was run";
+        }
+
+        /// <summary>
+        /// Wrapper to run SetHeaterPWM from socket server
+        /// </summary>
+        /// <param name="CommandString_param_arr"></param>
+        /// <returns></returns>
+        public string setHeaterPWR_FromSocket(string[] CommandString_param_arr)
+        {
+            int HeaterPwr = Convert.ToInt16(CommandString_param_arr[0]);
+
+            this.SetHeaterPWM(HeaterPwr);
+
+            return "Command was run";
         }
 
     }

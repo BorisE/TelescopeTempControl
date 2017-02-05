@@ -109,6 +109,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtSocketServer = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage_General.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -121,6 +124,7 @@
             this.groupBox2.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartMainCurve)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -130,24 +134,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage_General);
             this.tabControl1.Controls.Add(this.tabPage_Modeling);
-            this.tabControl1.Location = new System.Drawing.Point(1, 2);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl1.Location = new System.Drawing.Point(2, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(606, 366);
+            this.tabControl1.Size = new System.Drawing.Size(909, 563);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_General
             // 
             this.tabPage_General.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage_General.Controls.Add(this.groupBox8);
             this.tabPage_General.Controls.Add(this.groupBox6);
             this.tabPage_General.Controls.Add(this.groupBox3);
             this.tabPage_General.Controls.Add(this.groupBox1);
-            this.tabPage_General.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_General.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_General.Location = new System.Drawing.Point(4, 29);
             this.tabPage_General.Name = "tabPage_General";
-            this.tabPage_General.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_General.Size = new System.Drawing.Size(598, 340);
+            this.tabPage_General.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage_General.Size = new System.Drawing.Size(901, 530);
             this.tabPage_General.TabIndex = 0;
             this.tabPage_General.Text = "General";
             this.tabPage_General.UseVisualStyleBackColor = true;
@@ -162,9 +165,11 @@
             this.groupBox6.Controls.Add(this.txtSendDataToSerialInterval);
             this.groupBox6.Controls.Add(this.txtRefreshInterval);
             this.groupBox6.Controls.Add(this.txtMaxPoints);
-            this.groupBox6.Location = new System.Drawing.Point(318, 10);
+            this.groupBox6.Location = new System.Drawing.Point(477, 15);
+            this.groupBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(273, 97);
+            this.groupBox6.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox6.Size = new System.Drawing.Size(410, 149);
             this.groupBox6.TabIndex = 3;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Productivity settings";
@@ -173,10 +178,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(206, 44);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(309, 68);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(24, 13);
+            this.label7.Size = new System.Drawing.Size(34, 20);
             this.label7.TabIndex = 2;
             this.label7.Text = "sec";
             // 
@@ -184,10 +188,9 @@
             // 
             this.label32.AutoSize = true;
             this.label32.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label32.Location = new System.Drawing.Point(205, 19);
-            this.label32.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label32.Location = new System.Drawing.Point(308, 29);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(40, 13);
+            this.label32.Size = new System.Drawing.Size(59, 20);
             this.label32.TabIndex = 2;
             this.label32.Text = "millisec";
             // 
@@ -195,9 +198,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(4, 43);
+            this.label6.Location = new System.Drawing.Point(6, 66);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(132, 13);
+            this.label6.Size = new System.Drawing.Size(196, 20);
             this.label6.TabIndex = 0;
             this.label6.Text = "Send data to serial interval";
             // 
@@ -205,9 +209,10 @@
             // 
             this.label14.AutoSize = true;
             this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(4, 19);
+            this.label14.Location = new System.Drawing.Point(6, 29);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(87, 13);
+            this.label14.Size = new System.Drawing.Size(125, 20);
             this.label14.TabIndex = 0;
             this.label14.Text = "Main tick interval";
             // 
@@ -215,18 +220,20 @@
             // 
             this.label15.AutoSize = true;
             this.label15.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label15.Location = new System.Drawing.Point(6, 69);
+            this.label15.Location = new System.Drawing.Point(9, 106);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(103, 13);
+            this.label15.Size = new System.Drawing.Size(152, 20);
             this.label15.TabIndex = 3;
             this.label15.Text = "Max points on graph";
             // 
             // txtSendDataToSerialInterval
             // 
             this.txtSendDataToSerialInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "SendDataInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtSendDataToSerialInterval.Location = new System.Drawing.Point(148, 40);
+            this.txtSendDataToSerialInterval.Location = new System.Drawing.Point(222, 62);
+            this.txtSendDataToSerialInterval.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtSendDataToSerialInterval.Name = "txtSendDataToSerialInterval";
-            this.txtSendDataToSerialInterval.Size = new System.Drawing.Size(53, 20);
+            this.txtSendDataToSerialInterval.Size = new System.Drawing.Size(78, 26);
             this.txtSendDataToSerialInterval.TabIndex = 1;
             this.txtSendDataToSerialInterval.Text = global::TelescopeTempControl.Properties.Settings.Default.SendDataInterval;
             this.txtSendDataToSerialInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -235,9 +242,10 @@
             // txtRefreshInterval
             // 
             this.txtRefreshInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "RefreshInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtRefreshInterval.Location = new System.Drawing.Point(148, 16);
+            this.txtRefreshInterval.Location = new System.Drawing.Point(222, 25);
+            this.txtRefreshInterval.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtRefreshInterval.Name = "txtRefreshInterval";
-            this.txtRefreshInterval.Size = new System.Drawing.Size(53, 20);
+            this.txtRefreshInterval.Size = new System.Drawing.Size(78, 26);
             this.txtRefreshInterval.TabIndex = 1;
             this.txtRefreshInterval.Text = global::TelescopeTempControl.Properties.Settings.Default.RefreshInterval;
             this.txtRefreshInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -245,9 +253,10 @@
             // txtMaxPoints
             // 
             this.txtMaxPoints.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "MaxPointsOnGraph", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtMaxPoints.Location = new System.Drawing.Point(148, 66);
+            this.txtMaxPoints.Location = new System.Drawing.Point(222, 102);
+            this.txtMaxPoints.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtMaxPoints.Name = "txtMaxPoints";
-            this.txtMaxPoints.Size = new System.Drawing.Size(53, 20);
+            this.txtMaxPoints.Size = new System.Drawing.Size(78, 26);
             this.txtMaxPoints.TabIndex = 4;
             this.txtMaxPoints.Text = global::TelescopeTempControl.Properties.Settings.Default.MaxPointsOnGraph;
             this.txtMaxPoints.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -269,9 +278,11 @@
             this.groupBox3.Controls.Add(this.chkSerialLogFileFlag);
             this.groupBox3.Controls.Add(this.chkCSVFileFlag);
             this.groupBox3.Controls.Add(this.chkLogFileFlag);
-            this.groupBox3.Location = new System.Drawing.Point(5, 113);
+            this.groupBox3.Location = new System.Drawing.Point(8, 174);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(307, 175);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox3.Size = new System.Drawing.Size(460, 269);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Log data";
@@ -280,10 +291,9 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label10.Location = new System.Drawing.Point(4, 46);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(6, 71);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(70, 13);
+            this.label10.Size = new System.Drawing.Size(101, 20);
             this.label10.TabIndex = 3;
             this.label10.Text = "Logging level";
             // 
@@ -294,10 +304,9 @@
             "1 - Common messages",
             "2 - Prog activity",
             "3 - All debug info"});
-            this.cmbLogLevel.Location = new System.Drawing.Point(112, 41);
-            this.cmbLogLevel.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbLogLevel.Location = new System.Drawing.Point(168, 63);
             this.cmbLogLevel.Name = "cmbLogLevel";
-            this.cmbLogLevel.Size = new System.Drawing.Size(129, 21);
+            this.cmbLogLevel.Size = new System.Drawing.Size(192, 28);
             this.cmbLogLevel.TabIndex = 4;
             this.cmbLogLevel.Text = "1 - Common messages";
             // 
@@ -305,18 +314,20 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label5.Location = new System.Drawing.Point(7, 149);
+            this.label5.Location = new System.Drawing.Point(10, 229);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(144, 13);
+            this.label5.Size = new System.Drawing.Size(214, 20);
             this.label5.TabIndex = 3;
             this.label5.Text = "Max program log display lines";
             // 
             // btnSerialLogPathBrowse
             // 
             this.btnSerialLogPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSerialLogPathBrowse.Location = new System.Drawing.Point(274, 67);
+            this.btnSerialLogPathBrowse.Location = new System.Drawing.Point(411, 103);
+            this.btnSerialLogPathBrowse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSerialLogPathBrowse.Name = "btnSerialLogPathBrowse";
-            this.btnSerialLogPathBrowse.Size = new System.Drawing.Size(27, 20);
+            this.btnSerialLogPathBrowse.Size = new System.Drawing.Size(40, 31);
             this.btnSerialLogPathBrowse.TabIndex = 7;
             this.btnSerialLogPathBrowse.Text = "...";
             this.btnSerialLogPathBrowse.UseVisualStyleBackColor = true;
@@ -325,18 +336,20 @@
             // 
             this.label39.AutoSize = true;
             this.label39.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label39.Location = new System.Drawing.Point(7, 123);
+            this.label39.Location = new System.Drawing.Point(10, 189);
+            this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(107, 13);
+            this.label39.Size = new System.Drawing.Size(155, 20);
             this.label39.TabIndex = 3;
             this.label39.Text = "Max log window lines";
             // 
             // btnCSVPathBrowse
             // 
             this.btnCSVPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCSVPathBrowse.Location = new System.Drawing.Point(274, 89);
+            this.btnCSVPathBrowse.Location = new System.Drawing.Point(411, 137);
+            this.btnCSVPathBrowse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCSVPathBrowse.Name = "btnCSVPathBrowse";
-            this.btnCSVPathBrowse.Size = new System.Drawing.Size(27, 20);
+            this.btnCSVPathBrowse.Size = new System.Drawing.Size(40, 31);
             this.btnCSVPathBrowse.TabIndex = 10;
             this.btnCSVPathBrowse.Text = "...";
             this.btnCSVPathBrowse.UseVisualStyleBackColor = true;
@@ -344,9 +357,10 @@
             // btnLogPathBrowse
             // 
             this.btnLogPathBrowse.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnLogPathBrowse.Location = new System.Drawing.Point(274, 19);
+            this.btnLogPathBrowse.Location = new System.Drawing.Point(411, 29);
+            this.btnLogPathBrowse.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLogPathBrowse.Name = "btnLogPathBrowse";
-            this.btnLogPathBrowse.Size = new System.Drawing.Size(27, 20);
+            this.btnLogPathBrowse.Size = new System.Drawing.Size(40, 31);
             this.btnLogPathBrowse.TabIndex = 2;
             this.btnLogPathBrowse.Text = "...";
             this.btnLogPathBrowse.UseVisualStyleBackColor = true;
@@ -354,9 +368,10 @@
             // txtProgLogMaxLines
             // 
             this.txtProgLogMaxLines.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "MaxProgLogLines", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtProgLogMaxLines.Location = new System.Drawing.Point(248, 146);
+            this.txtProgLogMaxLines.Location = new System.Drawing.Point(372, 225);
+            this.txtProgLogMaxLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtProgLogMaxLines.Name = "txtProgLogMaxLines";
-            this.txtProgLogMaxLines.Size = new System.Drawing.Size(53, 20);
+            this.txtProgLogMaxLines.Size = new System.Drawing.Size(78, 26);
             this.txtProgLogMaxLines.TabIndex = 4;
             this.txtProgLogMaxLines.Text = global::TelescopeTempControl.Properties.Settings.Default.MaxProgLogLines;
             this.txtProgLogMaxLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -364,18 +379,20 @@
             // txtLogFileLocation
             // 
             this.txtLogFileLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "logFileLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtLogFileLocation.Location = new System.Drawing.Point(112, 20);
+            this.txtLogFileLocation.Location = new System.Drawing.Point(168, 31);
+            this.txtLogFileLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtLogFileLocation.Name = "txtLogFileLocation";
-            this.txtLogFileLocation.Size = new System.Drawing.Size(156, 20);
+            this.txtLogFileLocation.Size = new System.Drawing.Size(232, 26);
             this.txtLogFileLocation.TabIndex = 1;
             this.txtLogFileLocation.Text = global::TelescopeTempControl.Properties.Settings.Default.logFileLocation;
             // 
             // txtMaxLogWindowLines
             // 
             this.txtMaxLogWindowLines.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "MaxLogLines", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtMaxLogWindowLines.Location = new System.Drawing.Point(248, 120);
+            this.txtMaxLogWindowLines.Location = new System.Drawing.Point(372, 185);
+            this.txtMaxLogWindowLines.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtMaxLogWindowLines.Name = "txtMaxLogWindowLines";
-            this.txtMaxLogWindowLines.Size = new System.Drawing.Size(53, 20);
+            this.txtMaxLogWindowLines.Size = new System.Drawing.Size(78, 26);
             this.txtMaxLogWindowLines.TabIndex = 4;
             this.txtMaxLogWindowLines.Text = global::TelescopeTempControl.Properties.Settings.Default.MaxLogLines;
             this.txtMaxLogWindowLines.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -383,18 +400,20 @@
             // txtSerialLogFileLocation
             // 
             this.txtSerialLogFileLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "SerialLogFileLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtSerialLogFileLocation.Location = new System.Drawing.Point(112, 67);
+            this.txtSerialLogFileLocation.Location = new System.Drawing.Point(168, 103);
+            this.txtSerialLogFileLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtSerialLogFileLocation.Name = "txtSerialLogFileLocation";
-            this.txtSerialLogFileLocation.Size = new System.Drawing.Size(156, 20);
+            this.txtSerialLogFileLocation.Size = new System.Drawing.Size(232, 26);
             this.txtSerialLogFileLocation.TabIndex = 6;
             this.txtSerialLogFileLocation.Text = global::TelescopeTempControl.Properties.Settings.Default.SerialLogFileLocation;
             // 
             // txtCSVFileLocation
             // 
             this.txtCSVFileLocation.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "CSVFileLocation", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCSVFileLocation.Location = new System.Drawing.Point(112, 90);
+            this.txtCSVFileLocation.Location = new System.Drawing.Point(168, 138);
+            this.txtCSVFileLocation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCSVFileLocation.Name = "txtCSVFileLocation";
-            this.txtCSVFileLocation.Size = new System.Drawing.Size(156, 20);
+            this.txtCSVFileLocation.Size = new System.Drawing.Size(232, 26);
             this.txtCSVFileLocation.TabIndex = 9;
             this.txtCSVFileLocation.Text = global::TelescopeTempControl.Properties.Settings.Default.CSVFileLocation;
             // 
@@ -404,9 +423,10 @@
             this.chkSerialLogFileFlag.Checked = global::TelescopeTempControl.Properties.Settings.Default.SerialLogFileFlag;
             this.chkSerialLogFileFlag.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TelescopeTempControl.Properties.Settings.Default, "SerialLogFileFlag", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkSerialLogFileFlag.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chkSerialLogFileFlag.Location = new System.Drawing.Point(7, 70);
+            this.chkSerialLogFileFlag.Location = new System.Drawing.Point(10, 108);
+            this.chkSerialLogFileFlag.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkSerialLogFileFlag.Name = "chkSerialLogFileFlag";
-            this.chkSerialLogFileFlag.Size = new System.Drawing.Size(85, 17);
+            this.chkSerialLogFileFlag.Size = new System.Drawing.Size(124, 24);
             this.chkSerialLogFileFlag.TabIndex = 5;
             this.chkSerialLogFileFlag.Text = "Serial log file";
             this.chkSerialLogFileFlag.UseVisualStyleBackColor = true;
@@ -418,9 +438,10 @@
             this.chkCSVFileFlag.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkCSVFileFlag.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TelescopeTempControl.Properties.Settings.Default, "CSVFileFlag", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkCSVFileFlag.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chkCSVFileFlag.Location = new System.Drawing.Point(7, 93);
+            this.chkCSVFileFlag.Location = new System.Drawing.Point(10, 143);
+            this.chkCSVFileFlag.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkCSVFileFlag.Name = "chkCSVFileFlag";
-            this.chkCSVFileFlag.Size = new System.Drawing.Size(89, 17);
+            this.chkCSVFileFlag.Size = new System.Drawing.Size(131, 24);
             this.chkCSVFileFlag.TabIndex = 8;
             this.chkCSVFileFlag.Text = "Data CSV file";
             this.chkCSVFileFlag.UseVisualStyleBackColor = true;
@@ -432,9 +453,10 @@
             this.chkLogFileFlag.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkLogFileFlag.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TelescopeTempControl.Properties.Settings.Default, "logFileFlag", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkLogFileFlag.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chkLogFileFlag.Location = new System.Drawing.Point(7, 22);
+            this.chkLogFileFlag.Location = new System.Drawing.Point(10, 34);
+            this.chkLogFileFlag.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkLogFileFlag.Name = "chkLogFileFlag";
-            this.chkLogFileFlag.Size = new System.Drawing.Size(98, 17);
+            this.chkLogFileFlag.Size = new System.Drawing.Size(144, 24);
             this.chkLogFileFlag.TabIndex = 0;
             this.chkLogFileFlag.Text = "Program log file";
             this.chkLogFileFlag.UseVisualStyleBackColor = true;
@@ -449,9 +471,11 @@
             this.groupBox1.Controls.Add(this.btnOpenWriteToFile);
             this.groupBox1.Controls.Add(this.btnOpenReadFromFile);
             this.groupBox1.Controls.Add(this.cmbPortList);
-            this.groupBox1.Location = new System.Drawing.Point(5, 6);
+            this.groupBox1.Location = new System.Drawing.Point(8, 9);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(307, 101);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(460, 155);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Serial port";
@@ -460,10 +484,9 @@
             // 
             this.label37.AutoSize = true;
             this.label37.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label37.Location = new System.Drawing.Point(7, 74);
-            this.label37.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label37.Location = new System.Drawing.Point(10, 114);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(60, 13);
+            this.label37.Size = new System.Drawing.Size(88, 20);
             this.label37.TabIndex = 5;
             this.label37.Text = "Write to file";
             // 
@@ -471,27 +494,28 @@
             // 
             this.label36.AutoSize = true;
             this.label36.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label36.Location = new System.Drawing.Point(7, 47);
-            this.label36.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label36.Location = new System.Drawing.Point(10, 72);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(72, 13);
+            this.label36.Size = new System.Drawing.Size(108, 20);
             this.label36.TabIndex = 2;
             this.label36.Text = "Read from file";
             // 
             // txtSerialFileOut
             // 
             this.txtSerialFileOut.Enabled = false;
-            this.txtSerialFileOut.Location = new System.Drawing.Point(95, 72);
+            this.txtSerialFileOut.Location = new System.Drawing.Point(142, 111);
+            this.txtSerialFileOut.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtSerialFileOut.Name = "txtSerialFileOut";
-            this.txtSerialFileOut.Size = new System.Drawing.Size(173, 20);
+            this.txtSerialFileOut.Size = new System.Drawing.Size(258, 26);
             this.txtSerialFileOut.TabIndex = 6;
             // 
             // txtSerialFileIn
             // 
             this.txtSerialFileIn.Enabled = false;
-            this.txtSerialFileIn.Location = new System.Drawing.Point(95, 45);
+            this.txtSerialFileIn.Location = new System.Drawing.Point(142, 69);
+            this.txtSerialFileIn.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtSerialFileIn.Name = "txtSerialFileIn";
-            this.txtSerialFileIn.Size = new System.Drawing.Size(173, 20);
+            this.txtSerialFileIn.Size = new System.Drawing.Size(258, 26);
             this.txtSerialFileIn.TabIndex = 3;
             // 
             // chkWatchdog
@@ -501,9 +525,10 @@
             this.chkWatchdog.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkWatchdog.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::TelescopeTempControl.Properties.Settings.Default, "ComWatchdog", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkWatchdog.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.chkWatchdog.Location = new System.Drawing.Point(95, 19);
+            this.chkWatchdog.Location = new System.Drawing.Point(142, 29);
+            this.chkWatchdog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkWatchdog.Name = "chkWatchdog";
-            this.chkWatchdog.Size = new System.Drawing.Size(130, 17);
+            this.chkWatchdog.Size = new System.Drawing.Size(189, 24);
             this.chkWatchdog.TabIndex = 1;
             this.chkWatchdog.Text = "Connection watchdog";
             this.chkWatchdog.UseVisualStyleBackColor = true;
@@ -512,9 +537,10 @@
             // 
             this.btnOpenWriteToFile.Enabled = false;
             this.btnOpenWriteToFile.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOpenWriteToFile.Location = new System.Drawing.Point(274, 71);
+            this.btnOpenWriteToFile.Location = new System.Drawing.Point(411, 109);
+            this.btnOpenWriteToFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOpenWriteToFile.Name = "btnOpenWriteToFile";
-            this.btnOpenWriteToFile.Size = new System.Drawing.Size(27, 20);
+            this.btnOpenWriteToFile.Size = new System.Drawing.Size(40, 31);
             this.btnOpenWriteToFile.TabIndex = 7;
             this.btnOpenWriteToFile.Text = "...";
             this.btnOpenWriteToFile.UseVisualStyleBackColor = true;
@@ -523,9 +549,10 @@
             // 
             this.btnOpenReadFromFile.Enabled = false;
             this.btnOpenReadFromFile.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOpenReadFromFile.Location = new System.Drawing.Point(274, 44);
+            this.btnOpenReadFromFile.Location = new System.Drawing.Point(411, 68);
+            this.btnOpenReadFromFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOpenReadFromFile.Name = "btnOpenReadFromFile";
-            this.btnOpenReadFromFile.Size = new System.Drawing.Size(27, 20);
+            this.btnOpenReadFromFile.Size = new System.Drawing.Size(40, 31);
             this.btnOpenReadFromFile.TabIndex = 4;
             this.btnOpenReadFromFile.Text = "...";
             this.btnOpenReadFromFile.UseVisualStyleBackColor = true;
@@ -534,9 +561,10 @@
             // 
             this.cmbPortList.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "comport", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.cmbPortList.FormattingEnabled = true;
-            this.cmbPortList.Location = new System.Drawing.Point(7, 19);
+            this.cmbPortList.Location = new System.Drawing.Point(10, 29);
+            this.cmbPortList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbPortList.Name = "cmbPortList";
-            this.cmbPortList.Size = new System.Drawing.Size(72, 21);
+            this.cmbPortList.Size = new System.Drawing.Size(106, 28);
             this.cmbPortList.TabIndex = 0;
             this.cmbPortList.Text = global::TelescopeTempControl.Properties.Settings.Default.comport;
             // 
@@ -544,11 +572,10 @@
             // 
             this.tabPage_Modeling.Controls.Add(this.groupBox4);
             this.tabPage_Modeling.Controls.Add(this.groupBox2);
-            this.tabPage_Modeling.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Modeling.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage_Modeling.Location = new System.Drawing.Point(4, 29);
             this.tabPage_Modeling.Name = "tabPage_Modeling";
-            this.tabPage_Modeling.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage_Modeling.Size = new System.Drawing.Size(598, 340);
+            this.tabPage_Modeling.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage_Modeling.Size = new System.Drawing.Size(901, 530);
             this.tabPage_Modeling.TabIndex = 1;
             this.tabPage_Modeling.Text = "Modeling";
             this.tabPage_Modeling.UseVisualStyleBackColor = true;
@@ -561,9 +588,11 @@
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.txtTempDelta_Second_MaxEffort);
             this.groupBox4.Controls.Add(this.txtTempTargetDelta_Second);
-            this.groupBox4.Location = new System.Drawing.Point(304, 6);
+            this.groupBox4.Location = new System.Drawing.Point(456, 9);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(287, 329);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox4.Size = new System.Drawing.Size(430, 506);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Secondary mirror heater control";
@@ -577,9 +606,11 @@
             this.groupBox5.Controls.Add(this.txtCurve_Second_c);
             this.groupBox5.Controls.Add(this.txtCurve_Second_b);
             this.groupBox5.Controls.Add(this.txtCurve_Second_a);
-            this.groupBox5.Location = new System.Drawing.Point(6, 103);
+            this.groupBox5.Location = new System.Drawing.Point(9, 158);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(275, 49);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox5.Size = new System.Drawing.Size(412, 75);
             this.groupBox5.TabIndex = 4;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Intermediate curve parameters";
@@ -588,9 +619,10 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label13.Location = new System.Drawing.Point(149, 22);
+            this.label13.Location = new System.Drawing.Point(224, 34);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(13, 13);
+            this.label13.Size = new System.Drawing.Size(17, 20);
             this.label13.TabIndex = 0;
             this.label13.Text = "c";
             // 
@@ -598,17 +630,19 @@
             // 
             this.label16.AutoSize = true;
             this.label16.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label16.Location = new System.Drawing.Point(77, 22);
+            this.label16.Location = new System.Drawing.Point(116, 34);
+            this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(13, 13);
+            this.label16.Size = new System.Drawing.Size(18, 20);
             this.label16.TabIndex = 0;
             this.label16.Text = "b";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(211, 16);
+            this.button1.Location = new System.Drawing.Point(316, 25);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(58, 25);
+            this.button1.Size = new System.Drawing.Size(87, 38);
             this.button1.TabIndex = 3;
             this.button1.Text = "Redraw";
             this.button1.UseVisualStyleBackColor = true;
@@ -618,18 +652,20 @@
             // 
             this.label17.AutoSize = true;
             this.label17.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label17.Location = new System.Drawing.Point(8, 22);
+            this.label17.Location = new System.Drawing.Point(12, 34);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(13, 13);
+            this.label17.Size = new System.Drawing.Size(18, 20);
             this.label17.TabIndex = 0;
             this.label17.Text = "a";
             // 
             // txtCurve_Second_c
             // 
             this.txtCurve_Second_c.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "Curve_Second_c", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCurve_Second_c.Location = new System.Drawing.Point(168, 19);
+            this.txtCurve_Second_c.Location = new System.Drawing.Point(252, 29);
+            this.txtCurve_Second_c.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurve_Second_c.Name = "txtCurve_Second_c";
-            this.txtCurve_Second_c.Size = new System.Drawing.Size(37, 20);
+            this.txtCurve_Second_c.Size = new System.Drawing.Size(54, 26);
             this.txtCurve_Second_c.TabIndex = 1;
             this.txtCurve_Second_c.Text = global::TelescopeTempControl.Properties.Settings.Default.Curve_Second_c;
             this.txtCurve_Second_c.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -637,9 +673,10 @@
             // txtCurve_Second_b
             // 
             this.txtCurve_Second_b.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "Curve_Second_b", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCurve_Second_b.Location = new System.Drawing.Point(96, 19);
+            this.txtCurve_Second_b.Location = new System.Drawing.Point(144, 29);
+            this.txtCurve_Second_b.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurve_Second_b.Name = "txtCurve_Second_b";
-            this.txtCurve_Second_b.Size = new System.Drawing.Size(47, 20);
+            this.txtCurve_Second_b.Size = new System.Drawing.Size(68, 26);
             this.txtCurve_Second_b.TabIndex = 1;
             this.txtCurve_Second_b.Text = global::TelescopeTempControl.Properties.Settings.Default.Curve_Second_b;
             this.txtCurve_Second_b.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -647,9 +684,10 @@
             // txtCurve_Second_a
             // 
             this.txtCurve_Second_a.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "Curve_Second_a", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCurve_Second_a.Location = new System.Drawing.Point(27, 19);
+            this.txtCurve_Second_a.Location = new System.Drawing.Point(40, 29);
+            this.txtCurve_Second_a.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurve_Second_a.Name = "txtCurve_Second_a";
-            this.txtCurve_Second_a.Size = new System.Drawing.Size(42, 20);
+            this.txtCurve_Second_a.Size = new System.Drawing.Size(61, 26);
             this.txtCurve_Second_a.TabIndex = 1;
             this.txtCurve_Second_a.Text = global::TelescopeTempControl.Properties.Settings.Default.Curve_Second_a;
             this.txtCurve_Second_a.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -681,7 +719,8 @@
             chartArea1.Position.Width = 99F;
             chartArea1.Position.Y = 3F;
             this.chartSecondCurve.ChartAreas.Add(chartArea1);
-            this.chartSecondCurve.Location = new System.Drawing.Point(3, 157);
+            this.chartSecondCurve.Location = new System.Drawing.Point(4, 242);
+            this.chartSecondCurve.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chartSecondCurve.Name = "chartSecondCurve";
             this.chartSecondCurve.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
             series1.ChartArea = "ChartArea1";
@@ -698,7 +737,7 @@
             this.chartSecondCurve.Series.Add(series1);
             this.chartSecondCurve.Series.Add(series2);
             this.chartSecondCurve.Series.Add(series3);
-            this.chartSecondCurve.Size = new System.Drawing.Size(282, 168);
+            this.chartSecondCurve.Size = new System.Drawing.Size(423, 258);
             this.chartSecondCurve.TabIndex = 2;
             this.chartSecondCurve.Text = "chartMainCurve";
             // 
@@ -706,9 +745,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(7, 43);
+            this.label3.Location = new System.Drawing.Point(10, 66);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.Size = new System.Drawing.Size(119, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "Max effort zone";
             // 
@@ -716,18 +756,20 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label4.Location = new System.Drawing.Point(7, 19);
+            this.label4.Location = new System.Drawing.Point(10, 29);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.Size = new System.Drawing.Size(94, 20);
             this.label4.TabIndex = 0;
             this.label4.Text = "Target delta";
             // 
             // txtTempDelta_Second_MaxEffort
             // 
             this.txtTempDelta_Second_MaxEffort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Second_MaxEffort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtTempDelta_Second_MaxEffort.Location = new System.Drawing.Point(193, 41);
+            this.txtTempDelta_Second_MaxEffort.Location = new System.Drawing.Point(290, 63);
+            this.txtTempDelta_Second_MaxEffort.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTempDelta_Second_MaxEffort.Name = "txtTempDelta_Second_MaxEffort";
-            this.txtTempDelta_Second_MaxEffort.Size = new System.Drawing.Size(53, 20);
+            this.txtTempDelta_Second_MaxEffort.Size = new System.Drawing.Size(78, 26);
             this.txtTempDelta_Second_MaxEffort.TabIndex = 3;
             this.txtTempDelta_Second_MaxEffort.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Second_MaxEffort;
             this.txtTempDelta_Second_MaxEffort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -735,9 +777,10 @@
             // txtTempTargetDelta_Second
             // 
             this.txtTempTargetDelta_Second.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Second_Target", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtTempTargetDelta_Second.Location = new System.Drawing.Point(193, 16);
+            this.txtTempTargetDelta_Second.Location = new System.Drawing.Point(290, 25);
+            this.txtTempTargetDelta_Second.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTempTargetDelta_Second.Name = "txtTempTargetDelta_Second";
-            this.txtTempTargetDelta_Second.Size = new System.Drawing.Size(53, 20);
+            this.txtTempTargetDelta_Second.Size = new System.Drawing.Size(78, 26);
             this.txtTempTargetDelta_Second.TabIndex = 1;
             this.txtTempTargetDelta_Second.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Second_Target;
             this.txtTempTargetDelta_Second.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -752,9 +795,11 @@
             this.groupBox2.Controls.Add(this.txtTempDelta_Main_DewRiskZone);
             this.groupBox2.Controls.Add(this.txtTempDelta_Main_MaxEffort);
             this.groupBox2.Controls.Add(this.txtTempTargetDelta_Main);
-            this.groupBox2.Location = new System.Drawing.Point(5, 6);
+            this.groupBox2.Location = new System.Drawing.Point(8, 9);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 329);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(430, 506);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Main mirror fan control";
@@ -768,9 +813,11 @@
             this.groupBox7.Controls.Add(this.txtCurve_Main_c);
             this.groupBox7.Controls.Add(this.txtCurve_Main_b);
             this.groupBox7.Controls.Add(this.txtCurve_Main_a);
-            this.groupBox7.Location = new System.Drawing.Point(6, 103);
+            this.groupBox7.Location = new System.Drawing.Point(9, 158);
+            this.groupBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(275, 49);
+            this.groupBox7.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox7.Size = new System.Drawing.Size(412, 75);
             this.groupBox7.TabIndex = 4;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Intermediate curve parameters";
@@ -779,9 +826,10 @@
             // 
             this.label11.AutoSize = true;
             this.label11.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label11.Location = new System.Drawing.Point(149, 22);
+            this.label11.Location = new System.Drawing.Point(224, 34);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 13);
+            this.label11.Size = new System.Drawing.Size(17, 20);
             this.label11.TabIndex = 0;
             this.label11.Text = "c";
             // 
@@ -789,17 +837,19 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label9.Location = new System.Drawing.Point(75, 22);
+            this.label9.Location = new System.Drawing.Point(112, 34);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(13, 13);
+            this.label9.Size = new System.Drawing.Size(18, 20);
             this.label9.TabIndex = 0;
             this.label9.Text = "b";
             // 
             // btnRedraw
             // 
-            this.btnRedraw.Location = new System.Drawing.Point(211, 16);
+            this.btnRedraw.Location = new System.Drawing.Point(316, 25);
+            this.btnRedraw.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRedraw.Name = "btnRedraw";
-            this.btnRedraw.Size = new System.Drawing.Size(58, 25);
+            this.btnRedraw.Size = new System.Drawing.Size(87, 38);
             this.btnRedraw.TabIndex = 3;
             this.btnRedraw.Text = "Redraw";
             this.btnRedraw.UseVisualStyleBackColor = true;
@@ -809,18 +859,20 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(8, 22);
+            this.label8.Location = new System.Drawing.Point(12, 34);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(13, 13);
+            this.label8.Size = new System.Drawing.Size(18, 20);
             this.label8.TabIndex = 0;
             this.label8.Text = "a";
             // 
             // txtCurve_Main_c
             // 
             this.txtCurve_Main_c.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "Curve_Main_c", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCurve_Main_c.Location = new System.Drawing.Point(168, 19);
+            this.txtCurve_Main_c.Location = new System.Drawing.Point(252, 29);
+            this.txtCurve_Main_c.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurve_Main_c.Name = "txtCurve_Main_c";
-            this.txtCurve_Main_c.Size = new System.Drawing.Size(37, 20);
+            this.txtCurve_Main_c.Size = new System.Drawing.Size(54, 26);
             this.txtCurve_Main_c.TabIndex = 1;
             this.txtCurve_Main_c.Text = global::TelescopeTempControl.Properties.Settings.Default.Curve_Main_c;
             this.txtCurve_Main_c.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -828,9 +880,10 @@
             // txtCurve_Main_b
             // 
             this.txtCurve_Main_b.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "Curve_Main_b", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCurve_Main_b.Location = new System.Drawing.Point(96, 19);
+            this.txtCurve_Main_b.Location = new System.Drawing.Point(144, 29);
+            this.txtCurve_Main_b.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurve_Main_b.Name = "txtCurve_Main_b";
-            this.txtCurve_Main_b.Size = new System.Drawing.Size(37, 20);
+            this.txtCurve_Main_b.Size = new System.Drawing.Size(54, 26);
             this.txtCurve_Main_b.TabIndex = 1;
             this.txtCurve_Main_b.Text = global::TelescopeTempControl.Properties.Settings.Default.Curve_Main_b;
             this.txtCurve_Main_b.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -838,9 +891,10 @@
             // txtCurve_Main_a
             // 
             this.txtCurve_Main_a.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "Curve_Main_a", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtCurve_Main_a.Location = new System.Drawing.Point(27, 19);
+            this.txtCurve_Main_a.Location = new System.Drawing.Point(40, 29);
+            this.txtCurve_Main_a.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCurve_Main_a.Name = "txtCurve_Main_a";
-            this.txtCurve_Main_a.Size = new System.Drawing.Size(37, 20);
+            this.txtCurve_Main_a.Size = new System.Drawing.Size(54, 26);
             this.txtCurve_Main_a.TabIndex = 1;
             this.txtCurve_Main_a.Text = global::TelescopeTempControl.Properties.Settings.Default.Curve_Main_a;
             this.txtCurve_Main_a.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -872,8 +926,8 @@
             chartArea2.Position.Width = 99F;
             chartArea2.Position.Y = 3F;
             this.chartMainCurve.ChartAreas.Add(chartArea2);
-            this.chartMainCurve.Location = new System.Drawing.Point(3, 158);
-            this.chartMainCurve.Margin = new System.Windows.Forms.Padding(1);
+            this.chartMainCurve.Location = new System.Drawing.Point(4, 243);
+            this.chartMainCurve.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chartMainCurve.Name = "chartMainCurve";
             this.chartMainCurve.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series4.ChartArea = "ChartArea1";
@@ -890,7 +944,7 @@
             this.chartMainCurve.Series.Add(series4);
             this.chartMainCurve.Series.Add(series5);
             this.chartMainCurve.Series.Add(series6);
-            this.chartMainCurve.Size = new System.Drawing.Size(282, 168);
+            this.chartMainCurve.Size = new System.Drawing.Size(423, 258);
             this.chartMainCurve.TabIndex = 2;
             this.chartMainCurve.Text = "chartMainCurve";
             // 
@@ -898,9 +952,10 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label12.Location = new System.Drawing.Point(7, 71);
+            this.label12.Location = new System.Drawing.Point(10, 109);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(74, 13);
+            this.label12.Size = new System.Drawing.Size(108, 20);
             this.label12.TabIndex = 2;
             this.label12.Text = "Dew risk zone";
             // 
@@ -908,9 +963,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(7, 43);
+            this.label2.Location = new System.Drawing.Point(10, 66);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 13);
+            this.label2.Size = new System.Drawing.Size(119, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Max effort zone";
             // 
@@ -918,18 +974,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label1.Location = new System.Drawing.Point(7, 19);
+            this.label1.Location = new System.Drawing.Point(10, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(94, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Target delta";
             // 
             // txtTempDelta_Main_DewRiskZone
             // 
             this.txtTempDelta_Main_DewRiskZone.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Main_DewRiskZone", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtTempDelta_Main_DewRiskZone.Location = new System.Drawing.Point(193, 67);
+            this.txtTempDelta_Main_DewRiskZone.Location = new System.Drawing.Point(290, 103);
+            this.txtTempDelta_Main_DewRiskZone.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTempDelta_Main_DewRiskZone.Name = "txtTempDelta_Main_DewRiskZone";
-            this.txtTempDelta_Main_DewRiskZone.Size = new System.Drawing.Size(53, 20);
+            this.txtTempDelta_Main_DewRiskZone.Size = new System.Drawing.Size(78, 26);
             this.txtTempDelta_Main_DewRiskZone.TabIndex = 3;
             this.txtTempDelta_Main_DewRiskZone.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Main_DewRiskZone;
             this.txtTempDelta_Main_DewRiskZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -937,9 +995,10 @@
             // txtTempDelta_Main_MaxEffort
             // 
             this.txtTempDelta_Main_MaxEffort.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Main_MaxEffort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtTempDelta_Main_MaxEffort.Location = new System.Drawing.Point(193, 41);
+            this.txtTempDelta_Main_MaxEffort.Location = new System.Drawing.Point(290, 63);
+            this.txtTempDelta_Main_MaxEffort.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTempDelta_Main_MaxEffort.Name = "txtTempDelta_Main_MaxEffort";
-            this.txtTempDelta_Main_MaxEffort.Size = new System.Drawing.Size(53, 20);
+            this.txtTempDelta_Main_MaxEffort.Size = new System.Drawing.Size(78, 26);
             this.txtTempDelta_Main_MaxEffort.TabIndex = 3;
             this.txtTempDelta_Main_MaxEffort.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Main_MaxEffort;
             this.txtTempDelta_Main_MaxEffort.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -947,9 +1006,10 @@
             // txtTempTargetDelta_Main
             // 
             this.txtTempTargetDelta_Main.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "TempDelta_Main_Target", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.txtTempTargetDelta_Main.Location = new System.Drawing.Point(193, 16);
+            this.txtTempTargetDelta_Main.Location = new System.Drawing.Point(290, 25);
+            this.txtTempTargetDelta_Main.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtTempTargetDelta_Main.Name = "txtTempTargetDelta_Main";
-            this.txtTempTargetDelta_Main.Size = new System.Drawing.Size(53, 20);
+            this.txtTempTargetDelta_Main.Size = new System.Drawing.Size(78, 26);
             this.txtTempTargetDelta_Main.TabIndex = 1;
             this.txtTempTargetDelta_Main.Text = global::TelescopeTempControl.Properties.Settings.Default.TempDelta_Main_Target;
             this.txtTempTargetDelta_Main.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -958,9 +1018,10 @@
             // 
             this.btnReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReset.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnReset.Location = new System.Drawing.Point(4, 373);
+            this.btnReset.Location = new System.Drawing.Point(6, 574);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(110, 24);
+            this.btnReset.Size = new System.Drawing.Size(165, 37);
             this.btnReset.TabIndex = 6;
             this.btnReset.Text = "Reset to Defaults";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -971,9 +1032,10 @@
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnCancel.Location = new System.Drawing.Point(525, 373);
+            this.btnCancel.Location = new System.Drawing.Point(788, 574);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(79, 24);
+            this.btnCancel.Size = new System.Drawing.Size(118, 37);
             this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -983,27 +1045,62 @@
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOk.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnOk.Location = new System.Drawing.Point(420, 373);
+            this.btnOk.Location = new System.Drawing.Point(630, 574);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(79, 24);
+            this.btnOk.Size = new System.Drawing.Size(118, 37);
             this.btnOk.TabIndex = 4;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label21);
+            this.groupBox8.Controls.Add(this.txtSocketServer);
+            this.groupBox8.Location = new System.Drawing.Point(477, 174);
+            this.groupBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox8.Size = new System.Drawing.Size(410, 81);
+            this.groupBox8.TabIndex = 3;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Socket server";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label21.Location = new System.Drawing.Point(6, 29);
+            this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(138, 20);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Socket server port";
+            // 
+            // txtSocketServer
+            // 
+            this.txtSocketServer.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::TelescopeTempControl.Properties.Settings.Default, "SocketServerPort", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.txtSocketServer.Location = new System.Drawing.Point(222, 25);
+            this.txtSocketServer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtSocketServer.Name = "txtSocketServer";
+            this.txtSocketServer.Size = new System.Drawing.Size(78, 26);
+            this.txtSocketServer.TabIndex = 1;
+            this.txtSocketServer.Text = global::TelescopeTempControl.Properties.Settings.Default.SocketServerPort;
+            this.txtSocketServer.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(608, 401);
+            this.ClientSize = new System.Drawing.Size(912, 617);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
@@ -1030,6 +1127,8 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartMainCurve)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1107,5 +1206,8 @@
         private System.Windows.Forms.TextBox txtCurve_Second_b;
         private System.Windows.Forms.TextBox txtCurve_Second_a;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartSecondCurve;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtSocketServer;
     }
 }
