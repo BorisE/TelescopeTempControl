@@ -5,7 +5,11 @@ Change log
 to do:
 - socket commands: relay switching, parameters querying
 
-1.3beta (2017-02-02)
+1.3beta4 (2017-02-05)
+- interface 1280*1024 optmization
+- tab order
+
+1.3beta1 (2017-02-02)
 - commands to set parameters
 - DPI issue
 

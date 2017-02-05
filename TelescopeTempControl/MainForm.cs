@@ -71,24 +71,17 @@ namespace TelescopeTempControl
             txtControlFanPWM.Text = Convert.ToString(Hardware.FanPWM);
             txtControlHeaterPWM.Text = Convert.ToString(Hardware.HeaterPWM);
 
-            // TEST Usual command LINE PARAMETERS
-            bool autostart = false;
-            string comport_over = string.Empty;
-            AuxilaryProc.CheckStartParams(out autostart, out comport_over);
+            //Gauge tunning
 
-            //RESET COM PORT NAME
-            if (!string.IsNullOrEmpty(comport_over))
-            {
-                Hardware.PortName = comport_over;
-                Logging.AddLog("Override serial port name to [" + comport_over + "]",LogLevel.Activity,Highlight.Emphasize);
-            }
+            int W = gbGauge.Width;
+            int H = gbGauge.Height;
+            int FG_W = aFanGauge.Width;
+            int FG_H = aFanGauge.Height;
+            aFanGauge.Center = new Point((int)FG_W / 2, (int)FG_H / 2);
 
-            //AUTOSTART MONITORING
-            if (autostart)
-            {
-                Logging.AddLog("Program autostart",LogLevel.Activity,Highlight.Emphasize);
-                btnStart.PerformClick();
-            }
+            int HG_W = aHeaterGauge.Width;
+            int HG_H = aHeaterGauge.Height;
+            aHeaterGauge.Center = new Point((int)HG_W / 2, (int)HG_H / 2);
 
 
             //chart tunning
@@ -105,6 +98,27 @@ namespace TelescopeTempControl
             {
                 RunSocketServer();
             }
+
+
+            // TEST Usual command LINE PARAMETERS
+            bool autostart = false;
+            string comport_over = string.Empty;
+            AuxilaryProc.CheckStartParams(out autostart, out comport_over);
+
+            //RESET COM PORT NAME
+            if (!string.IsNullOrEmpty(comport_over))
+            {
+                Hardware.PortName = comport_over;
+                Logging.AddLog("Override serial port name to [" + comport_over + "]", LogLevel.Activity, Highlight.Emphasize);
+            }
+
+            //AUTOSTART MONITORING
+            if (autostart)
+            {
+                Logging.AddLog("Program autostart", LogLevel.Activity, Highlight.Emphasize);
+                btnStart.PerformClick();
+            }
+
         }
 
         public void RunSocketServer(Int32 PortNumber = 0)
