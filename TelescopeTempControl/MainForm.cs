@@ -453,8 +453,8 @@ Current HEATER PWM value: 36
             }
 
             //Calculated fields (custom fields)
-            txtMainDelta.Text = Convert.ToString(Math.Round(Hardware.DeltaTemp_Main,1));
-            txtSecondaryDelta.Text = Convert.ToString(Math.Round(Hardware.DeltaTemp_Secondary, 1));
+            txtMainDelta.Text = (Hardware.DeltaTemp_Main>=0?"+":"") + Convert.ToString(Math.Round(Hardware.DeltaTemp_Main,1));
+            txtSecondaryDelta.Text = (Hardware.DeltaTemp_Secondary >= 0 ? "+" : "") + Convert.ToString(Math.Round(Hardware.DeltaTemp_Secondary, 1));
 
             txtDewPoint.Text = Convert.ToString(Math.Round(Hardware.DewPoint, 1));
 

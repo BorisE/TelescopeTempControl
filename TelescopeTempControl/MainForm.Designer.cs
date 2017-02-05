@@ -307,6 +307,7 @@
             this.txtFldTemp2.ReadOnly = true;
             this.txtFldTemp2.Size = new System.Drawing.Size(64, 26);
             this.txtFldTemp2.TabIndex = 1;
+            this.txtFldTemp2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtFldTemp3
             // 
@@ -316,6 +317,7 @@
             this.txtFldTemp3.ReadOnly = true;
             this.txtFldTemp3.Size = new System.Drawing.Size(60, 26);
             this.txtFldTemp3.TabIndex = 3;
+            this.txtFldTemp3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtFldTemp1
             // 
@@ -327,6 +329,7 @@
             this.txtFldTemp1.ReadOnly = true;
             this.txtFldTemp1.Size = new System.Drawing.Size(71, 25);
             this.txtFldTemp1.TabIndex = 2;
+            this.txtFldTemp1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
@@ -763,21 +766,23 @@
             // 
             // txtSecondaryDelta
             // 
-            this.txtSecondaryDelta.BackColor = System.Drawing.SystemColors.Window;
+            this.txtSecondaryDelta.BackColor = System.Drawing.Color.LightYellow;
             this.txtSecondaryDelta.Location = new System.Drawing.Point(192, 85);
             this.txtSecondaryDelta.Name = "txtSecondaryDelta";
             this.txtSecondaryDelta.ReadOnly = true;
             this.txtSecondaryDelta.Size = new System.Drawing.Size(64, 26);
             this.txtSecondaryDelta.TabIndex = 5;
+            this.txtSecondaryDelta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtMainDelta
             // 
-            this.txtMainDelta.BackColor = System.Drawing.SystemColors.Window;
+            this.txtMainDelta.BackColor = System.Drawing.Color.LemonChiffon;
             this.txtMainDelta.Location = new System.Drawing.Point(66, 85);
             this.txtMainDelta.Name = "txtMainDelta";
             this.txtMainDelta.ReadOnly = true;
             this.txtMainDelta.Size = new System.Drawing.Size(64, 26);
             this.txtMainDelta.TabIndex = 4;
+            this.txtMainDelta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // gbGauge
             // 
