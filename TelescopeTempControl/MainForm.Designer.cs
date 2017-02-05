@@ -110,7 +110,7 @@
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(1317, 11);
+            this.btnStart.Location = new System.Drawing.Point(1065, 11);
             this.btnStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(172, 35);
@@ -123,7 +123,7 @@
             // btnSettings
             // 
             this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettings.Location = new System.Drawing.Point(1317, 151);
+            this.btnSettings.Location = new System.Drawing.Point(1065, 151);
             this.btnSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(172, 35);
@@ -135,7 +135,7 @@
             // btnAbout
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAbout.Location = new System.Drawing.Point(1317, 314);
+            this.btnAbout.Location = new System.Drawing.Point(1065, 314);
             this.btnAbout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(172, 35);
@@ -147,7 +147,7 @@
             // btnLog
             // 
             this.btnLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLog.Location = new System.Drawing.Point(1317, 195);
+            this.btnLog.Location = new System.Drawing.Point(1065, 195);
             this.btnLog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLog.Name = "btnLog";
             this.btnLog.Size = new System.Drawing.Size(172, 35);
@@ -291,7 +291,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLog.Location = new System.Drawing.Point(692, 14);
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(602, 458);
+            this.txtLog.Size = new System.Drawing.Size(350, 458);
             this.txtLog.TabIndex = 5;
             this.txtLog.Text = "";
             // 
@@ -374,7 +374,7 @@
             // btnSimulate
             // 
             this.btnSimulate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSimulate.Location = new System.Drawing.Point(1317, 271);
+            this.btnSimulate.Location = new System.Drawing.Point(1065, 271);
             this.btnSimulate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSimulate.Name = "btnSimulate";
             this.btnSimulate.Size = new System.Drawing.Size(172, 35);
@@ -619,7 +619,7 @@
             this.chart1.Series.Add(series7);
             this.chart1.Series.Add(series8);
             this.chart1.Series.Add(series9);
-            this.chart1.Size = new System.Drawing.Size(1490, 586);
+            this.chart1.Size = new System.Drawing.Size(1238, 490);
             this.chart1.TabIndex = 25;
             this.chart1.Text = "Sensors data";
             title1.DockedToChartArea = "ChartArea1_main";
@@ -865,7 +865,7 @@
             // btnOnOff
             // 
             this.btnOnOff.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOnOff.Location = new System.Drawing.Point(1317, 69);
+            this.btnOnOff.Location = new System.Drawing.Point(1065, 69);
             this.btnOnOff.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnOnOff.Name = "btnOnOff";
             this.btnOnOff.Size = new System.Drawing.Size(172, 35);
@@ -884,7 +884,7 @@
             this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(144F, 144F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(1510, 1065);
+            this.ClientSize = new System.Drawing.Size(1258, 969);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.chart1);
@@ -897,7 +897,7 @@
             this.Controls.Add(this.btnStart);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(1339, 967);
+            this.MinimumSize = new System.Drawing.Size(1280, 1024);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Telescope Temp Control";
