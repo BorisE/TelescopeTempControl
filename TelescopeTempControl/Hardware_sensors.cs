@@ -316,8 +316,14 @@ namespace TelescopeTempControl
             //CommandParser.Commands.Add("GET_BASETEMP", () => this.getBaseTemp());
             //CommandParser.Commands.Add("GET_SENSOR_VALUES", () => this.getSensorsString());
             CommandParser.Commands.Add("GET_DATA_JSON", (a) => this.getDataJSONString());
+
             CommandParser.Commands.Add("SET_FAN", (a) => this.setFanPWR_FromSocket(a));
             CommandParser.Commands.Add("SET_HEATER", (a) => this.setHeaterPWR_FromSocket(a));
+
+            CommandParser.Commands.Add("SET_FAN_AUTOCONTROL", (a) => this.setFanControl_FromSocket(a));
+            CommandParser.Commands.Add("SET_HEATER_AUTOCONTROL", (a) => this.setHeaterControl_FromSocket(a));
+
+
             CommandParser.Commands.Add("HELP", (a) => CommandParser.ListCommands());
             CommandParser.Commands.Add("VERSION", (a) => VersionData.getVersionString());
 

@@ -264,6 +264,8 @@ namespace TelescopeTempControl
             //write to file
             Logging.DumpToFile();
 
+            //update interface controls
+            UpdateControlsState();
         }
         
        
@@ -602,6 +604,16 @@ Current HEATER PWM value: 36
             //curChartArea.AxisY.Minimum = (Math.Floor((min / 10)) * 10);
         }
 
+        /// <summary>
+        /// Update some controls, because they can change thourgh socket server commands
+        /// </summary>
+        public void UpdateControlsState()
+        {
+            chkAutoFanControlling.Checked = Hardware.AutoControl_FanSpeed;
+            chkAutoHeatingControlling.Checked = Hardware.AutoControl_Heater;
+        }
+
+
         bool bAutomaticFanPWMChange = true;
         bool bAutomaticHeaterPWMChange = true;
         System.Threading.Timer FanPWM_ValueChanged_TimerObj = null;
@@ -722,6 +734,11 @@ Current HEATER PWM value: 36
         }
 
 
+        /// <summary>
+        /// Event on checkbox click (or changing from SocketServer)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkAutoFanControlling_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox Chk = sender as CheckBox;
@@ -732,6 +749,7 @@ Current HEATER PWM value: 36
                 txtControlFanPWM.ReadOnly = true;
                 txtControlFanPWM.BackColor = SystemColors.Control;
                 Hardware.AutoControl_FanSpeed = true;
+                Logging.AddLog("Auto fan speed control ON", LogLevel.Activity);
             }
             else
             {
@@ -739,9 +757,15 @@ Current HEATER PWM value: 36
                 txtControlFanPWM.ReadOnly = false;
                 txtControlFanPWM.BackColor = SystemColors.Window;
                 Hardware.AutoControl_FanSpeed = false;
+                Logging.AddLog("Auto fan speed control OFF", LogLevel.Activity);
             }
         }
 
+        /// <summary>
+        /// Event on checkbox click (or changing from SocketServer)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkAutoHeatingControlling_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox Chk = sender as CheckBox;
@@ -752,6 +776,7 @@ Current HEATER PWM value: 36
                 txtControlHeaterPWM.ReadOnly = true;
                 txtControlHeaterPWM.BackColor = SystemColors.Control;
                 Hardware.AutoControl_Heater = true;
+                Logging.AddLog("Auto heating control ON", LogLevel.Activity);
             }
             else
             {
@@ -759,6 +784,7 @@ Current HEATER PWM value: 36
                 txtControlHeaterPWM.ReadOnly = false;
                 txtControlHeaterPWM.BackColor = SystemColors.Window;
                 Hardware.AutoControl_Heater = false;
+                Logging.AddLog("Auto heating control OFF", LogLevel.Activity);
             }
         }
 

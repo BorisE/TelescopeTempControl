@@ -1165,6 +1165,35 @@ namespace TelescopeTempControl
             return "Command was run";
         }
 
+        /// <summary>
+        /// Wrapper to run AutoControl_FanSpeed from socket server
+        /// </summary>
+        /// <param name="CommandString_param_arr">array with parameters</param>
+        /// <returns></returns>
+        public string setFanControl_FromSocket(string[] CommandString_param_arr)
+        {
+            int OnFlag = Convert.ToInt16(CommandString_param_arr[0]);
+
+            this.AutoControl_FanSpeed = (OnFlag == 1 ? true : false);
+
+            return "Command was run";
+        }
+
+        /// <summary>
+        /// Wrapper to run AutoControl_Heater from socket server
+        /// </summary>
+        /// <param name="CommandString_param_arr">array with parameters</param>
+        /// <returns></returns>
+        public string setHeaterControl_FromSocket(string[] CommandString_param_arr)
+        {
+            int OnFlag = Convert.ToInt16(CommandString_param_arr[0]);
+
+            this.AutoControl_Heater = (OnFlag == 1 ? true : false);
+
+            return "Command was run";
+        }
+
+
     }
 
 }
