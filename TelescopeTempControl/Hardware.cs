@@ -1176,6 +1176,8 @@ namespace TelescopeTempControl
 
             this.AutoControl_FanSpeed = (OnFlag == 1 ? true : false);
 
+            Logging.AddLog("setFanControl_FromSocket to "+ OnFlag);
+
             return "Command was run";
         }
 
@@ -1189,6 +1191,8 @@ namespace TelescopeTempControl
             int OnFlag = Convert.ToInt16(CommandString_param_arr[0]);
 
             this.AutoControl_Heater = (OnFlag == 1 ? true : false);
+
+            Logging.AddLog("setHeaterControl_FromSocket to " + OnFlag);
 
             return "Command was run";
         }
