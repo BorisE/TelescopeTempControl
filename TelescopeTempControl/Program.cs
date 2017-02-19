@@ -27,17 +27,25 @@ namespace TelescopeTempControl
             if(mutex.WaitOne(TimeSpan.Zero, true)) 
             {
                 //If program isn't already run...
-                
-                //Import settings from previously compiled versions
-                AuxilaryProc.UpgradeSettings();
+                try
+                {
+                    //Import settings from previously compiled versions
+                    AuxilaryProc.UpgradeSettings();
 
-                //If it is first run chek for setup
-                AuxilaryProc.CreateAutoStartLink();
+                    //If it is first run chek for setup
+                    AuxilaryProc.CreateAutoStartLink();
 
-                if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
+                    if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new MainForm());
+                }
+                catch (Exception ex)
+                {
+                    Logging.AddLog("Unhandled exception: " + ex.Message, LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("Exception details: " + ex.ToString(), LogLevel.Debug, Highlight.Debug);
+                    MessageBox.Show("Unhandled exception: " + ex.ToString());
+                }
                 mutex.ReleaseMutex();
             }
             else

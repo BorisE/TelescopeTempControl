@@ -133,22 +133,27 @@ namespace TelescopeTempControl
                             }
                         }
                     }
-                
-                    //Clean LOGFILE from records already dumped
-                    for (var i = 0; i < LOGLIST.Count; i++)
+
+                    try
                     {
-                        if (LOGLIST[i].dumpedToFile)
+                        //Clean LOGFILE from records already dumped
+                        for (var i = 0; i < LOGLIST.Count; i++)
                         {
-                            // if current line was written to file remove it
-                            LOGLIST.RemoveAt(i);
+                            if (LOGLIST[i].dumpedToFile)
+                            {
+                                // if current line was written to file remove it
+                                LOGLIST.RemoveAt(i);
+                            }
                         }
                     }
-                    
-                
+                    catch (Exception Ex)
+                    {
+                        MessageBox.Show("Log write error during cleanup [" + Ex.Message + "]");
+                    }
                 }
                 catch (Exception Ex)
                 {
-                    MessageBox.Show("Log write error [" + Ex.Message + "]");
+                    MessageBox.Show("Log write error [" + Ex.Message + "]\n\n" + Ex.ToString());
                 }
             }
 
