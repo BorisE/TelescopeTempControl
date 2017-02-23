@@ -165,6 +165,7 @@
             this.aFanGauge.BaseArcSweep = 270;
             this.aFanGauge.BaseArcWidth = 2;
             this.aFanGauge.Center = new System.Drawing.Point(165, 115);
+            this.aFanGauge.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             aGaugeRange1.Color = System.Drawing.Color.Red;
             aGaugeRange1.EndValue = 1300F;
             aGaugeRange1.InnerRadius = 50;
@@ -214,7 +215,7 @@
             this.aFanGauge.ScaleLinesMinorWidth = 1;
             this.aFanGauge.ScaleNumbersColor = System.Drawing.Color.Black;
             this.aFanGauge.ScaleNumbersFormat = null;
-            this.aFanGauge.ScaleNumbersRadius = 90;
+            this.aFanGauge.ScaleNumbersRadius = 80;
             this.aFanGauge.ScaleNumbersRotation = 0;
             this.aFanGauge.ScaleNumbersStartScaleLine = 0;
             this.aFanGauge.ScaleNumbersStepScaleLines = 1;
@@ -233,13 +234,13 @@
             this.aHeaterGauge.BaseArcSweep = 270;
             this.aHeaterGauge.BaseArcWidth = 2;
             this.aHeaterGauge.Center = new System.Drawing.Point(165, 115);
-            this.aHeaterGauge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.aHeaterGauge.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             aGaugeRange4.Color = System.Drawing.Color.Red;
             aGaugeRange4.EndValue = 100F;
-            aGaugeRange4.InnerRadius = 40;
+            aGaugeRange4.InnerRadius = 50;
             aGaugeRange4.InRange = false;
             aGaugeRange4.Name = "GaugeRange1";
-            aGaugeRange4.OuterRadius = 50;
+            aGaugeRange4.OuterRadius = 60;
             aGaugeRange4.StartValue = 90F;
             this.aHeaterGauge.GaugeRanges.Add(aGaugeRange4);
             this.aHeaterGauge.Location = new System.Drawing.Point(281, 26);
@@ -267,7 +268,7 @@
             this.aHeaterGauge.ScaleLinesMinorWidth = 1;
             this.aHeaterGauge.ScaleNumbersColor = System.Drawing.Color.Black;
             this.aHeaterGauge.ScaleNumbersFormat = null;
-            this.aHeaterGauge.ScaleNumbersRadius = 80;
+            this.aHeaterGauge.ScaleNumbersRadius = 75;
             this.aHeaterGauge.ScaleNumbersRotation = 0;
             this.aHeaterGauge.ScaleNumbersStartScaleLine = 2;
             this.aHeaterGauge.ScaleNumbersStepScaleLines = 1;

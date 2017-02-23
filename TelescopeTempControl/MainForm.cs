@@ -813,11 +813,12 @@ Current HEATER PWM value: 36
             else if (curBtn.Text == "Off")
             {
                 //stop
-                txtControlFanPWM.Text = "255";
+                trackBar_FanPWM.Value= 255;
                 Hardware.AutoControl_FanSpeed = false;
                 chkAutoFanControlling.Checked = false;
 
-                txtControlHeaterPWM.Text = "0";
+                //txtControlHeaterPWM.Text = "0";
+                trackBar_HeaterPWM.Value = 0;
                 Hardware.AutoControl_Heater = false;
                 chkAutoHeatingControlling.Checked = false;
 
