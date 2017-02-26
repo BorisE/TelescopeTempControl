@@ -109,7 +109,7 @@ namespace TelescopeTempControl
                 string FullMessage = "Error in creating Autostart link. ";
                 FullMessage += "IOException source: " + ex.Data + " | " + ex.Message + " | " + messstr;
 
-                Logging.AddLog(FullMessage,LogLevel.Critical);
+                Logging.AddLog(FullMessage,LogLevel.Important);
             }
 
             Logging.AddLog("CreateAutoStartLink exit", LogLevel.Trace);

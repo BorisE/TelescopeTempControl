@@ -113,7 +113,7 @@ namespace TelescopeTempControl
                 }
                 catch (Exception ex)
                 {
-                    Logging.AddLog("SinceLastModification error. " + "IOException source: " + ex.Data + " Mess: " + ex.Message, LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("SinceLastModification error. " + "IOException source: " + ex.Data + " Mess: " + ex.Message, LogLevel.Important, Highlight.Error);
                 }
 
                 Logging.AddLog("SinceLastModification exit", LogLevel.Debug);
@@ -155,7 +155,7 @@ namespace TelescopeTempControl
                 }
                 catch (Exception ex)
                 {
-                    Logging.AddLog("checkFileModification error. " + "IOException source: " + ex.Data + " Mess: " + ex.Message,LogLevel.Critical,Highlight.Error);
+                    Logging.AddLog("checkFileModification error. " + "IOException source: " + ex.Data + " Mess: " + ex.Message,LogLevel.Important,Highlight.Error);
                 }
 
                 Logging.AddLog("checkFileModification exit", LogLevel.Debug);
@@ -180,13 +180,13 @@ namespace TelescopeTempControl
                     }
                     else
                     {
-                        Logging.AddLog("Serial File emulation error. File with serial output can't be found",LogLevel.Critical,Highlight.Error);
+                        Logging.AddLog("Serial File emulation error. File with serial output can't be found",LogLevel.Important,Highlight.Error);
                         error = true;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Logging.AddLog("Serial File emulation error. File with serial output can't be read.  IOException source: " + ex.Data + " Mess: " + ex.Message, LogLevel.Critical,Highlight.Error);
+                    Logging.AddLog("Serial File emulation error. File with serial output can't be read.  IOException source: " + ex.Data + " Mess: " + ex.Message, LogLevel.Important,Highlight.Error);
                     error = true;
                 }
 
@@ -227,7 +227,7 @@ namespace TelescopeTempControl
                 }
                 catch
                 {
-                    Logging.AddLog("SerialFileEmulation [" + SerialFileNameOut + "] output error. Command " + CommandSt + " wasn't sent", LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("SerialFileEmulation [" + SerialFileNameOut + "] output error. Command " + CommandSt + " wasn't sent", LogLevel.Important, Highlight.Error);
                     error = true;
                 }
 

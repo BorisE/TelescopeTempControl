@@ -32,7 +32,7 @@ namespace TelescopeTempControl
 
     public enum LogLevel
     {
-        Critical = 0,
+        Important = 0,
         Activity = 1,
         Debug = 2,
         Chat = 3,
@@ -47,11 +47,18 @@ namespace TelescopeTempControl
         /// </summary>
         internal static List<LogRecord> LOGLIST;
 
-
         public static bool LogFileFlag = true;
-        public static string LogFilePath = "";
-        public static string LogFileName = "observatory_"; //Text log
-        public static string LogFileExt = "log"; //Text log
+
+        public static string LOG_FOLDER_NAME = "Logs";
+        public static string LOG_FILE_NAME_ALL = "ttc_trace_"; //Text log
+        public static string LOG_FILE_NAME_MAIN = "ttc_"; //Text log
+        public static string LOG_FILE_EXT = "log"; //Text log
+
+        public static string LogFilePath = Path.Combine(ConfigManagement.ProgDocumentsPath, LOG_FOLDER_NAME) + "\\";
+
+        public static string currentLogAllFileFullName = ""; //путь и имя файла лога текущей сессии
+        public static string currentLogMainFileFullName = ""; //путь и имя файла лога текущей сессии
+
 
         //DEBUG LEVEL
         public static LogLevel DEBUG_LEVEL = LogLevel.All;
@@ -64,14 +71,76 @@ namespace TelescopeTempControl
         }
 
         /// <summary>
-        /// Error log procedures
+        /// Get current log files names with path (full log file)
         /// </summary>
-        private static string LogFileFullName
+        private static string LogAllFileFullName
         {
             get
             {
-                if (LogFilePath == "") LogFilePath = Application.StartupPath;
-                return Path.Combine(LogFilePath, LogFileName + DateTime.Now.ToString("yyyy-MM-dd") + "." + LogFileExt);
+                if (currentLogAllFileFullName == "")
+                {
+                    LogFilePath = GetLogDirectory();
+                    currentLogAllFileFullName = Path.Combine(LogFilePath, LOG_FILE_NAME_ALL + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "." + LOG_FILE_EXT);
+                }
+                return currentLogAllFileFullName;
+            }
+            set
+            {
+                LogFilePath = GetLogDirectory();
+                currentLogAllFileFullName = Path.Combine(LogFilePath, LOG_FILE_NAME_ALL + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "." + LOG_FILE_EXT);
+            }
+        }
+        /// <summary>
+        /// Get current log files names with path (main log file)
+        /// </summary>
+        private static string LogMainFileFullName
+        {
+            get
+            {
+                if (currentLogMainFileFullName == "")
+                {
+                    LogFilePath = GetLogDirectory();
+                    currentLogMainFileFullName = Path.Combine(LogFilePath, LOG_FILE_NAME_MAIN + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "." + LOG_FILE_EXT);
+                }
+                return currentLogMainFileFullName;
+            }
+            set
+            {
+                LogFilePath = GetLogDirectory();
+                currentLogMainFileFullName = Path.Combine(LogFilePath, LOG_FILE_NAME_MAIN + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "." + LOG_FILE_EXT);
+            }
+        }
+
+        /// <summary>
+        /// Check if log folder exits, and if not - create it
+        /// </summary>
+        /// <returns>Current log file path</returns>
+        private static string GetLogDirectory()
+        {
+            if (LogFilePath == "")
+            {
+                string st = "";
+                //Check if root folder exists. If not - create it
+                if (!Directory.Exists(ConfigManagement.ProgDocumentsPath))
+                {
+                    ConfigManagement.CreateDocumentsDirStructure();
+                }
+                //Log folder exists (Creation succeeds)?
+                if (Directory.Exists(Path.Combine(ConfigManagement.ProgDocumentsPath, LOG_FOLDER_NAME) + "\\"))
+                {
+                    //use default folder
+                    st = Path.Combine(ConfigManagement.ProgDocumentsPath, LOG_FOLDER_NAME) + "\\";
+                }
+                else
+                {
+                    //if not - use app folder
+                    st = Application.StartupPath;
+                }
+                return st;
+            }
+            else
+            {
+                return LogFilePath;
             }
         }
 
@@ -81,7 +150,7 @@ namespace TelescopeTempControl
         /// <param name="logMessage"></param>
         /// <param name="LogLevel"></param>
         /// <param name="ColorHoghlight"></param>
-        public static void AddLog(string logMessage, LogLevel LogLevel = LogLevel.Critical, Highlight ColorHighlight = Highlight.Normal, string logProcedure = "")
+        public static void AddLog(string logMessage, LogLevel LogLevel = LogLevel.Important, Highlight ColorHighlight = Highlight.Normal, string logProcedure = "")
         {
             //Add to list
             LogRecord LogRec = new LogRecord();
@@ -98,7 +167,8 @@ namespace TelescopeTempControl
         /// </summary>
         public static void DumpToFile(LogLevel LogLevel = LogLevel.All)
         {
-            List<LogRecord> LogListNew = new List<LogRecord>();
+            List<LogRecord> LogListNewAll = new List<LogRecord>();
+            List<LogRecord> LogListNewMainOnly = new List<LogRecord>();
 
             //sort new (not saved) records
             for (var i = 0; i < LOGLIST.Count; i++)
@@ -106,30 +176,53 @@ namespace TelescopeTempControl
                 // if current line wasn't written to file
                 if (!LOGLIST[i].dumpedToFile)
                 {
-                    LogListNew.Add(LOGLIST[i]); //add to newrecords array
+                    LogListNewAll.Add(LOGLIST[i]); //add to newrecords array
+                    if (LOGLIST[i].LogLevel <= LogLevel.Debug)
+                        LogListNewMainOnly.Add(LOGLIST[i]); //add Important, Activity, Debug level only to array
+
                     LOGLIST[i].dumpedToFile = true; //mark as written
                 }
             }
 
             //Save new (not saved) records
-            if (LogListNew.Count > 0)
+            if (LogListNewAll.Count > 0)
             {
                 try
                 {
-                    using (StreamWriter LogFile = new StreamWriter(LogFileFullName, true))
+                    // Write all (trace) log file 
+                    using (StreamWriter LogFile = new StreamWriter(LogAllFileFullName, true))
                     {
-                        for (var i = 0; i < LogListNew.Count; i++)
+                        for (var i = 0; i < LogListNewAll.Count; i++)
                         {
                             // if current log level is less then DebugLevel
-                            if (LogListNew[i].LogLevel <= LogLevel)
+                            if (LogListNewAll[i].LogLevel <= LogLevel)
                             {
                                 //time
-                                LogFile.Write("{0,-12}{1,-14}", LogListNew[i].Time.ToString("yyyy-MM-dd"), LogListNew[i].Time.ToString("HH:mm:ss.fff"));
+                                LogFile.Write("{0,-12}{1,-14}", LogListNewAll[i].Time.ToString("yyyy-MM-dd"), LogListNewAll[i].Time.ToString("HH:mm:ss.fff"));
                                 //LogLevel
-                                LogFile.Write("{0,-10}", LogListNew[i].LogLevel.ToString());
+                                LogFile.Write("{0,-10}", LogListNewAll[i].LogLevel.ToString());
                                 //message
-                                LogFile.Write("{0}\t", LogListNew[i].Message);
+                                LogFile.Write("{0}\t", LogListNewAll[i].Message);
                                 LogFile.WriteLine();
+                            }
+                        }
+                    }
+
+                    // Write main (debug, activity, important) log file 
+                    using (StreamWriter LogFile2 = new StreamWriter(LogMainFileFullName, true))
+                    {
+                        for (var i = 0; i < LogListNewMainOnly.Count; i++)
+                        {
+                            // if current log level is less then DebugLevel
+                            if (LogListNewMainOnly[i].LogLevel <= LogLevel)
+                            {
+                                //time
+                                LogFile2.Write("{0,-12}{1,-14}", LogListNewMainOnly[i].Time.ToString("yyyy-MM-dd"), LogListNewMainOnly[i].Time.ToString("HH:mm:ss.fff"));
+                                //LogLevel
+                                LogFile2.Write("{0,-10}", LogListNewMainOnly[i].LogLevel.ToString());
+                                //message
+                                LogFile2.Write("{0}\t", LogListNewMainOnly[i].Message);
+                                LogFile2.WriteLine();
                             }
                         }
                     }
@@ -142,13 +235,14 @@ namespace TelescopeTempControl
                             if (LOGLIST[i].dumpedToFile)
                             {
                                 // if current line was written to file remove it
-                                LOGLIST.RemoveAt(i);
+                                ///////// for debug 
+                                ///LOGLIST.RemoveAt(i);
                             }
                         }
                     }
                     catch (Exception Ex)
                     {
-                        MessageBox.Show("Log write error during cleanup [" + Ex.Message + "]");
+                        MessageBox.Show("Log error during cleanup [" + Ex.Message + "]");
                     }
                 }
                 catch (Exception Ex)
@@ -275,7 +369,7 @@ namespace TelescopeTempControl
             }
             catch
             {
-                Logging.AddLog("Cannot open serial log file", LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("Cannot open serial log file", LogLevel.Important, Highlight.Error);
             }
         }
 
@@ -287,7 +381,7 @@ namespace TelescopeTempControl
             }
             catch
             {
-                Logging.AddLog("Cannot close serial log file", LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("Cannot close serial log file", LogLevel.Important, Highlight.Error);
             }
 
             SerialLogFile = null;
@@ -307,7 +401,7 @@ namespace TelescopeTempControl
             }
             catch
             {
-                Logging.AddLog("Cannot write serial log file", LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("Cannot write serial log file", LogLevel.Important, Highlight.Error);
             }
 
         }

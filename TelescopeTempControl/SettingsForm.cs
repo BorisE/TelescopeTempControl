@@ -314,7 +314,7 @@ namespace TelescopeTempControl
                 string FullMessage = "Error loading settings. ";
                 FullMessage += "IOException source: " + ex.Data + " | " + ex.Message + " | " + messstr;
 
-                Logging.AddLog(FullMessage, LogLevel.Critical, Highlight.Error);
+                Logging.AddLog(FullMessage, LogLevel.Important, Highlight.Error);
                 MessageBox.Show("Error loading settings [" + ex.Message + "]. Not all settings was loaded. Please check your settings, first of all decimal points!" + Environment.NewLine + Environment.NewLine + ex.ToString());
             }
             Logging.AddLog("Loading saved parameters end", LogLevel.Trace);

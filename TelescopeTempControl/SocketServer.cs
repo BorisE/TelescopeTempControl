@@ -169,7 +169,7 @@ namespace TelescopeTempControl
                         + Environment.NewLine + Environment.NewLine + messstr;
                 //MessageBox.Show(this, FullMessage, "Invalid value", MessageBoxButtons.OK);
 
-                Logging.AddLog("MakeClientConnectionToServer socket connection failed! " + Ex.Message, LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("MakeClientConnectionToServer socket connection failed! " + Ex.Message, LogLevel.Important, Highlight.Error);
                 Logging.AddLog(FullMessage,LogLevel.Debug,Highlight.Error);
             }
         }
@@ -252,7 +252,7 @@ namespace TelescopeTempControl
             }
             catch (Exception ex) 
             {
-                Logging.AddLog("Socket client [" + ClientSocket.RemoteEndPoint + "] exception: " + ex.ToString(), LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("Socket client [" + ClientSocket.RemoteEndPoint + "] exception: " + ex.ToString(), LogLevel.Important, Highlight.Error);
             }
 
 

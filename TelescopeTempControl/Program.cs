@@ -34,6 +34,7 @@ namespace TelescopeTempControl
 
                     //If it is first run chek for setup
                     AuxilaryProc.CreateAutoStartLink();
+                    ConfigManagement.CreateDocumentsDirStructure();
 
                     if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
                     Application.EnableVisualStyles();
@@ -42,7 +43,7 @@ namespace TelescopeTempControl
                 }
                 catch (Exception ex)
                 {
-                    Logging.AddLog("Unhandled exception: " + ex.Message, LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("Unhandled exception: " + ex.Message, LogLevel.Important, Highlight.Error);
                     Logging.AddLog("Exception details: " + ex.ToString(), LogLevel.Debug, Highlight.Debug);
                     MessageBox.Show("Unhandled exception: " + ex.ToString());
                 }

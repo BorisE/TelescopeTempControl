@@ -158,7 +158,7 @@ namespace TelescopeTempControl
             {
                 if (!Hardware.stopReadData())
                 {
-                    Logging.AddLog("Could not close the COM port [" + Hardware.PortName + "]", LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("Could not close the COM port [" + Hardware.PortName + "]", LogLevel.Important, Highlight.Error);
                     //LogForm.txtLog.AppendText("Could not close the COM port [" + Hardware.PortName + "]");
                     MessageBox.Show(this, "Could not close the COM port [" + Hardware.PortName + "]", "COM Port couldn't be closed", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
@@ -176,7 +176,7 @@ namespace TelescopeTempControl
             {
                 if (!Hardware.startReadData())
                 {
-                    Logging.AddLog("Could not open the COM port [" + Hardware.PortName + "].  Most likely it is already in use, has been removed, or is unavailable.", LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("Could not open the COM port [" + Hardware.PortName + "].  Most likely it is already in use, has been removed, or is unavailable.", LogLevel.Important, Highlight.Error);
                     //LogForm.txtLog.AppendText("Could not open the COM port [" + Hardware.PortName + "].  Most likely it is already in use, has been removed, or is unavailable.");
                     MessageBox.Show(this, "Could not open the COM port [" + Hardware.PortName + "].  Most likely it is already in use, has been removed, or is unavailable.", "COM Port Unavalible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
@@ -792,9 +792,8 @@ Current HEATER PWM value: 36
         {
             Button curBtn = (Button)sender;
             if (curBtn.Text == "On")
+            //start
             {
-                //start
-
                 //start if it was stoped
                 if (btnStart.Text == "Start") btnStart_Click(btnStart, e);
                 
@@ -811,16 +810,20 @@ Current HEATER PWM value: 36
                 }
             }
             else if (curBtn.Text == "Off")
+            //stop
             {
-                //stop
-                trackBar_FanPWM.Value= 255;
                 Hardware.AutoControl_FanSpeed = false;
                 chkAutoFanControlling.Checked = false;
 
+                Hardware.SetFanPWM(255);
+                trackBar_FanPWM.Value= 255;
+
                 //txtControlHeaterPWM.Text = "0";
-                trackBar_HeaterPWM.Value = 0;
                 Hardware.AutoControl_Heater = false;
                 chkAutoHeatingControlling.Checked = false;
+
+                Hardware.SetHeaterPWM(0);
+                trackBar_HeaterPWM.Value = 0;
 
                 curBtn.Text = "On";
             }

@@ -237,7 +237,7 @@ namespace TelescopeTempControl
             }
             if (error)
             {
-                Logging.AddLog("Couldn't open comport", LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("Couldn't open comport", LogLevel.Important, Highlight.Error);
                 return false;
             }
             else
@@ -284,7 +284,7 @@ namespace TelescopeTempControl
             }
             if (error)
             {
-                Logging.AddLog("Couldn't close comport", LogLevel.Critical, Highlight.Error);
+                Logging.AddLog("Couldn't close comport", LogLevel.Important, Highlight.Error);
                 return false;
             }
             else
@@ -402,7 +402,7 @@ namespace TelescopeTempControl
                 }
                 catch
                 {
-                    Logging.AddLog("Error writing command " + FullCommandSt + " to serial", LogLevel.Critical, Highlight.Error);
+                    Logging.AddLog("Error writing command " + FullCommandSt + " to serial", LogLevel.Important, Highlight.Error);
                     return false;
                 }
             }
@@ -653,7 +653,7 @@ namespace TelescopeTempControl
                                         }
                                         catch (Exception ex)
                                         {
-                                            Logging.AddLog("Exception in ParseBufferData for pair [" + tagName + "][" + tagValue_st + "], message: " + ex.Message + ". " + ex.ToString(), LogLevel.Critical, Highlight.Error);
+                                            Logging.AddLog("Exception in ParseBufferData for pair [" + tagName + "][" + tagValue_st + "], message: " + ex.Message + ". " + ex.ToString(), LogLevel.Important, Highlight.Error);
                                         }
                                     }
                                 }
